@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KineApp</string>
+    <string name="warning_no_conection">Se ha perdido la conexión a internet</string>
+    <string name="empty_list">La lista está vacía</string>
+
+    <string name="generic_error_message">Ups! Hubo un error, intente mas tarde</string>
+    <string name="generic_accept_button">Aceptar</string>
+
+</resources>
