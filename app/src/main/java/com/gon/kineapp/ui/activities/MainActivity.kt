@@ -4,12 +4,14 @@ import android.os.Bundle
 import com.gon.kineapp.R
 import com.gon.kineapp.ui.fragments.BaseMvpFragment
 import com.gon.kineapp.ui.fragments.NotesListFragment
+import kotlinx.android.synthetic.main.activity_base_content.*
 
 class MainActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setToolbarTitle("Bienvenide!")
+
+        setToolbarTitle("Bienvenido!")
     }
 
     override fun getFragment(): BaseMvpFragment {

@@ -26,11 +26,11 @@ abstract class BaseActivity: AppCompatActivity(), BaseMvpFragment.ActivityProgre
     protected abstract fun getFragment(): BaseMvpFragment
 
     protected fun setToolbarTitle(resTitleId: Int) {
-        toolbar.title = getString(resTitleId)
+        supportActionBar?.title = getString(resTitleId)
     }
 
     protected fun setToolbarTitle(title: String) {
-        toolbar.title = title
+        supportActionBar?.title = title
     }
 
     override fun onSupportNavigateUp(): Boolean {

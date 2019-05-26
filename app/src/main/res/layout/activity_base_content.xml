@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
+        app:titleTextColor="@color/white"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
@@ -27,7 +29,7 @@
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryLight">
+        android:background="@color/colorAccent">
 
         <ProgressBar
             android:layout_gravity="center"
