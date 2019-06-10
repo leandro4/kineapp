@@ -13,7 +13,7 @@ abstract class BasePresenter<T: BaseView> : Presenter<T> {
         this.compositeSubscription = CompositeDisposable()
     }
 
-    override fun dettachMvpView() {
+    override fun detachMvpView() {
         this.mvpView = null
         compositeSubscription?.let {
             it.clear()

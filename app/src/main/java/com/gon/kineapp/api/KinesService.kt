@@ -1,6 +1,6 @@
 package com.gon.kineapp.api
 
-import com.gon.kineapp.model.responses.SomethingResponse
+import com.gon.kineapp.model.responses.LoginResponse
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -31,8 +31,8 @@ object KinesService {
         return okHttpClient.build()
     }
 
-    fun getSomething(): Observable<SomethingResponse> {
-        return kinesApi.getSomething()
+    fun requestLogin(): Observable<LoginResponse> {
+        return kinesApi.login()
     }
 
 }

@@ -4,6 +4,6 @@ class UtilUrl {
 
     companion object {
         const val BASE_URL = "http://kines.com"
-        const val SOME = "/some"
+        const val LOGIN = "/login"
     }
 }

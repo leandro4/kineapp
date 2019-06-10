@@ -4,24 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.gon.kineapp.R
+import com.gon.kineapp.mvp.presenters.LoginPresenter
+import com.gon.kineapp.mvp.views.LoginView
+import kotlinx.android.synthetic.main.fragment_login.*
 
-class NotesListFragment: BaseMvpFragment() {
+class LoginFragment: BaseMvpFragment(), LoginView {
 
-    //var presenter: Presenter? = null
+    var presenter: LoginPresenter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return LayoutInflater.from(context).inflate(R.layout.fragment_main, container, false)
+        return LayoutInflater.from(context).inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         startPresenter()
+        initUI()
+    }
+
+    private fun initUI() {
+        fabLogin.setOnClickListener { Toast.makeText(context, "Próximamente...", Toast.LENGTH_SHORT).show() }
     }
 
     override fun startPresenter() {
-        // inicializar presenter y attachear:
-        //presenter?.attachMvpView(this)
+        presenter?.attachMvpView(this)
     }
 
     override fun onErrorCode(message: String) {
@@ -29,8 +37,15 @@ class NotesListFragment: BaseMvpFragment() {
     }
 
     override fun onDestroy() {
-        // presenter?.dettachMvpView()
+        presenter?.detachMvpView()
         super.onDestroy()
     }
 
+    override fun onLoginSuccess() {
+
+    }
+
+    override fun onLoginFailure() {
+
+    }
 }

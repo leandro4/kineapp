@@ -1,12 +1,10 @@
 package com.gon.kineapp.ui.activities
 
 import android.os.Bundle
-import com.gon.kineapp.R
 import com.gon.kineapp.ui.fragments.BaseMvpFragment
-import com.gon.kineapp.ui.fragments.NotesListFragment
-import kotlinx.android.synthetic.main.activity_base_content.*
+import com.gon.kineapp.ui.fragments.LoginFragment
 
-class MainActivity: BaseActivity() {
+class LoginActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,6 +13,6 @@ class MainActivity: BaseActivity() {
     }
 
     override fun getFragment(): BaseMvpFragment {
-        return NotesListFragment().apply { activityProgress = this@MainActivity }
+        return LoginFragment().apply { activityProgress = this@LoginActivity }
     }
 }
