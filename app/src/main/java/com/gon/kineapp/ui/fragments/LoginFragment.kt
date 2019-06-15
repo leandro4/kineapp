@@ -1,5 +1,6 @@
 package com.gon.kineapp.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
+import com.gon.kineapp.ui.activities.PatientListActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginFragment: BaseMvpFragment(), LoginView {
@@ -25,7 +27,10 @@ class LoginFragment: BaseMvpFragment(), LoginView {
     }
 
     private fun initUI() {
-        fabLogin.setOnClickListener { Toast.makeText(context, "Próximamente...", Toast.LENGTH_SHORT).show() }
+        fabLogin.setOnClickListener {
+            activity?.startActivity(Intent(activity, PatientListActivity::class.java))
+            activity?.finish()
+        }
     }
 
     override fun startPresenter() {
