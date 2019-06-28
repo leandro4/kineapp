@@ -1,0 +1,11 @@
+.gradle
+.DS_Store
+/build
+/.idea
+/.gradle
+*.iml
+previando.keystore
+release.properties
+Makefile
+/Prebo/ReleaseNotes
+local.properties

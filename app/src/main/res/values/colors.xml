@@ -5,8 +5,9 @@
     <color name="colorPrimaryDark">#243f56</color>
     <color name="colorAccent">#f67280</color>
 
-    <color name="colorGradient">#6c5B7B</color>
     <color name="colorAccentDark">#c06c84</color>
+    <color name="colorGradient">#6c5B7B</color>
+    <color name="colorGradientTransparent">#AA6c5B7B</color>
 
     <color name="black_title">#CC000000</color>
     <color name="black_hint">#60000000</color>

@@ -1,12 +1,13 @@
 <resources>
+
     <string name="app_name">KineApp</string>
     <string name="warning_no_conection">Se ha perdido la conexión a internet</string>
     <string name="empty_list">La lista está vacía</string>
 
     <string name="generic_error_message">Ups! Hubo un error, intente mas tarde</string>
     <string name="generic_accept_button">Aceptar</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="generic_wait_message">Espere por favor&#8230;</string>
+    <string name="secret_question_title">Responda para continuar:</string>
+    <string name="secret_question_hint">Mi respuesta es...</string>
 
 </resources>

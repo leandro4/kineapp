@@ -18,19 +18,19 @@ class LoginPresenter: BasePresenter<LoginView>() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CustomDisposableObserver<LoginResponse>() {
                 override fun onNoInternetConnection() {
-
+                    mvpView?.onNoInternetConnection()
                 }
 
                 override fun onObserverError(e: Throwable) {
-
+                    mvpView?.onError(e)
                 }
 
                 override fun onErrorCode(code: Int, message: String) {
-
+                    mvpView?.onErrorCode(message)
                 }
 
                 override fun onNext(t: LoginResponse) {
-
+                    mvpView?.onLoginSuccess()
                 }
             })
         )

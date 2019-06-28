@@ -3,49 +3,165 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/large_margin">
+
+    <LinearLayout
+        android:id="@+id/llOptions"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    style="@style/TextViewStyleBold"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="Login" />
+
+            <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fabSignIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_arrow_forward_white"
+                    android:layout_marginTop="@dimen/large_margin"/>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_arrow_forward_white"
+                android:layout_marginTop="@dimen/xxxlarge_margin"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llForm"
         android:orientation="vertical"
-        android:gravity="center">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/sourcesanspro_regular"
-            android:text="Usuario:"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:text="Registrarse"/>
 
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:inputType="text"
-            android:imeOptions="actionNext"
-            android:fontFamily="@font/sourcesanspro_light"
-            android:hint="Ingresar..."/>
+        <TextView
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:text="Nombre:"/>
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:text="Contraseña:"
-            android:fontFamily="@font/sourcesanspro_regular"/>
+        <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:inputType="text"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:hint="Ingresar..."/>
 
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:inputType="textPassword"
-            android:fontFamily="@font/sourcesanspro_light"
-            android:hint="Ingresar..."/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:text="Apellido:"
+                android:fontFamily="@font/sourcesanspro_regular"/>
 
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_forward_white"
-            android:layout_marginTop="16dp"/>
+        <EditText
+                android:id="@+id/etLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:inputType="text"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:hint="Ingresar..."/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:text="Matrícula:"
+                android:fontFamily="@font/sourcesanspro_regular"/>
+
+        <EditText
+                android:id="@+id/etIdNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:hint="Ingresar..."/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:text="Dirección:"
+                android:fontFamily="@font/sourcesanspro_regular"/>
+
+        <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:inputType="textCapWords"
+                android:imeOptions="actionNext"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:hint="Ingresar..."/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textColor="@color/white"
+                android:text="Teléfono de contacto:"
+                android:fontFamily="@font/sourcesanspro_regular"/>
+
+        <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:inputType="phone"
+                android:imeOptions="actionDone"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:hint="Ingresar..."/>
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_arrow_forward_white"
+                android:layout_margin="@dimen/xxxlarge_margin"/>
+
+    </LinearLayout>
 
 </LinearLayout>

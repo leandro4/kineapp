@@ -1,7 +1,6 @@
 package com.gon.kineapp.ui.activities
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.gon.kineapp.R
