@@ -2,12 +2,13 @@ package com.gon.kineapp.ui.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.gon.kineapp.R
 import com.gon.kineapp.ui.fragments.BaseMvpFragment
 import kotlinx.android.synthetic.main.activity_base_content.*
 
-abstract class BaseActivity: AppCompatActivity(), BaseMvpFragment.ActivityProgress {
+abstract class BaseActivity: LockableActivity(), BaseMvpFragment.ActivityProgress {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

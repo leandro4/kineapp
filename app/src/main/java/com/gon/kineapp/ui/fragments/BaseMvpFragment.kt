@@ -55,4 +55,6 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
         progressBar?.visibility = View.GONE
         activityProgress?.hideProgress()
     }
+
+
 }

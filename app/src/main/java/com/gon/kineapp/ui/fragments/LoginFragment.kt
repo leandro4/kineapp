@@ -108,7 +108,10 @@ class LoginFragment: BaseMvpFragment(), LoginView {
             try {
                 val account = task.getResult(ApiException::class.java)
 
-                presenter?.requestLogin()
+                Toast.makeText(context, account?.displayName, Toast.LENGTH_SHORT).show()
+
+                //presenter.requestLogin()
+                onLoginSuccess()
 
             } catch (e: ApiException) {
                 Toast.makeText(context, getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show()
@@ -125,7 +128,7 @@ class LoginFragment: BaseMvpFragment(), LoginView {
     }
 
     override fun startPresenter() {
-        presenter?.attachMvpView(this)
+        presenter.attachMvpView(this)
     }
 
     override fun onErrorCode(message: String) {
@@ -133,7 +136,7 @@ class LoginFragment: BaseMvpFragment(), LoginView {
     }
 
     override fun onDestroy() {
-        presenter?.detachMvpView()
+        presenter.detachMvpView()
         super.onDestroy()
     }
 

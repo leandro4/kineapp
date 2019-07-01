@@ -15,6 +15,10 @@ class LoginActivity: BaseActivity() {
         setToolbarTitle("Bienvenido!")
     }
 
+    override fun canNavigateToSignIn(): Boolean {
+        return false
+    }
+
     override fun getFragment(): BaseMvpFragment {
         return frag.apply { activityProgress = this@LoginActivity }
     }

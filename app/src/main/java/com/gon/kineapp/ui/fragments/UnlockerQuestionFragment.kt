@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.gon.kineapp.R
+import com.gon.kineapp.utils.LockerAppCallback
 import com.gonanimationlib.animations.Animate
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_secret_question.*
 import java.util.concurrent.TimeUnit
 
-class SecreteQuestionFragment: BaseDialogFragment() {
+class UnlockerQuestionFragment: BaseDialogFragment() {
 
     private var listener: ResponseListener? = null
 
@@ -24,6 +23,7 @@ class SecreteQuestionFragment: BaseDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        LockerAppCallback.TimerSessionClient.setUnlockedApp(context!!, false)
         isCancelable = false
     }
 
@@ -43,7 +43,7 @@ class SecreteQuestionFragment: BaseDialogFragment() {
         }
     }
 
-    fun setListener(listener: ResponseListener): SecreteQuestionFragment {
+    fun setListener(listener: ResponseListener): UnlockerQuestionFragment {
         this.listener = listener
         return this
     }
@@ -54,6 +54,7 @@ class SecreteQuestionFragment: BaseDialogFragment() {
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if (it == "japon") {
+                    LockerAppCallback.TimerSessionClient.setUnlockedApp(context!!, true)
                     listener?.onSuccessResponse()
                     dismiss()
                 } else {
