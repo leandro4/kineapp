@@ -23,7 +23,7 @@ class UnlockerQuestionFragment: BaseDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LockerAppCallback.TimerSessionClient.setUnlockedApp(context!!, false)
+        LockerAppCallback.TimerSessionClient.setUnlockedApp(context!!, true)
         isCancelable = false
     }
 
@@ -54,7 +54,7 @@ class UnlockerQuestionFragment: BaseDialogFragment() {
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 if (it == "japon") {
-                    LockerAppCallback.TimerSessionClient.setUnlockedApp(context!!, true)
+                    LockerAppCallback.TimerSessionClient.setUnlockedApp(context!!, false)
                     listener?.onSuccessResponse()
                     dismiss()
                 } else {

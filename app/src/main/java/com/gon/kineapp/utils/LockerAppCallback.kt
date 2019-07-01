@@ -8,7 +8,7 @@ import android.util.Log
 
 class LockerAppCallback(private val app: Application): Application.ActivityLifecycleCallbacks {
 
-    private val MAX_TIME_SLEEP_LAP = 1 * 60 * 500
+    private val MAX_TIME_SLEEP_LAP = 10000
 
     override fun onActivityPaused(activity: Activity?) {
         TimerSessionClient.registerPausedApp(app, getCurrentTimeMillis())
@@ -16,7 +16,7 @@ class LockerAppCallback(private val app: Application): Application.ActivityLifec
 
     override fun onActivityResumed(activity: Activity?) {
         val inactiveLap = getCurrentTimeMillis() - TimerSessionClient.lastInactiveTime(app)
-        val mustLock = inactiveLap > MAX_TIME_SLEEP_LAP && TimerSessionClient.unlockedApp(app)
+        val mustLock = inactiveLap > MAX_TIME_SLEEP_LAP || TimerSessionClient.unlockedApp(app)
         TimerSessionClient.setLockedApp(app, mustLock)
     }
 
@@ -62,7 +62,7 @@ class LockerAppCallback(private val app: Application): Application.ActivityLifec
         }
 
         fun setUnlockedApp(context: Context, unlocked: Boolean) {
-            SharedPreferencesEditor(context, PREFIX).setValueForKey(LOCKED, unlocked)
+            SharedPreferencesEditor(context, PREFIX).setValueForKey(UNLOCKED, unlocked)
         }
     }
 }

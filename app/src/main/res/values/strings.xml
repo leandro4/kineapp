@@ -8,7 +8,7 @@
     <string name="generic_accept_button">Aceptar</string>
     <string name="generic_wait_message">Espere por favor&#8230;</string>
     <string name="secret_question_title">Responda para continuar:</string>
-    <string name="secret_question_hint">Mi respuesta es...</string>
+    <string name="secret_question_hint">La respuesta es&#8230;</string>
     <string name="patients_list_title">Mis Pacientes</string>
 
 </resources>
