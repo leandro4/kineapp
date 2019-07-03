@@ -1,4 +1,4 @@
-package com.gon.kineapp.ui.fragments
+package com.gon.kineapp.ui.fragments.dialogs
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment

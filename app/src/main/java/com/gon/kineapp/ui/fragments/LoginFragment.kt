@@ -11,6 +11,7 @@ import com.gon.kineapp.R
 import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
 import com.gon.kineapp.ui.activities.PatientListActivity
+import com.gon.kineapp.ui.fragments.dialogs.RolSelectionFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -34,18 +35,34 @@ class LoginFragment: BaseMvpFragment(), LoginView {
         super.onViewCreated(view, savedInstanceState)
         startPresenter()
         initUI()
+        showRolDialog()
+    }
+
+    private fun showRolDialog() {
+        RolSelectionFragment().setListener(object : RolSelectionFragment.ResponseListener {
+            override fun onProfessionalSelected() {
+
+            }
+
+            override fun onPatientSelected() {
+                etLicense.visibility = View.GONE
+                tvLicense.visibility = View.GONE
+                etAddress.visibility = View.GONE
+                tvAddress.visibility = View.GONE
+            }
+        }).show(fragmentManager, "selector")
     }
 
     private fun initUI() {
         fabLogin.setOnClickListener {
-            if (checkPlayServices() /*&& validateFields()*/) {
+            if (checkPlayServices() && validateFields()) {
                 val signInIntent = googleSignInClient?.signInIntent
                 activity?.startActivityForResult(signInIntent, RC_SIGN_IN)
             }
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("1093191472549-9gk2os2g3hm2qa1bhrhr1ab0cl7r5qkb.apps.googleusercontent.com")
+            .requestIdToken(getString(R.string.google_client_id))
             .requestEmail()
             .build()
 
@@ -55,23 +72,23 @@ class LoginFragment: BaseMvpFragment(), LoginView {
     private fun validateFields(): Boolean {
         var mandatoryField = true
         if (etName.text.toString().isEmpty()) {
-            etName.error = "Campo Obligatorio"
+            etName.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
         if (etLastName.text.toString().isEmpty()) {
-            etLastName.error = "Campo Obligatorio"
+            etLastName.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
-        if (etIdNumber.text.toString().isEmpty()) {
-            etIdNumber.error = "Campo Obligatorio"
+        if (etLicense.text.toString().isEmpty()) {
+            etLicense.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
         if (etAddress.text.toString().isEmpty()) {
-            etAddress.error = "Campo Obligatorio"
+            etAddress.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
         if (etPhone.text.toString().isEmpty()) {
-            etPhone.error = "Campo Obligatorio"
+            etPhone.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
         return mandatoryField

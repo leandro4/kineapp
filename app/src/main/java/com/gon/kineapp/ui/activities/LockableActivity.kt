@@ -2,7 +2,7 @@ package com.gon.kineapp.ui.activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
-import com.gon.kineapp.ui.fragments.UnlockerQuestionFragment
+import com.gon.kineapp.ui.fragments.dialogs.UnlockerQuestionFragment
 import com.gon.kineapp.utils.LockerAppCallback
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 

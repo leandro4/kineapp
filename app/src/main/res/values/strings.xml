@@ -10,5 +10,9 @@
     <string name="secret_question_title">Responda para continuar:</string>
     <string name="secret_question_hint">La respuesta es&#8230;</string>
     <string name="patients_list_title">Mis Pacientes</string>
+    <string name="mandatory_field">Campo obligatorio</string>
+    <string name="rol_selection_title">Seleccione su rol</string>
+    <string name="professional">Profesional</string>
+    <string name="patient">Paciente</string>
 
 </resources>
