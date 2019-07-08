@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import com.gon.kineapp.ui.fragments.BaseMvpFragment
 import com.gon.kineapp.ui.fragments.LoginFragment
+import com.gon.kineapp.ui.fragments.ProfileFragment
 
 class ProfileActivity: BaseActivity() {
 
-    private val frag = LoginFragment()
+    private val frag = ProfileFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
