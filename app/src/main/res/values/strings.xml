@@ -10,5 +10,6 @@
     <string name="secret_question_title">Responda para continuar:</string>
     <string name="secret_question_hint">La respuesta es&#8230;</string>
     <string name="patients_list_title">Mis Pacientes</string>
+    <string name="profile_name_title">Nombre</string>
 
 </resources>
