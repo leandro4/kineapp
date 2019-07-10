@@ -8,43 +8,6 @@
         android:padding="@dimen/large_margin">
 
     <LinearLayout
-        android:id="@+id/llOptions"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    style="@style/TextViewStyleBold"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:text="Login" />
-
-            <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fabSignIn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_arrow_forward_white"
-                    android:layout_marginTop="@dimen/large_margin"/>
-
-        </LinearLayout>
-
-        <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_arrow_forward_white"
-                android:layout_marginTop="@dimen/xxxlarge_margin"/>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/llForm"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -56,7 +19,43 @@
                 android:textSize="28sp"
                 android:textColor="@color/white"
                 android:fontFamily="@font/sourcesanspro_regular"
-                android:text="Perfil"/>
+                android:layout_gravity="center_horizontal"
+                android:text="Imagen redondeada"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    android:text="Nombre: "/>
+
+            <TextView
+                    android:id="@+id/nameTextView"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:src="@drawable/ic_edit_pencil"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <TextView
                 android:layout_marginTop="@dimen/large_margin"
@@ -64,104 +63,135 @@
                 android:layout_height="wrap_content"
                 android:textSize="22sp"
                 android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"
-                android:text="Nombre:"/>
-
-        <EditText
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="text"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
                 android:text="Apellido:"
                 android:fontFamily="@font/sourcesanspro_regular"/>
 
-        <EditText
-                android:id="@+id/etLastName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="text"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
         <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/surnameTextView"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_width="fill_parent"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textColor="@color/white"
-                android:text="Matrícula:"
                 android:fontFamily="@font/sourcesanspro_regular"/>
 
-        <EditText
-                android:id="@+id/etIdNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="number"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
-                android:text="Dirección:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
-
-        <EditText
-                android:id="@+id/etAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="textCapWords"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
-        <TextView
+        <android.support.v7.widget.AppCompatImageButton
+                android:layout_marginTop="@dimen/large_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
-                android:text="Teléfono de contacto:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
+                android:background="@color/colorPrimary"
+                android:src="@drawable/ic_edit_pencil"/>
+        </LinearLayout>
 
-        <EditText
-                android:id="@+id/etPhone"
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="phone"
-                android:imeOptions="actionDone"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
+                android:layout_height="wrap_content">
 
-        <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabLogin"
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:text="Matrícula::"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+            <TextView
+                    android:id="@+id/licenseTextView"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:inputType="number"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:src="@drawable/ic_edit_pencil"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:text="Dirección:"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+            <TextView
+                    android:id="@+id/emailTextView"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:src="@drawable/ic_edit_pencil"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:text="Teléfono de contacto:"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+            <TextView
+                    android:id="@+id/etPhone"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:imeOptions="actionDone"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+            <android.support.v7.widget.AppCompatImageButton
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:src="@drawable/ic_edit_pencil"/>
+        </LinearLayout>
+
+        <android.support.design.button.MaterialButton
+                android:layout_marginTop="@dimen/large_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_arrow_forward_white"
-                android:layout_margin="@dimen/xxxlarge_margin"/>
-
+                android:layout_gravity="center"
+                style="@style/RoundedCornerMaterialButton"
+                android:text="Cerrar sesión"/>
     </LinearLayout>
 
 </LinearLayout>
