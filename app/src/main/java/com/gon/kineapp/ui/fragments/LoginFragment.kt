@@ -45,10 +45,10 @@ class LoginFragment: BaseMvpFragment(), LoginView {
             }
 
             override fun onPatientSelected() {
-                etLicense.visibility = View.GONE
+                /*etLicense.visibility = View.GONE
                 tvLicense.visibility = View.GONE
                 etAddress.visibility = View.GONE
-                tvAddress.visibility = View.GONE
+                tvAddress.visibility = View.GONE*/
             }
         }).show(fragmentManager, "selector")
     }

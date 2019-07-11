@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.views.BaseView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 
 abstract class BaseMvpFragment: Fragment(), BaseView {
 
@@ -29,6 +30,7 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBar = view.findViewById(R.id.viewLoading)
         startPresenter()
     }
 
@@ -56,5 +58,7 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
         activityProgress?.hideProgress()
     }
 
-
+    protected fun alreadySignedInUser(): Boolean {
+        return GoogleSignIn.getLastSignedInAccount(context) != null
+    }
 }
