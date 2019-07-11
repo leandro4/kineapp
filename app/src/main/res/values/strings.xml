@@ -17,5 +17,6 @@
     <string name="log_out">Cerrar Sesión</string>
     <string name="login_title">Login/Registro</string>
     <string name="sign_up_title">Vamos a pedirte unos datos para darte de alta</string>
+    <string name="patient_sessions_title">Sesiones de %s</string>
 
 </resources>

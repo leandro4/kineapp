@@ -15,6 +15,11 @@ abstract class BaseActivity: LockableActivity(), BaseMvpFragment.ActivityProgres
         setContentView(R.layout.activity_base_content)
         setSupportActionBar(toolbar)
         loadFragment()
+
+        if (enabledBackButton()) {
+            supportActionBar?.setDisplayShowHomeEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
     }
 
     private fun loadFragment() {
@@ -25,11 +30,15 @@ abstract class BaseActivity: LockableActivity(), BaseMvpFragment.ActivityProgres
 
     protected abstract fun getFragment(): BaseMvpFragment
 
-    protected fun setToolbarTitle(resTitleId: Int) {
+    protected open fun enabledBackButton(): Boolean {
+        return true
+    }
+
+    fun setToolbarTitle(resTitleId: Int) {
         supportActionBar?.title = getString(resTitleId)
     }
 
-    protected fun setToolbarTitle(title: String) {
+    fun setToolbarTitle(title: String) {
         supportActionBar?.title = title
     }
 

@@ -10,6 +10,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
+import com.gon.kineapp.model.Patient
+import com.gon.kineapp.ui.activities.PatientDetailActivity
+import com.gon.kineapp.utils.Constants
 
 class PatientListFragment : BaseMvpFragment() {
 
@@ -26,8 +29,12 @@ class PatientListFragment : BaseMvpFragment() {
 
     private fun initUI() {
 
+        patientSimulator.setOnClickListener {
+            goToPatientDetail(Patient("14", "Masculino", "187231", "Juanitou", "Moralez", "123123", "juani@gmail.com"))
+        }
+
         fabAddPatient.setOnClickListener {
-            Toast.makeText(context, "agregrar paciente", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "agregar paciente", Toast.LENGTH_SHORT).show()
         }
 
         tvLogout.setOnClickListener {
@@ -50,16 +57,22 @@ class PatientListFragment : BaseMvpFragment() {
 
         when (item?.itemId) {
             R.id.videos -> {
-                Toast.makeText(context, "videos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "crear video", Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.profile -> {
-                Toast.makeText(context, "perfil", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "time line", Toast.LENGTH_SHORT).show()
                 return true
             }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun goToPatientDetail(patient: Patient) {
+        val intent = Intent(activity, PatientDetailActivity::class.java)
+        intent.putExtra(Constants.PATIENT_EXTRA, patient)
+        activity?.startActivity(intent)
     }
 
     override fun startPresenter() {

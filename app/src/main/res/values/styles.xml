@@ -32,7 +32,8 @@
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:fontFamily">@font/sourcesanspro_light</item>
+        <item name="android:fontFamily">@font/sourcesanspro_regular</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
     <style name="BaseDialog" parent="Theme.AppCompat.Light.Dialog">

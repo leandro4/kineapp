@@ -4,28 +4,17 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@color/white"
-             tools:context=".ui.fragments.PatientListFragment">
+             tools:context=".ui.fragments.PatientDetailFragment">
 
     <TextView
-            android:id="@+id/tvLogout"
-            style="@style/TextViewStyleBold"
-            android:text="@string/log_out"
-            android:layout_gravity="bottom"
-            android:textColor="@color/white"
-            android:padding="@dimen/large_margin"
-            android:layout_margin="@dimen/large_margin"
-            android:background="@drawable/btn_pink_rounded_bg"
-    />
-
-    <TextView
-            android:id="@+id/patientSimulator"
+            android:id="@+id/sessionSimulator"
             android:padding="@dimen/xlarge_margin"
             android:textColor="@color/colorPrimary"
-            android:text="simular click sobre un paciente"
+            android:text="simular click sobre una sesión"
             style="@style/TextViewStyleRegular"/>
 
     <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabAddPatient"
+            android:id="@+id/fabAddSession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
