@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
-import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.ui.activities.BaseActivity
-import kotlinx.android.synthetic.main.fragment_patient_detail.*
 
 class SessionDetailFragment : BaseMvpFragment() {
 

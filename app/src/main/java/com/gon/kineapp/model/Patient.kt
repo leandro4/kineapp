@@ -4,11 +4,12 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Patient (
-             val age: String,
-             val gender: String,
-             val id: String?,
-             val name: String,
-             var surname: String,
-             val phone: String,
-             var mail: String): Parcelable
+class Patient(
+    var age: String,
+    var gender: String,
+    override var id: String,
+    override var name: String,
+    override var surname: String,
+    override var phone: String,
+    override var mail: String,
+    override var number: String): User(id, name, surname, phone, mail, number), Parcelable

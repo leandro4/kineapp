@@ -1,11 +1,14 @@
 package com.gon.kineapp.model
 
-class Medic (
-             var licence: String,
-             id: String?,
-             name: String,
-             surname: String,
-             phone: String,
-             mail: String): User(id, name, surname, phone, mail) {
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-}
+@Parcelize
+class Medic(
+    var licence: String,
+    override var id: String,
+    override var name: String,
+    override var surname: String,
+    override var phone: String,
+    override var mail: String,
+    override var number: String): User(id, name, surname, phone, mail, number), Parcelable

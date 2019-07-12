@@ -2,16 +2,15 @@
 <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-    <LinearLayout
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/large_margin">
+            android:layout_height="match_parent">
 
         <LinearLayout
                 android:id="@+id/llForm"
+                android:padding="@dimen/large_margin"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -106,6 +105,11 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <include
+            android:id="@+id/viewLoading"
+            android:visibility="gone"
+            layout="@layout/view_loading" />
+
+    </FrameLayout>
 
 </ScrollView>
