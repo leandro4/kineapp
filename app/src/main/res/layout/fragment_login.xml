@@ -1,167 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary"
-        android:padding="@dimen/large_margin">
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/llOptions"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
         <LinearLayout
+                android:id="@+id/llForm"
+                android:padding="@dimen/large_margin"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             <TextView
                     style="@style/TextViewStyleBold"
+                    android:textSize="24sp"
                     android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/large_margin"
+                    android:text="@string/sign_up_title"/>
+
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    style="@style/TextViewStyleRegular"
+                    android:text="Nombre:"/>
+
+            <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    style="@style/TextViewStyleLight"
                     android:textSize="20sp"
-                    android:text="Login" />
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:hint="Ingresar..."/>
+
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    style="@style/TextViewStyleRegular"
+                    android:text="Apellido:"/>
+
+            <EditText
+                    android:id="@+id/etLastName"
+                    android:layout_width="match_parent"
+                    style="@style/TextViewStyleLight"
+                    android:textSize="20sp"
+                    android:inputType="text"
+                    android:imeOptions="actionNext"
+                    android:hint="Ingresar..."/>
+
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:id="@+id/tvLicense"
+                    style="@style/TextViewStyleRegular"
+                    android:text="Matrícula:"/>
+
+            <EditText
+                    android:id="@+id/etLicense"
+                    android:layout_width="match_parent"
+                    style="@style/TextViewStyleLight"
+                    android:textSize="20sp"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:hint="Ingresar..."/>
+
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:id="@+id/tvAddress"
+                    style="@style/TextViewStyleRegular"
+                    android:text="Dirección:"/>
+
+            <EditText
+                    android:id="@+id/etAddress"
+                    android:layout_width="match_parent"
+                    style="@style/TextViewStyleLight"
+                    android:textSize="20sp"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"
+                    android:hint="Ingresar..."/>
+
+            <TextView
+                    android:layout_marginTop="@dimen/large_margin"
+                    style="@style/TextViewStyleRegular"
+                    android:text="Teléfono de contacto:"/>
+
+            <EditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    style="@style/TextViewStyleLight"
+                    android:textSize="20sp"
+                    android:inputType="phone"
+                    android:imeOptions="actionDone"
+                    android:hint="Ingresar..."/>
 
             <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/fabSignIn"
+                    android:id="@+id/fabLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_arrow_forward_white"
-                    android:layout_marginTop="@dimen/large_margin"/>
+                    android:src="@drawable/ic_arrow_forward"
+                    android:layout_marginTop="@dimen/xxlarge_margin"/>
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_arrow_forward_white"
-                android:layout_marginTop="@dimen/xxxlarge_margin"/>
+        <include
+            android:id="@+id/viewLoading"
+            android:visibility="gone"
+            layout="@layout/view_loading" />
 
-    </LinearLayout>
+    </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/llForm"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="28sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"
-                android:text="Registrarse"/>
-
-        <TextView
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"
-                android:text="Nombre:"/>
-
-        <EditText
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="text"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
-                android:text="Apellido:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
-
-        <EditText
-                android:id="@+id/etLastName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="text"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
-                android:text="Matrícula:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
-
-        <EditText
-                android:id="@+id/etIdNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="number"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
-                android:text="Dirección:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
-
-        <EditText
-                android:id="@+id/etAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="textCapWords"
-                android:imeOptions="actionNext"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
-                android:text="Teléfono de contacto:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
-
-        <EditText
-                android:id="@+id/etPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:inputType="phone"
-                android:imeOptions="actionDone"
-                android:fontFamily="@font/sourcesanspro_light"
-                android:hint="Ingresar..."/>
-
-        <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_arrow_forward_white"
-                android:layout_margin="@dimen/xxxlarge_margin"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

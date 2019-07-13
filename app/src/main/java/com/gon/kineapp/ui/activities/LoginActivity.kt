@@ -2,6 +2,7 @@ package com.gon.kineapp.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import com.gon.kineapp.R
 import com.gon.kineapp.ui.fragments.BaseMvpFragment
 import com.gon.kineapp.ui.fragments.LoginFragment
 
@@ -12,7 +13,7 @@ class LoginActivity: BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setToolbarTitle("Bienvenido!")
+        setToolbarTitle(getString(R.string.login_title))
     }
 
     override fun canNavigateToSignIn(): Boolean {

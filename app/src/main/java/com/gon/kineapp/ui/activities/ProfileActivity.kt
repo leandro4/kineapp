@@ -28,5 +28,4 @@ class ProfileActivity: BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         frag.onActivityResult(requestCode, resultCode, data)
     }
-
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/large_radius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/xxlarge_margin">
+
+        <LinearLayout
+                android:layout_marginTop="@dimen/large_margin"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black_title"
+                    android:text="@string/rol_selection_title"
+                    style="@style/TextViewStyleBold"/>
+
+            <LinearLayout
+                    android:layout_marginTop="@dimen/xlarge_margin"
+                    android:layout_marginBottom="@dimen/xxlarge_margin"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/tvProfessional"
+                        android:text="@string/professional"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:background="@drawable/btn_blue_rounded_bg"
+                        android:padding="@dimen/large_margin"
+                        style="@style/TextViewStyleRegular"/>
+
+                <TextView
+                        android:id="@+id/tvPatient"
+                        android:text="@string/patient"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="@dimen/xlarge_margin"
+                        android:background="@drawable/btn_pink_rounded_bg"
+                        android:gravity="center"
+                        android:minWidth="115dp"
+                        android:padding="@dimen/large_margin"
+                        style="@style/TextViewStyleRegular"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

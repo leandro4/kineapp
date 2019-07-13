@@ -15,4 +15,8 @@ class PatientListActivity : BaseActivity() {
     override fun getFragment(): BaseMvpFragment {
         return PatientListFragment()
     }
+
+    override fun enabledBackButton(): Boolean {
+        return false
+    }
 }

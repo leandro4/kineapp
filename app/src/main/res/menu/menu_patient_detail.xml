@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+            android:id="@+id/videos"
+            android:title="Crear Video"
+            android:icon="@drawable/ic_video"
+            app:showAsAction="ifRoom"
+    />
+
+    <item
+            android:id="@+id/motion_video"
+            android:title="Timelapse"
+            android:icon="@drawable/ic_motion_video"
+            app:showAsAction="ifRoom"
+    />
+
+</menu>

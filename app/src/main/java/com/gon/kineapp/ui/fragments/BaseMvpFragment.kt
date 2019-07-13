@@ -1,12 +1,16 @@
 package com.gon.kineapp.ui.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.views.BaseView
+import com.gon.kineapp.ui.activities.SplashActivity
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 abstract class BaseMvpFragment: Fragment(), BaseView {
 
@@ -29,6 +33,7 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressBar = view.findViewById(R.id.viewLoading)
         startPresenter()
     }
 
@@ -56,5 +61,17 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
         activityProgress?.hideProgress()
     }
 
+    protected fun alreadySignedInUser(): Boolean {
+        return GoogleSignIn.getLastSignedInAccount(context) != null
+    }
 
+    protected fun logOut() {
+        showProgressView()
+        GoogleSignIn.getClient(activity!!, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()).revokeAccess()
+        GoogleSignIn.getClient(activity!!, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()).signOut()
+            .addOnCompleteListener(activity!!) {
+                activity?.startActivity(Intent(context, SplashActivity::class.java))
+                activity?.finish()
+            }
+    }
 }
