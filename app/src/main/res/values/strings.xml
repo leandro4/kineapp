@@ -11,6 +11,11 @@
     <string name="secret_question_hint">La respuesta es&#8230;</string>
     <string name="patients_list_title">Mis Pacientes</string>
     <string name="profile_name_title">Nombre</string>
+    <string name="profile_surname_title">Apellido</string>
+    <string name="profile_license_title">Matrícula</string>
+    <string name="profile_email_title">Email</string>
+    <string name="profile_phone_title">Teléfono de contacto</string>
+    <string name="profile_close_session">Cerrar sesión</string>
     <string name="mandatory_field">Campo obligatorio</string>
     <string name="rol_selection_title">Seleccione su rol</string>
     <string name="professional">Profesional</string>

@@ -13,7 +13,9 @@
             android:id="@+id/civAvatar"
             android:layout_gravity="center_horizontal"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/colorPrimaryDark"/>
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -32,180 +34,97 @@
                 android:layout_below="@+id/tvNameLabel"
                 style="@style/TextViewStyleLight"/>
 
-        <ImageView
-                android:layout_alignTop="@+id/tvName"
-                android:layout_alignBottom="@+id/tvName"
-                app:srcCompat="@drawable/ic_edit_pencil"
-                android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
     </RelativeLayout>
 
-    <LinearLayout
-            android:orientation="horizontal"
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <TextView
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:id="@+id/tvSurnameLabel"
+                android:text="@string/profile_surname_title"
                 android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"
-                android:text="Nombre: "/>
+                style="@style/TextViewStyleBold"/>
 
         <TextView
-                android:id="@+id/nameTextView"
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="fill_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:id="@+id/tvSurname"
+                tools:text="Perez"
                 android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"/>
+                android:layout_below="@+id/tvSurnameLabel"
+                style="@style/TextViewStyleLight"/>
+    </RelativeLayout>
 
-        <android.support.v7.widget.AppCompatImageButton
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:src="@drawable/ic_edit_pencil"/>
-    </LinearLayout>
-
-    <LinearLayout
-            android:orientation="horizontal"
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <TextView
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:id="@+id/licenseLabel"
+                android:text="@string/profile_license_title"
                 android:textColor="@color/white"
-                android:text="Apellido:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
-
-        <TextView
-                android:id="@+id/surnameTextView"
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="fill_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"/>
-
-        <android.support.v7.widget.AppCompatImageButton
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:src="@drawable/ic_edit_pencil"/>
-    </LinearLayout>
-
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <TextView
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textColor="@color/white"
-                android:text="Matrícula::"
-                android:fontFamily="@font/sourcesanspro_regular"/>
+                style="@style/TextViewStyleBold"/>
 
         <TextView
                 android:id="@+id/licenseTextView"
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="fill_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:inputType="number"
+                tools:text="123456"
                 android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"/>
+                android:layout_below="@+id/licenseLabel"
+                style="@style/TextViewStyleLight"/>
+    </RelativeLayout>
 
-        <android.support.v7.widget.AppCompatImageButton
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:src="@drawable/ic_edit_pencil"/>
-    </LinearLayout>
-
-    <LinearLayout
-            android:orientation="horizontal"
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <TextView
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:id="@+id/emailLabel"
+                android:text="@string/profile_email_title"
                 android:textColor="@color/white"
-                android:text="Dirección:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
+                style="@style/TextViewStyleBold"/>
 
         <TextView
                 android:id="@+id/emailTextView"
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="fill_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:inputType="textCapWords"
-                android:imeOptions="actionNext"
-                android:textSize="20sp"
+                tools:text="pepito@gmail.com"
                 android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"/>
+                android:layout_below="@+id/emailLabel"
+                style="@style/TextViewStyleLight"/>
 
         <android.support.v7.widget.AppCompatImageButton
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/emailTextView"
+                android:layout_alignBottom="@+id/emailTextView"
+                app:srcCompat="@drawable/ic_edit_pencil"
+                android:layout_alignParentEnd="true"
                 android:background="@color/colorPrimary"
-                android:src="@drawable/ic_edit_pencil"/>
-    </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
-    <LinearLayout
-            android:orientation="horizontal"
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         <TextView
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:id="@+id/phoneLabel"
+                android:text="@string/profile_phone_title"
                 android:textColor="@color/white"
-                android:text="Teléfono de contacto:"
-                android:fontFamily="@font/sourcesanspro_regular"/>
+                style="@style/TextViewStyleBold"/>
 
         <TextView
-                android:id="@+id/etPhone"
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="fill_parent"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:imeOptions="actionDone"
-                android:textSize="20sp"
+                android:id="@+id/phoneTextView"
+                tools:text="2346-656454"
                 android:textColor="@color/white"
-                android:fontFamily="@font/sourcesanspro_regular"/>
+                android:layout_below="@+id/phoneLabel"
+                style="@style/TextViewStyleLight"/>
 
         <android.support.v7.widget.AppCompatImageButton
-                android:layout_marginTop="@dimen/large_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/phoneTextView"
+                android:layout_alignBottom="@+id/phoneTextView"
+                app:srcCompat="@drawable/ic_edit_pencil"
+                android:layout_alignParentEnd="true"
                 android:background="@color/colorPrimary"
-                android:src="@drawable/ic_edit_pencil"/>
-    </LinearLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
     <android.support.design.button.MaterialButton
             android:layout_marginTop="@dimen/large_margin"
@@ -215,5 +134,5 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             style="@style/RoundedCornerMaterialButton"
-            android:text="Cerrar sesión"/>
+            android:text="@string/profile_close_session"/>
 </LinearLayout>
