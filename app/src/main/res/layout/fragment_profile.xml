@@ -126,13 +126,20 @@
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
 
-    <android.support.design.button.MaterialButton
-            android:layout_marginTop="@dimen/large_margin"
-            android:layout_marginRight="@dimen/large_margin"
-            android:layout_marginLeft="@dimen/large_margin"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            style="@style/RoundedCornerMaterialButton"
-            android:text="@string/profile_close_session"/>
+    <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <android.support.design.button.MaterialButton
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginRight="@dimen/small_margin"
+                android:layout_marginLeft="@dimen/small_margin"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                style="@style/RoundedCornerMaterialButton"
+                android:text="@string/profile_close_session"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+
+
 </LinearLayout>
