@@ -9,18 +9,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
 import kotlinx.android.synthetic.main.fragment_profile.*
-import android.graphics.Bitmap
-import android.graphics.Matrix
-import java.io.IOException
 import android.media.ExifInterface as ExifInterface1
-
 
 class ProfileFragment: BaseMvpFragment(), LoginView {
     companion object {
@@ -57,7 +52,7 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
         if(!this.galleryPermissionsGranted()) {
             requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_GALLERY_PERMISSION);
         } else {
-            this.selectImageInAlbum()
+            this.selectImageFromGallery()
         }
     }
 
@@ -65,7 +60,7 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
         return ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun selectImageInAlbum() {
+    private fun selectImageFromGallery() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         if (intent.resolveActivity(this.activity!!.packageManager) != null) {
@@ -105,14 +100,13 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
 
         if(resultCode == RESULT_OK && requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
             val returnUri = data!!.getData()
-            val bitmapImage = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, returnUri)
             Glide.with(this).load(returnUri).into(civAvatar)
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if(grantResults.contains(PackageManager.PERMISSION_GRANTED) && requestCode == REQUEST_GALLERY_PERMISSION) {
-            this.selectImageInAlbum()
+            this.selectImageFromGallery()
         }
     }
 }
