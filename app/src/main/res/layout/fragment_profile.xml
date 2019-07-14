@@ -22,16 +22,16 @@
             android:layout_height="wrap_content">
 
         <TextView
-                android:id="@+id/tvNameLabel"
+                android:id="@+id/nameLabel"
                 android:text="@string/profile_name_title"
                 android:textColor="@color/white"
                 style="@style/TextViewStyleBold"/>
 
         <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/nameTextView"
                 tools:text="Juanito"
                 android:textColor="@color/white"
-                android:layout_below="@+id/tvNameLabel"
+                android:layout_below="@+id/nameLabel"
                 style="@style/TextViewStyleLight"/>
 
     </RelativeLayout>
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content">
 
         <TextView
-                android:id="@+id/tvSurnameLabel"
+                android:id="@+id/surnameLabel"
                 android:text="@string/profile_surname_title"
                 android:textColor="@color/white"
                 style="@style/TextViewStyleBold"/>
@@ -50,7 +50,7 @@
                 android:id="@+id/tvSurname"
                 tools:text="Perez"
                 android:textColor="@color/white"
-                android:layout_below="@+id/tvSurnameLabel"
+                android:layout_below="@+id/surnameLabel"
                 style="@style/TextViewStyleLight"/>
     </RelativeLayout>
 

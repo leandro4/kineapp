@@ -1,29 +1,33 @@
 package com.gon.kineapp.ui.fragments
 
+import android.Manifest
+import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.provider.MediaStore
+import android.support.v4.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
-import com.gon.kineapp.ui.activities.PatientListActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.common.api.ApiException
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_login.etPhone
 import kotlinx.android.synthetic.main.fragment_profile.*
+import android.graphics.Bitmap
+import android.graphics.Matrix
+import java.io.IOException
+import android.media.ExifInterface as ExifInterface1
+
 
 class ProfileFragment: BaseMvpFragment(), LoginView {
+    companion object {
+        private val REQUEST_TAKE_PHOTO = 0
+        private val REQUEST_SELECT_IMAGE_IN_ALBUM = 1000
+        private val REQUEST_GALLERY_PERMISSION = 1010
+    }
 
     var presenter = LoginPresenter()
 
@@ -38,13 +42,44 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
     }
 
     private fun initUI() {
-
-
         Glide.with(context!!).load(Uri.parse("https://www.elpopular.pe/sites/default/files/styles/img_620x465/public/imagen/2018/10/21/Noticia-218698-hombre-se-llevo-sorpresa-al-descubrir-que-su-perrito-era-un-animal-de-otra-especie.jpg?itok=3a9Eb3oL"))
             .into(civAvatar)
-
+        this.setupClickListeners()
     }
 
+    private fun setupClickListeners() {
+        this.civAvatar.setOnClickListener {
+            this.selectNewPhoto()
+        }
+    }
+
+    private fun selectNewPhoto() {
+        if(!this.galleryPermissionsGranted()) {
+            requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_GALLERY_PERMISSION);
+        } else {
+            this.selectImageInAlbum()
+        }
+    }
+
+    private fun galleryPermissionsGranted(): Boolean {
+        return ActivityCompat.checkSelfPermission(this.context!!, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun selectImageInAlbum() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        if (intent.resolveActivity(this.activity!!.packageManager) != null) {
+            startActivityForResult(intent, REQUEST_SELECT_IMAGE_IN_ALBUM)
+        }
+    }
+/*
+    private fun takePhoto() {
+        val intent1 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        if (intent1.resolveActivity(this.activity!!.packageManager) != null) {
+            startActivityForResult(intent1, REQUEST_TAKE_PHOTO)
+        }
+    }
+*/
     override fun startPresenter() {
         presenter.attachMvpView(this)
     }
@@ -63,5 +98,21 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
 
     override fun onLoginFailure() {
         showErrorMessage(getString(R.string.generic_error_message))
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode == RESULT_OK && requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
+            val returnUri = data!!.getData()
+            val bitmapImage = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, returnUri)
+            Glide.with(this).load(returnUri).into(civAvatar)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if(grantResults.contains(PackageManager.PERMISSION_GRANTED) && requestCode == REQUEST_GALLERY_PERMISSION) {
+            this.selectImageInAlbum()
+        }
     }
 }
