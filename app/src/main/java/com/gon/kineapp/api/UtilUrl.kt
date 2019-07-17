@@ -7,6 +7,7 @@ class UtilUrl {
         const val BASE_URL = "https://kinesioapp.herokuapp.com/api/v1/"
         const val LOGIN = "medics"
         const val PATIENTS = "patients"
+        const val SESSIONS = "sessions"
 
     }
 }

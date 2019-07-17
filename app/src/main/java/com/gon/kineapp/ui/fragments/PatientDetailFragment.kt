@@ -2,19 +2,24 @@ package com.gon.kineapp.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.Session
+import com.gon.kineapp.mvp.presenters.SessionListPresenter
+import com.gon.kineapp.mvp.views.SessionListView
 import com.gon.kineapp.ui.activities.BaseActivity
 import com.gon.kineapp.ui.activities.SessionDetailActivity
+import com.gon.kineapp.ui.adapters.SessionAdapter
 import com.gon.kineapp.utils.Constants
 import kotlinx.android.synthetic.main.fragment_patient_detail.*
 
-class PatientDetailFragment : BaseMvpFragment() {
+class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
 
     private lateinit var patient: Patient
+    private val presenter = SessionListPresenter()
 
     companion object {
         fun newInstance(patient: Patient): PatientDetailFragment {
@@ -43,9 +48,6 @@ class PatientDetailFragment : BaseMvpFragment() {
             Toast.makeText(context, "agregrar sesión", Toast.LENGTH_SHORT).show()
         }
 
-        sessionSimulator.setOnClickListener {
-            goToSessionDetail(Session("Juanitou"))
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,14 +71,30 @@ class PatientDetailFragment : BaseMvpFragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun goToSessionDetail(session: Session) {
+    private fun initList(sessions: MutableList<Session>) {
+        rvSessions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvSessions.setHasFixedSize(true)
+        rvSessions.adapter = SessionAdapter(sessions, this)
+    }
+
+    override fun onSessionsReceived(sessions: MutableList<Session>) {
+        initList(sessions)
+    }
+
+    override fun onSessionSelected(session: Session) {
         val intent = Intent(activity, SessionDetailActivity::class.java)
-        intent.putExtra(Constants.SESSION_EXTRA, session)
+        intent.putExtra(Constants.SESSION_EXTRA, session.apply { patientName = patient.name })
         activity?.startActivity(intent)
     }
 
     override fun startPresenter() {
+        presenter.attachMvpView(this)
+        presenter.getSessions()
+    }
 
+    override fun onDestroy() {
+        presenter.detachMvpView()
+        super.onDestroy()
     }
 
     override fun onErrorCode(message: String) {

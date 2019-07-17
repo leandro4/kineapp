@@ -1,8 +1,10 @@
 package com.gon.kineapp.api
 
 import com.gon.kineapp.model.Patient
+import com.gon.kineapp.model.Session
 import com.gon.kineapp.model.responses.LoginResponse
 import com.gon.kineapp.model.responses.PatientListResponse
+import com.gon.kineapp.model.responses.SessionListResponse
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 object KinesService {
 
-    var kinesApi: KinesApi
+    private var kinesApi: KinesApi
 
     init {
         val retrofit = Retrofit.Builder()
@@ -53,6 +55,23 @@ object KinesService {
         val response = PatientListResponse(list.toMutableList())
 
         return Observable.just(response).delay(1500, TimeUnit.MILLISECONDS)
+
+        //return kinesApi.getPatients()
+    }
+
+    fun getSessionList(): Observable<SessionListResponse> {
+
+
+        val list = listOf(
+            Session("Cachito", "27/07/2019", "Fue un día de trabajo intenso. Estuvimos ejercitando la mano derecha que le cuesta mover los últimos 3 dedos", null),
+            Session("Cachito", "03/08/2019", "Se reforzó la mano derecha, comienza a mover los dedos con cuidado", null),
+            Session("Cachito", "10/08/2019", "La fluidez es notoria. Quizás haya que empezar a usar peso en la mano", null),
+            Session("Cachito", "17/08/2019", "Ya mueve casi con total normalidad la mano. Está pronto a darle el alta", null)
+        )
+
+        val response = SessionListResponse(list.toMutableList())
+
+        return Observable.just(response).delay(1000, TimeUnit.MILLISECONDS)
 
         //return kinesApi.getPatients()
     }

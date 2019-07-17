@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:id="@+id/flContent">
+
+    <RelativeLayout
+        android:padding="@dimen/large_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_toStartOf="@+id/ivArrow"
+            tools:text="Juanito trabajó la espalda por un mal dolor que le afecta feo"
+            android:textColor="@color/colorPrimary"
+            style="@style/TextViewStyleBold"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            tools:text="17/09/2019"
+            android:layout_below="@+id/tvDescription"
+            android:textColor="@color/colorPrimary"
+            style="@style/TextViewStyleLight"/>
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_arrow_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginStart="@dimen/large_margin"
+        android:layout_marginEnd="@dimen/large_margin"
+        android:layout_gravity="bottom"
+        android:background="@color/black_hint"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
+</FrameLayout>
