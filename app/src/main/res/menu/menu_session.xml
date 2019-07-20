@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/add_photo"
-            android:title="Agregar foto"
-            android:icon="@drawable/ic_add_photo"
+            android:id="@+id/save"
+            android:title="Guardar"
+            android:icon="@drawable/ic_check"
             app:showAsAction="ifRoom"
     />
 

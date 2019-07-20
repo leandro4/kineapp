@@ -7,4 +7,4 @@ import kotlinx.android.parcel.Parcelize
 data class Session(var patientName: String,
               var date: String,
               var description: String,
-              var images: MutableList<String>?): Parcelable
+              var photos: MutableList<Photo>): Parcelable

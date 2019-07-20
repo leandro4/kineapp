@@ -8,6 +8,7 @@ class UtilUrl {
         const val LOGIN = "medics"
         const val PATIENTS = "patients"
         const val SESSIONS = "sessions"
+        const val QUESTIONS = "secret_questions"
 
     }
 }

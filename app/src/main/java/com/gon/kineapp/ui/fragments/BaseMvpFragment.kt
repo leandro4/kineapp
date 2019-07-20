@@ -65,6 +65,10 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
         return GoogleSignIn.getLastSignedInAccount(context) != null
     }
 
+    open fun handleBackPressed(): Boolean {
+        return false
+    }
+
     protected fun logOut() {
         showProgressView()
         GoogleSignIn.getClient(activity!!, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()).revokeAccess()

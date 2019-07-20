@@ -51,6 +51,12 @@ abstract class BaseActivity: LockableActivity(), BaseMvpFragment.ActivityProgres
         return true
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.fragments[0] != null && !(supportFragmentManager.fragments[0] as BaseMvpFragment).handleBackPressed()) {
+            super.onBackPressed()
+        }
+    }
+
     override fun showProgress() {
         progressView.visibility = View.VISIBLE
     }

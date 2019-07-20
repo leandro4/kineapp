@@ -19,7 +19,7 @@
             tools:text="Juanito Sanchez"
             android:id="@+id/tvName"
             android:textColor="@color/colorPrimary"
-            style="@style/TextViewStyleBold"/>
+            style="@style/TextViewStyleRegular"/>
 
         <TextView
             tools:text="39266108"

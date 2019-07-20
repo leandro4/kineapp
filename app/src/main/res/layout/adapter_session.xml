@@ -22,7 +22,7 @@
             android:layout_toStartOf="@+id/ivArrow"
             tools:text="Juanito trabajó la espalda por un mal dolor que le afecta feo"
             android:textColor="@color/colorPrimary"
-            style="@style/TextViewStyleBold"/>
+            style="@style/TextViewStyleRegular"/>
 
         <TextView
             android:id="@+id/tvDate"

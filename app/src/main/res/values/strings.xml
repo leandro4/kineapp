@@ -18,5 +18,10 @@
     <string name="login_title">Login/Registro</string>
     <string name="sign_up_title">Vamos a pedirte unos datos para darte de alta</string>
     <string name="patient_sessions_title">Sesiones de %s</string>
+    <string name="observations_title">Observaciones</string>
+    <string name="photos_title">Fotos</string>
+    <string name="caution_title">¡Atención!</string>
+    <string name="exit_without_saving_msg">Está saliendo sin guardar los cambios</string>
+    <string name="generic_cancel">Cancelar</string>
 
 </resources>
