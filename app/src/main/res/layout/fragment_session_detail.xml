@@ -8,7 +8,9 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/xxxlarge_margin"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:orientation="vertical"
@@ -53,8 +55,6 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvImages"
                 android:layout_margin="@dimen/xsmall_margin"
-                android:paddingBottom="@dimen/xlarge_margin"
-                android:clipToPadding="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -69,6 +69,17 @@
         android:layout_gravity="bottom|end"
         app:srcCompat="@drawable/ic_camera"
         android:layout_margin="@dimen/large_margin"/>
+
+    <TextView
+        android:id="@+id/tvDate"
+        tools:text="19 Ago 2019"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/large_radius"
+        android:shadowColor="@color/black_hint"
+        android:shadowRadius="6"
+        style="@style/TextViewStyleBold"/>
 
     <include
             android:id="@+id/viewLoading"

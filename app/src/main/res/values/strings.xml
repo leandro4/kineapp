@@ -23,5 +23,9 @@
     <string name="caution_title">¡Atención!</string>
     <string name="exit_without_saving_msg">Está saliendo sin guardar los cambios</string>
     <string name="generic_cancel">Cancelar</string>
+    <string name="camera_permission_denied">Sin los permisos de Cámara no podemos continuar</string>
+    <string name="camera_ask_permission_title">Necesitamos permisos para utilizar la Cámara</string>
+    <string name="camera_ask_permission_msg">Si no aprueba el permiso, la aplicación no puede funcionar correctamente
+    </string>
 
 </resources>

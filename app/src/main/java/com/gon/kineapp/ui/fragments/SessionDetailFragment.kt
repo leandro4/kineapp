@@ -1,5 +1,6 @@
 package com.gon.kineapp.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
@@ -10,6 +11,7 @@ import com.gon.kineapp.R
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.ui.activities.BaseActivity
+import com.gon.kineapp.ui.activities.PictureActivity
 import com.gon.kineapp.ui.adapters.PhotoAdapter
 import com.gon.kineapp.utils.DialogUtil
 import com.gon.kineapp.utils.Utils
@@ -44,13 +46,14 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
     private fun initUI() {
         (activity as BaseActivity).setToolbarTitle(session.patientName)
 
+        tvDate.text = session.date
         etDescription.setText(session.description)
         rvImages.layoutManager = GridLayoutManager(context, COLUMNS, GridLayoutManager.VERTICAL, false)
         rvImages.setHasFixedSize(true)
         rvImages.adapter = PhotoAdapter(session.photos, this)
 
         fabAddPhoto.setOnClickListener {
-            Toast.makeText(context, "Tomar foto", Toast.LENGTH_SHORT).show()
+            activity?.startActivity(Intent(context, PictureActivity::class.java))
         }
 
         tvObs.setOnClickListener {

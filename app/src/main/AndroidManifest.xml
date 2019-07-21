@@ -4,6 +4,10 @@
           package="com.gon.kineapp">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera2.full" />
 
     <application
         android:name=".KineApplication"
@@ -16,18 +20,18 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
+            android:name=".ui.activities.PictureActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.activities.PatientListActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".ui.activities.PatientDetailActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".ui.activities.SessionDetailActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.activities.SplashActivity"
             android:screenOrientation="portrait">
@@ -37,7 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activities.LoginActivity"
             android:screenOrientation="portrait"/>
