@@ -3,6 +3,7 @@ package com.gon.kineapp.ui.activities
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.SurfaceTexture
+import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -14,7 +15,6 @@ import com.gon.kineapp.utils.Utils
 
 abstract class BaseCameraActivity : AppCompatActivity(), TextureView.SurfaceTextureListener {
 
-    protected var permissionOk = false
     private val CAMERA_PERMISSION_CODE = 10001
 
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {}
@@ -23,20 +23,20 @@ abstract class BaseCameraActivity : AppCompatActivity(), TextureView.SurfaceText
 
     override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
 
-    override fun onResume() {
-        super.onResume()
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            askForPermission()
-        } else {
-            permissionOk = true
-        }
+    protected fun isPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun askForPermission() {
+    abstract fun onPermissionGranted()
+
+    protected fun askForPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-            DialogUtil.showGenericAlertDialog(this, getString(R.string.camera_ask_permission_title), getString(R.string.camera_ask_permission_msg))
+            DialogUtil.showGenericAlertDialogConfirm(this, getString(R.string.camera_ask_permission_title),
+                getString(R.string.camera_ask_permission_msg)) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
+            }
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CONTACTS), CAMERA_PERMISSION_CODE)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
         }
     }
 
@@ -44,11 +44,10 @@ abstract class BaseCameraActivity : AppCompatActivity(), TextureView.SurfaceText
 
         when (requestCode) {
             CAMERA_PERMISSION_CODE -> {
-                permissionOk = if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    true
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    onPermissionGranted()
                 } else {
                     Toast.makeText(this, getString(R.string.camera_permission_denied), Toast.LENGTH_SHORT).show()
-                    false
                 }
                 return
             }

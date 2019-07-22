@@ -1,34 +1,41 @@
 package com.gon.kineapp.ui.activities
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.ImageFormat
 import android.graphics.SurfaceTexture
-import android.hardware.camera2.*
+import android.hardware.camera2.CameraCaptureSession
+import android.hardware.camera2.CameraCharacteristics
+import android.hardware.camera2.CameraDevice
+import android.hardware.camera2.CameraManager
+import android.hardware.camera2.CameraMetadata
+import android.hardware.camera2.CaptureRequest
+import android.hardware.camera2.TotalCaptureResult
 import android.hardware.camera2.params.StreamConfigurationMap
 import android.media.Image
 import android.media.ImageReader
-import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.HandlerThread
+import android.os.Bundle
 import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
 import android.view.Surface
 import android.view.TextureView
 import android.widget.ImageView
-import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.utils.StateCameraCallback
-import kotlinx.android.synthetic.main.activity_picture.*
+
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
+import java.nio.ByteBuffer
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.ArrayList
+import java.util.Arrays
+import java.util.Date
 
-class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener {
+class MainActivity : BaseCameraActivity() {
 
     private var previewsize: Size? = null
     private var jpegSizes: Array<Size>? = null
@@ -100,7 +107,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         getPicture!!.setOnClickListener { v -> getPicture() }
     }
 
-    private fun getPicture() {
+    internal fun getPicture() {
         if (cameraDevice != null) {
             val manager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
             try {
@@ -126,10 +133,42 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
                 capturebuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
                 val rotation = windowManager.defaultDisplay.rotation
                 capturebuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation))
+                val imageAvailableListener = object : ImageReader.OnImageAvailableListener {
+                    override fun onImageAvailable(reader: ImageReader) {
+                        var image: Image? = null
+                        try {
+                            image = reader.acquireLatestImage()
+                            val buffer = image!!.planes[0].buffer
+                            val bytes = ByteArray(buffer.capacity())
+                            buffer.get(bytes)
+                            save(bytes)
+                        } catch (ee: Exception) {
+                        } finally {
+                            image?.close()
+                        }
+                    }
+
+                    internal fun save(bytes: ByteArray) {
+                        val file12 = outputMediaFile
+                        var outputStream: OutputStream? = null
+                        try {
+                            outputStream = FileOutputStream(file12!!)
+                            outputStream.write(bytes)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        } finally {
+                            try {
+                                outputStream?.close()
+                            } catch (e: Exception) {
+                            }
+
+                        }
+                    }
+                }
                 val handlerThread = HandlerThread("takepicture")
                 handlerThread.start()
                 val handler = Handler(handlerThread.looper)
-                reader.setOnImageAvailableListener(this, handler)
+                reader.setOnImageAvailableListener(imageAvailableListener, handler)
                 val previewSSession = object : CameraCaptureSession.CaptureCallback() {
                     override fun onCaptureStarted(
                         session: CameraCaptureSession,
@@ -167,24 +206,6 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         }
     }
 
-    override fun onImageAvailable(reader: ImageReader?) {
-        var image: Image? = null
-        try {
-            image = reader?.acquireLatestImage()
-            val buffer = image!!.planes[0].buffer
-            val bytes = ByteArray(buffer.capacity())
-            buffer.get(bytes)
-            save(bytes)
-            image.close()
-        } catch (ee: Exception) {
-            ee.printStackTrace()
-        }
-    }
-
-    private fun save(bytes: ByteArray) {
-        Toast.makeText(this, "foto: "+bytes.size, Toast.LENGTH_SHORT).show()
-    }
-
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
         openCamera()
     }
@@ -196,8 +217,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private fun openCamera() {
+    fun openCamera() {
         val manager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
         try {
             val camerId = manager.cameraIdList[0]
@@ -221,11 +241,27 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
 
     companion object {
         private val ORIENTATIONS = SparseIntArray()
+
         init {
             ORIENTATIONS.append(Surface.ROTATION_0, 90)
             ORIENTATIONS.append(Surface.ROTATION_90, 0)
             ORIENTATIONS.append(Surface.ROTATION_180, 270)
             ORIENTATIONS.append(Surface.ROTATION_270, 180)
         }
+
+        private val outputMediaFile: File?
+            get() {
+                val mediaStorageDir = File(Environment.getExternalStorageDirectory(), "MyCameraApp")
+                if (!mediaStorageDir.exists()) {
+                    if (!mediaStorageDir.mkdirs()) {
+                        Log.d("MyCameraApp", "failed to create directory")
+                        return null
+                    }
+                }
+                val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                val mediaFile: File
+                mediaFile = File(mediaStorageDir.path + File.separator + "IMG_" + timeStamp + ".jpg")
+                return mediaFile
+            }
     }
 }
