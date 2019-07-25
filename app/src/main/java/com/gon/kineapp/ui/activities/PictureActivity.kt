@@ -2,9 +2,7 @@ package com.gon.kineapp.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.ImageFormat
-import android.graphics.Point
-import android.graphics.SurfaceTexture
+import android.graphics.*
 import android.hardware.camera2.*
 import android.hardware.camera2.params.StreamConfigurationMap
 import android.media.Image
@@ -19,16 +17,24 @@ import android.util.SparseIntArray
 import android.view.Display
 import android.view.Surface
 import android.view.TextureView
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.utils.StateCameraCallback
+import com.gonanimationlib.animations.Animate
+import com.gonanimationlib.animations.CompZoom
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_picture.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.function.Consumer
 
 class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener {
 
@@ -99,7 +105,23 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         textureView = findViewById(R.id.textureView)
         getPicture = findViewById(R.id.btnTakePicture)
         textureView!!.surfaceTextureListener = this
-        getPicture!!.setOnClickListener { v -> getPicture() }
+        getPicture!!.setOnClickListener {
+            rlPreview.visibility = View.VISIBLE
+            Animate.ALPHA(1f).duration(Animate.DURATION_MEDIUM).startAnimation(rlPreview)
+            getPicture()
+         }
+        initUI()
+    }
+
+    private fun initUI() {
+        btnReject.setOnClickListener {
+            llMedia.visibility = View.GONE
+            Animate.ALPHA(0f).duration(Animate.DURATION_MEDIUM).onEnd { rlPreview.visibility = View.GONE }.startAnimation(rlPreview)
+            preview.setImageBitmap(null)
+        }
+        btnAccept.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun getPicture() {
@@ -181,8 +203,15 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         }
     }
 
+    @SuppressLint("CheckResult")
     private fun save(bytes: ByteArray) {
-        Toast.makeText(this, "foto: "+bytes.size, Toast.LENGTH_SHORT).show()
+        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        val mainHandler = Handler(this.mainLooper)
+        val myRunnable = Runnable {
+            preview.setImageBitmap(bitmap)
+            llMedia.visibility = View.VISIBLE
+        }
+        mainHandler.post(myRunnable)
     }
 
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
@@ -203,8 +232,6 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             val camerId = manager.cameraIdList[0]
             val characteristics = manager.getCameraCharacteristics(camerId)
             val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-            val w = getWitdthScreen()
-            val h = getHeightScreen()
             previewsize = map!!.getOutputSizes(SurfaceTexture::class.java)[5]
             if (isPermissionGranted()) {
                 manager.openCamera(camerId, stateCallback, null)
@@ -215,20 +242,6 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             e.printStackTrace()
         }
 
-    }
-
-    private fun getWitdthScreen(): Int {
-        val display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-        return size.x
-    }
-
-    private fun getHeightScreen(): Int {
-        val display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
-        return size.y
     }
 
     override fun onPermissionGranted() {

@@ -59,4 +59,53 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>-->
 
+    <RelativeLayout
+        android:id="@+id/rlPreview"
+        android:clickable="true"
+        android:visibility="gone"
+        android:background="@color/colorGradientTransparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/preview"
+            android:scaleType="centerInside"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/llMedia"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/xxxlarge_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/btnReject"
+                android:src="@drawable/ic_reject"
+                android:background="@drawable/circle_solid_white"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+            <ImageView
+                android:id="@+id/btnAccept"
+                android:layout_marginStart="@dimen/xxxlarge_margin"
+                android:background="@drawable/circle_solid_white"
+                app:srcCompat="@drawable/ic_accept_circle"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
