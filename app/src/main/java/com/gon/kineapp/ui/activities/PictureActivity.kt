@@ -3,6 +3,7 @@ package com.gon.kineapp.ui.activities
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.ImageFormat
+import android.graphics.Point
 import android.graphics.SurfaceTexture
 import android.hardware.camera2.*
 import android.hardware.camera2.params.StreamConfigurationMap
@@ -15,6 +16,7 @@ import android.os.HandlerThread
 import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
+import android.view.Display
 import android.view.Surface
 import android.view.TextureView
 import android.widget.ImageView
@@ -107,9 +109,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
                 val characteristics = manager.getCameraCharacteristics(cameraDevice!!.id)
                 if (characteristics != null) {
                     jpegSizes =
-                        characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(
-                            ImageFormat.JPEG
-                        )
+                        characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(ImageFormat.JPEG)
                 }
                 var width = 640
                 var height = 480
@@ -203,7 +203,9 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             val camerId = manager.cameraIdList[0]
             val characteristics = manager.getCameraCharacteristics(camerId)
             val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-            previewsize = map!!.getOutputSizes(SurfaceTexture::class.java)[0]
+            val w = getWitdthScreen()
+            val h = getHeightScreen()
+            previewsize = map!!.getOutputSizes(SurfaceTexture::class.java)[5]
             if (isPermissionGranted()) {
                 manager.openCamera(camerId, stateCallback, null)
             } else {
@@ -213,6 +215,20 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             e.printStackTrace()
         }
 
+    }
+
+    private fun getWitdthScreen(): Int {
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        return size.x
+    }
+
+    private fun getHeightScreen(): Int {
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        return size.y
     }
 
     override fun onPermissionGranted() {
