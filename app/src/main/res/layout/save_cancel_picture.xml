@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/rlPreview"
+        android:clickable="true"
+        android:visibility="gone"
+        android:background="@color/colorGradientTransparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/llMedia"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/xxxlarge_margin"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/btnReject"
+                android:background="@drawable/btn_pink_rounded_bg"
+                android:padding="@dimen/large_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextViewStyleLight"
+                android:text="@string/generic_cancel"/>
+
+            <TextView
+                android:id="@+id/btnAccept"
+                android:background="@drawable/btn_blue_rounded_bg"
+                android:padding="@dimen/large_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/large_margin"
+                style="@style/TextViewStyleBold"
+                android:text="@string/generic_accept_button"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</merge>

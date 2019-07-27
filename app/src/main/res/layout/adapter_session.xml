@@ -16,19 +16,23 @@
         android:layout_height="wrap_content">
 
         <TextView
-            tools:text="Juanito Sanchez"
-            android:id="@+id/tvName"
+            android:id="@+id/tvDescription"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_toStartOf="@+id/ivArrow"
+            tools:text="Juanito trabajó la espalda por un mal dolor que le afecta feo"
             android:textColor="@color/colorPrimary"
             style="@style/TextViewStyleRegular"/>
 
         <TextView
-            tools:text="39266108"
-            android:id="@+id/tvNumber"
-            android:layout_below="@+id/tvName"
+            android:id="@+id/tvDate"
+            tools:text="17/09/2019"
+            android:layout_below="@+id/tvDescription"
             android:textColor="@color/colorPrimary"
             style="@style/TextViewStyleLight"/>
 
         <ImageView
+            android:id="@+id/ivArrow"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/ic_arrow_right"

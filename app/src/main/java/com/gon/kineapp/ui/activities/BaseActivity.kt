@@ -10,6 +10,7 @@ import com.gon.kineapp.R
 import com.gon.kineapp.ui.fragments.BaseMvpFragment
 import kotlinx.android.synthetic.main.activity_base_content.*
 import android.app.ActivityOptions
+import com.gonanimationlib.animations.Animate
 
 abstract class BaseActivity: LockableActivity(), BaseMvpFragment.ActivityProgress {
 
@@ -51,17 +52,29 @@ abstract class BaseActivity: LockableActivity(), BaseMvpFragment.ActivityProgres
         return true
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.fragments[0] != null && !(supportFragmentManager.fragments[0] as BaseMvpFragment).handleBackPressed()) {
+            super.onBackPressed()
+        }
+    }
+
     override fun showProgress() {
         progressView.visibility = View.VISIBLE
+        Animate.ALPHA(1f).duration(Animate.DURATION_MEDIUM).startAnimation(progressView)
     }
 
     override fun hideProgress() {
-        progressView.visibility = View.GONE
+        Animate.ALPHA(0f).duration(Animate.DURATION_MEDIUM).onEnd { progressView.visibility = View.GONE }.startAnimation(progressView)
     }
 
     override fun startActivity(intent: Intent?) {
         val options = ActivityOptions.makeSceneTransitionAnimation(this)
         startActivity(intent, options.toBundle())
+    }
+
+    override fun startActivityForResult(intent: Intent?, requestCode: Int) {
+        val options = ActivityOptions.makeSceneTransitionAnimation(this)
+        startActivityForResult(intent, requestCode, options.toBundle())
     }
 
     private fun setAnimation() {

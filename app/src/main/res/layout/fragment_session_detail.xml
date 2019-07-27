@@ -3,7 +3,96 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              android:background="@color/white">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/xxxlarge_margin"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvObs"
+                android:text="@string/observations_title"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:gravity="center_vertical"
+                android:drawablePadding="@dimen/medium_margin"
+                android:drawableEnd="@drawable/ic_create"
+                style="@style/TextViewStyleBold"/>
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:enabled="false"
+                tools:text="El paciente estuvo haciendo tareas de rehabilitación de mano derecha con manija loca. La próxima sesión intentaremos comenzar de a poco con la mano izquierda, zurdito."
+                android:layout_width="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:layout_margin="@dimen/large_margin"
+                style="@style/TextViewStyleLight"/>
+
+            <View
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="1px" />
+
+            <TextView
+                android:text="@string/photos_title"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/medium_margin"
+                style="@style/TextViewStyleBold"/>
+
+            <TextView
+                android:id="@+id/emptyList"
+                android:visibility="gone"
+                android:layout_margin="@dimen/large_margin"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/empty_photos"
+                android:gravity="center"
+                style="@style/TextViewStyleLight"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvImages"
+                android:layout_margin="@dimen/xsmall_margin"
+                android:paddingBottom="@dimen/xxxlarge_margin"
+                android:clipToPadding="false"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/ic_camera"
+        android:layout_margin="@dimen/large_margin"/>
+
+    <TextView
+        android:id="@+id/tvDate"
+        tools:text="19 Ago 2019"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22sp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@drawable/tongue_top_rounded_white"
+        android:paddingTop="@dimen/xsmall_margin"
+        android:paddingBottom="@dimen/large_margin"
+        android:paddingStart="@dimen/large_margin"
+        android:paddingEnd="@dimen/large_margin"
+        style="@style/TextViewStyleBold"/>
 
     <include
             android:id="@+id/viewLoading"

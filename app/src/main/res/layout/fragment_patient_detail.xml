@@ -6,12 +6,10 @@
              android:background="@color/white"
              tools:context=".ui.fragments.PatientDetailFragment">
 
-    <TextView
-            android:id="@+id/sessionSimulator"
-            android:padding="@dimen/xlarge_margin"
-            android:textColor="@color/colorPrimary"
-            android:text="simular click sobre una sesión"
-            style="@style/TextViewStyleRegular"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvSessions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAddSession"

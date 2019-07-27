@@ -2,6 +2,7 @@ package com.gon.kineapp.api
 
 import com.gon.kineapp.model.responses.LoginResponse
 import com.gon.kineapp.model.responses.PatientListResponse
+import com.gon.kineapp.model.responses.SessionListResponse
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -12,4 +13,7 @@ interface KinesApi {
 
     @GET(UtilUrl.PATIENTS)
     fun getPatients(): Observable<PatientListResponse>
+
+    @GET(UtilUrl.SESSIONS)
+    fun getSessions(): Observable<SessionListResponse>
 }
