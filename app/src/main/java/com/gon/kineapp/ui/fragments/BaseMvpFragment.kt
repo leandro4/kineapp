@@ -9,6 +9,7 @@ import android.view.View
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.views.BaseView
 import com.gon.kineapp.ui.activities.SplashActivity
+import com.gonanimationlib.animations.Animate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
@@ -52,12 +53,18 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
     }
 
     override fun showProgressView() {
-        progressBar?.visibility = View.VISIBLE
+        progressBar?.let {
+            it.visibility = View.VISIBLE
+            Animate.ALPHA(1f).duration(Animate.DURATION_MEDIUM).startAnimation(progressBar)
+        }
         activityProgress?.showProgress()
     }
 
     override fun hideProgressView() {
-        progressBar?.visibility = View.GONE
+        progressBar?.let {
+            Animate.ALPHA(0f).duration(Animate.DURATION_MEDIUM).onEnd { progressBar?.visibility = View.GONE }
+                .startAnimation(progressBar)
+        }
         activityProgress?.hideProgress()
     }
 

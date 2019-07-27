@@ -1,5 +1,6 @@
 package com.gon.kineapp.ui.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -13,6 +14,7 @@ import com.gon.kineapp.model.Session
 import com.gon.kineapp.ui.activities.BaseActivity
 import com.gon.kineapp.ui.activities.PictureActivity
 import com.gon.kineapp.ui.adapters.PhotoAdapter
+import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.DialogUtil
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.fragment_session_detail.*
@@ -21,6 +23,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
 
     private lateinit var session: Session
     private var edited = false
+    private lateinit var adapter: PhotoAdapter
 
     companion object {
         fun newInstance(session: Session): SessionDetailFragment {
@@ -30,6 +33,8 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
         }
 
         private const val COLUMNS = 4
+
+        const val TAKE_PICTURE_CODE = 1000
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,10 +55,15 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
         etDescription.setText(session.description)
         rvImages.layoutManager = GridLayoutManager(context, COLUMNS, GridLayoutManager.VERTICAL, false)
         rvImages.setHasFixedSize(true)
-        rvImages.adapter = PhotoAdapter(session.photos, this)
+        adapter = PhotoAdapter(session.photos, this)
+        rvImages.adapter = adapter
+
+        if (session.photos.isEmpty()) {
+            emptyList.visibility = View.VISIBLE
+        }
 
         fabAddPhoto.setOnClickListener {
-            activity?.startActivity(Intent(context, PictureActivity::class.java))
+            activity?.startActivityForResult(Intent(context, PictureActivity::class.java), TAKE_PICTURE_CODE)
         }
 
         tvObs.setOnClickListener {
@@ -110,7 +120,21 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
         Toast.makeText(context, "Ver foto", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onAddPhotoSelected() {
-        Toast.makeText(context, "Tomar foto", Toast.LENGTH_SHORT).show()
+    override fun onRemovePhoto(id: String) {
+        DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_pic_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
+            showProgressView()
+            adapter.removePhoto(id)
+            Handler().postDelayed({ hideProgressView() }, 1000)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == TAKE_PICTURE_CODE && resultCode == Activity.RESULT_OK) {
+            data?.let {
+                emptyList.visibility = View.GONE
+                val photo = it.getParcelableExtra(Constants.PHOTO_EXTRA) as Photo
+                adapter.addPhoto(photo)
+            }
+        }
     }
 }

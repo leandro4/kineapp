@@ -8,7 +8,7 @@ import android.util.Log
 
 class LockerAppCallback(private val app: Application): Application.ActivityLifecycleCallbacks {
 
-    private val MAX_TIME_SLEEP_LAP = 3 * 60 * 1000
+    private val MAX_TIME_SLEEP_LAP = 9 * 60 * 1000
 
     override fun onActivityPaused(activity: Activity?) {
         TimerSessionClient.registerPausedApp(app, getCurrentTimeMillis())

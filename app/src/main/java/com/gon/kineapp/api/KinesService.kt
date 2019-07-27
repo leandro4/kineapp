@@ -62,10 +62,10 @@ object KinesService {
     fun getSessionList(): Observable<SessionListResponse> {
 
         val photos = listOf(
-            Photo("https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "frente"),
-            Photo("https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "derecha"),
-            Photo("https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "dorso"),
-            Photo("https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "izquierda")
+            Photo("12322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "frente"),
+            Photo("22322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "derecha"),
+            Photo("52322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "dorso"),
+            Photo("72322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "izquierda")
         )
 
         val list = listOf(

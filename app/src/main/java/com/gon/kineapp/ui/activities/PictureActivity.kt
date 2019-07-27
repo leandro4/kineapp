@@ -1,40 +1,29 @@
 package com.gon.kineapp.ui.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.*
 import android.hardware.camera2.*
-import android.hardware.camera2.params.StreamConfigurationMap
 import android.media.Image
 import android.media.ImageReader
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
-import android.view.Display
 import android.view.Surface
 import android.view.TextureView
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import com.gon.kineapp.R
+import com.gon.kineapp.model.Photo
+import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.StateCameraCallback
 import com.gonanimationlib.animations.Animate
-import com.gonanimationlib.animations.CompZoom
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_picture.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.text.SimpleDateFormat
+import kotlinx.android.synthetic.main.save_cancel_picture.*
 import java.util.*
-import java.util.function.Consumer
 
 class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener {
 
@@ -45,6 +34,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     private var previewBuilder: CaptureRequest.Builder? = null
     private var previewSession: CameraCaptureSession? = null
     private var getPicture: ImageView? = null
+    private var bitmap: Bitmap? = null
 
     private val stateCallback = object : StateCameraCallback() {
         override fun onOpened(camera: CameraDevice) {
@@ -120,7 +110,13 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             preview.setImageBitmap(null)
         }
         btnAccept.setOnClickListener {
-            onBackPressed()
+
+            val photo = Photo("98092", "https://st2.depositphotos.com/1017986/6974/i/950/depositphotos_69742233-stock-photo-businessman-from-back.jpg", "https://st2.depositphotos.com/1017986/6974/i/950/depositphotos_69742233-stock-photo-businessman-from-back.jpg", "BACK")
+
+            val intent = Intent()
+            intent.putExtra(Constants.PHOTO_EXTRA, photo)
+            setResult(Activity.RESULT_OK, intent)
+            this@PictureActivity.finish()
         }
     }
 
@@ -205,7 +201,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
 
     @SuppressLint("CheckResult")
     private fun save(bytes: ByteArray) {
-        val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
         val mainHandler = Handler(this.mainLooper)
         val myRunnable = Runnable {
             preview.setImageBitmap(bitmap)
@@ -232,7 +228,14 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             val camerId = manager.cameraIdList[0]
             val characteristics = manager.getCameraCharacteristics(camerId)
             val map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-            previewsize = map!!.getOutputSizes(SurfaceTexture::class.java)[5]
+
+            map!!.getOutputSizes(SurfaceTexture::class.java).forEach {
+                if (it.width.toFloat()/it.height.toFloat() == 16.0f/9.0f) {
+                    previewsize = it
+                    return@forEach
+                }
+            }
+
             if (isPermissionGranted()) {
                 manager.openCamera(camerId, stateCallback, null)
             } else {
@@ -241,7 +244,6 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     override fun onPermissionGranted() {

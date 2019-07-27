@@ -8,14 +8,14 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingBottom="@dimen/xxxlarge_margin"
         android:clipToPadding="false">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tvObs"
@@ -52,11 +52,22 @@
                 android:layout_marginBottom="@dimen/medium_margin"
                 style="@style/TextViewStyleBold"/>
 
+            <TextView
+                android:id="@+id/emptyList"
+                android:visibility="gone"
+                android:layout_margin="@dimen/large_margin"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/empty_photos"
+                android:gravity="center"
+                style="@style/TextViewStyleLight"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvImages"
                 android:layout_margin="@dimen/xsmall_margin"
+                android:paddingBottom="@dimen/xxxlarge_margin"
+                android:clipToPadding="false"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 
@@ -76,9 +87,11 @@
         android:textColor="@color/colorPrimary"
         android:textSize="22sp"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/large_radius"
-        android:shadowColor="@color/black_hint"
-        android:shadowRadius="6"
+        android:background="@drawable/tongue_top_rounded_white"
+        android:paddingTop="@dimen/xsmall_margin"
+        android:paddingBottom="@dimen/large_margin"
+        android:paddingStart="@dimen/large_margin"
+        android:paddingEnd="@dimen/large_margin"
         style="@style/TextViewStyleBold"/>
 
     <include
