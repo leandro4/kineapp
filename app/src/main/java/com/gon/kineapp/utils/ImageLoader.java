@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
@@ -19,6 +20,7 @@ import com.gon.kineapp.GlideApp;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.GrayscaleTransformation;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +40,24 @@ public class ImageLoader {
         return GlideApp.with(fragment).load(url);
     }
 
+    private static RequestBuilder<Drawable> loadWithFragment(Fragment fragment, Uri url) {
+        return GlideApp.with(fragment).load(url);
+    }
+
     private static RequestBuilder<Drawable> loadWithActivity(Activity activity, String url) {
         return GlideApp.with(activity).load(url);
+    }
+
+    private static RequestBuilder<Drawable> loadWithActivity(Activity activity, Uri url) {
+        return GlideApp.with(activity).load(url);
+    }
+
+    public static ImageLoader load(Fragment fragment, Uri url) {
+        return new ImageLoader(loadWithFragment(fragment, url));
+    }
+
+    public static ImageLoader load(Activity activity, Uri url) {
+        return new ImageLoader(loadWithActivity(activity, url));
     }
 
     public static ImageLoader load(Fragment fragment, String url) {

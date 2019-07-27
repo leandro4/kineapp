@@ -59,9 +59,6 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
-    // Circular ImageView
-    implementation 'de.hdodenhof:circleimageview:3.0.0'
-
     // Animations
     implementation project(':gonanimationlib')
 

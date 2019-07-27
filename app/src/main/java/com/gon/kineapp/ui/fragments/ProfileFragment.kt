@@ -10,11 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.support.v4.app.ActivityCompat
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
+import com.gon.kineapp.utils.ImageLoader
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import kotlinx.android.synthetic.main.fragment_profile.*
+import java.net.URI
 import android.media.ExifInterface as ExifInterface1
 
 class ProfileFragment: BaseMvpFragment(), LoginView {
@@ -37,8 +41,11 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
     }
 
     private fun initUI() {
-        Glide.with(context!!).load(Uri.parse("https://www.elpopular.pe/sites/default/files/styles/img_620x465/public/imagen/2018/10/21/Noticia-218698-hombre-se-llevo-sorpresa-al-descubrir-que-su-perrito-era-un-animal-de-otra-especie.jpg?itok=3a9Eb3oL"))
-            .into(civAvatar)
+        val url = "https://www.elpopular.pe/sites/default/files/styles/img_620x465/public/imagen/2018/10/21/Noticia-218698-hombre-se-llevo-sorpresa-al-descubrir-que-su-perrito-era-un-animal-de-otra-especie.jpg?itok=3a9Eb3oL"
+        ImageLoader.load(this, url).circle().into(civAvatar)
+        nameTextView.text = getGoogleAccount()?.displayName
+        tvSurname.text = getGoogleAccount()?.familyName
+        emailTextView.text = getGoogleAccount()?.email
         this.setupClickListeners()
     }
 
@@ -70,14 +77,7 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
             startActivityForResult(intent, REQUEST_SELECT_IMAGE_IN_ALBUM)
         }
     }
-/*
-    private fun takePhoto() {
-        val intent1 = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (intent1.resolveActivity(this.activity!!.packageManager) != null) {
-            startActivityForResult(intent1, REQUEST_TAKE_PHOTO)
-        }
-    }
-*/
+
     override fun startPresenter() {
         presenter.attachMvpView(this)
     }
@@ -103,7 +103,7 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
 
         if(resultCode == RESULT_OK && requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
             val returnUri = data!!.getData()
-            Glide.with(this).load(returnUri).into(civAvatar)
+            ImageLoader.load(this, returnUri).circle().into(civAvatar)
         }
     }
 

@@ -11,6 +11,7 @@ import com.gon.kineapp.mvp.views.BaseView
 import com.gon.kineapp.ui.activities.SplashActivity
 import com.gonanimationlib.animations.Animate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 abstract class BaseMvpFragment: Fragment(), BaseView {
@@ -70,6 +71,10 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
 
     protected fun alreadySignedInUser(): Boolean {
         return GoogleSignIn.getLastSignedInAccount(context) != null
+    }
+
+    protected fun getGoogleAccount(): GoogleSignInAccount? {
+        return GoogleSignIn.getLastSignedInAccount(context)
     }
 
     open fun handleBackPressed(): Boolean {
