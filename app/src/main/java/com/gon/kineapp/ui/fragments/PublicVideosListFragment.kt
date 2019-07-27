@@ -1,5 +1,6 @@
 package com.gon.kineapp.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
@@ -10,7 +11,9 @@ import com.gon.kineapp.R
 import com.gon.kineapp.model.Video
 import com.gon.kineapp.mvp.presenters.PublicVideosListPresenter
 import com.gon.kineapp.mvp.views.PublicVideosListView
+import com.gon.kineapp.ui.activities.ViewVideoActivity
 import com.gon.kineapp.ui.adapters.PublicVideoAdapter
+import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.DialogUtil
 import kotlinx.android.synthetic.main.fragment_public_videos_list.*
 
@@ -43,15 +46,18 @@ class PublicVideosListFragment : BaseMvpFragment(), PublicVideosListView, Public
 
     override fun onVideoRemoved() {}
 
-    override fun onVideoSelected(Video: Video) {
-        Toast.makeText(context, "Ver video", Toast.LENGTH_SHORT).show()
+    override fun onVideoSelected(video: Video) {
+        val intent = Intent(activity, ViewVideoActivity::class.java)
+        intent.putExtra(Constants.VIDEO_EXTRA, video)
+        activity?.startActivity(intent)
     }
 
     override fun onRemoveVideo(id: String) {
         DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_warning_title), getString(R.string.remove_video_warning_subtitle)) {
             showProgressView()
-            adapter.removeVideo(id)
-            Handler().postDelayed({ hideProgressView() }, 1000)
+            Handler().postDelayed({
+                adapter.removeVideo(id)
+                hideProgressView() }, 1000)
         }
     }
 

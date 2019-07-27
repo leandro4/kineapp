@@ -10,6 +10,8 @@
         android:id="@+id/rvVideos"
         android:paddingTop="@dimen/large_margin"
         android:paddingBottom="@dimen/xxxlarge_margin"
+        android:paddingStart="@dimen/xsmall_margin"
+        android:paddingEnd="@dimen/xsmall_margin"
         android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

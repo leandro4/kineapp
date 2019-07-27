@@ -39,5 +39,6 @@
     <string name="profile_title">Perfil</string>
     <string name="public_videos_title">Videos Públicos</string>
     <string name="remove_video_warning_subtitle">¿Desea borrar este video?</string>
+    <string name="public_video_view_title">Video Público</string>
 
 </resources>

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.adapter_public_video.view.*
 class PublicVideoAdapter(private val videos: MutableList<Video>, private val callback: VideoListener): RecyclerView.Adapter<PublicVideoAdapter.VideoViewHolder>() {
 
     interface VideoListener {
-        fun onVideoSelected(Video: Video)
+        fun onVideoSelected(video: Video)
         fun onRemoveVideo(id: String)
     }
 
