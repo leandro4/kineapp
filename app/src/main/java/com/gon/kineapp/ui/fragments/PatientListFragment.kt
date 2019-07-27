@@ -13,6 +13,7 @@ import com.gon.kineapp.mvp.presenters.PatientListPresenter
 import com.gon.kineapp.mvp.views.PatientListView
 import com.gon.kineapp.ui.activities.PatientDetailActivity
 import com.gon.kineapp.ui.activities.ProfileActivity
+import com.gon.kineapp.ui.activities.PublicVideosActivity
 import com.gon.kineapp.ui.adapters.PatientAdapter
 import com.gon.kineapp.utils.Constants
 
@@ -52,7 +53,7 @@ class PatientListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.P
 
         when (item?.itemId) {
             R.id.videos -> {
-                Toast.makeText(context, "crear video", Toast.LENGTH_SHORT).show()
+                activity?.startActivity(Intent(context, PublicVideosActivity::class.java))
                 return true
             }
             R.id.profile -> {

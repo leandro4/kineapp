@@ -121,7 +121,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
     }
 
     override fun onRemovePhoto(id: String) {
-        DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_pic_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
+        DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
             showProgressView()
             adapter.removePhoto(id)
             Handler().postDelayed({ hideProgressView() }, 1000)

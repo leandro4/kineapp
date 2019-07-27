@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvVideos"
+        android:paddingTop="@dimen/large_margin"
+        android:paddingBottom="@dimen/xxxlarge_margin"
+        android:clipToPadding="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_add"
+        android:layout_margin="@dimen/large_margin"/>
+
+    <include
+        android:id="@+id/viewLoading"
+        android:visibility="gone"
+        layout="@layout/view_loading" />
+
+</FrameLayout>

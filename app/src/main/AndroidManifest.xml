@@ -19,10 +19,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-      <activity
-                android:name=".ui.activities.ProfileActivity"
-                android:screenOrientation="portrait"/>
-      <activity
+        <activity
+            android:name=".ui.activities.PublicVideosActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.activities.PictureActivity"
             android:screenOrientation="portrait"/>
         <activity
