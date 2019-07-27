@@ -36,5 +36,6 @@
     <string name="remove_pic_warning_title">¡Cuidado!</string>
     <string name="remove_pic_warning_subtitle">¿Desea borrar esta foto?</string>
     <string name="empty_photos">Para agregar fotos presione el botón flotante de la esquina inferior derecha</string>
+    <string name="profile_title">Perfil</string>
 
 </resources>

@@ -46,6 +46,9 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
         this.civAvatar.setOnClickListener {
             this.selectNewPhoto()
         }
+        btnLogout.setOnClickListener {
+            logOut()
+        }
     }
 
     private fun selectNewPhoto() {

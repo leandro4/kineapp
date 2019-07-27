@@ -29,4 +29,7 @@ class LoginActivity: BaseActivity() {
         frag.onActivityResult(requestCode, resultCode, data)
     }
 
+    override fun enabledBackButton(): Boolean {
+        return false
+    }
 }
