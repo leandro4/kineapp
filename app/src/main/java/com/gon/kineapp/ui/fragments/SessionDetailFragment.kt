@@ -11,19 +11,23 @@ import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
+import com.gon.kineapp.mvp.presenters.SessionDetailPresenter
+import com.gon.kineapp.mvp.views.SessionDetailView
 import com.gon.kineapp.ui.activities.BaseActivity
 import com.gon.kineapp.ui.activities.PictureActivity
+import com.gon.kineapp.ui.activities.ViewPhotoActivity
 import com.gon.kineapp.ui.adapters.PhotoAdapter
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.DialogUtil
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.fragment_session_detail.*
 
-class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
+class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, SessionDetailView {
 
     private lateinit var session: Session
     private var edited = false
     private lateinit var adapter: PhotoAdapter
+    private var presenter = SessionDetailPresenter()
 
     companion object {
         fun newInstance(session: Session): SessionDetailFragment {
@@ -35,6 +39,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
         private const val COLUMNS = 4
 
         const val TAKE_PICTURE_CODE = 1000
+        const val VIEW_PICTURE_CODE = 1001
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -94,13 +99,12 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
 
         when (item?.itemId) {
             R.id.save -> {
-                Utils.hideKeyboardFrom(etDescription)
-                showProgressView()
-                Handler().postDelayed({
-                    edited = false
-                    hideProgressView()
+                if (edited) {
+                    Utils.hideKeyboardFrom(etDescription)
+                    presenter.saveSession(session.apply { description = etDescription.text.toString() })
+                } else {
                     activity?.onBackPressed()
-                }, 1000)
+                }
                 return true
             }
         }
@@ -109,28 +113,51 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
     }
 
     override fun startPresenter() {
+        presenter.attachMvpView(this)
+    }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.detachMvpView()
     }
 
     override fun onPhotoSelected(photo: Photo) {
-        Toast.makeText(context, "Ver foto", Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, ViewPhotoActivity::class.java)
+        intent.putExtra(Constants.PHOTO_EXTRA, photo)
+        activity?.startActivityForResult(intent, VIEW_PICTURE_CODE)
     }
 
     override fun onRemovePhoto(id: String) {
         DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
-            showProgressView()
-            Handler().postDelayed( {
-                adapter.removePhoto(id)
-                hideProgressView() }, 1000)
+            presenter.deletePhoto(id)
         }
+    }
+
+    override fun onPhotoDeleted(id: String) {
+        adapter.removePhoto(id)
+        checkEmptyList()
+    }
+
+    override fun onSessionSaved() {
+        edited = false
+        activity?.onBackPressed()
+    }
+
+    private fun checkEmptyList() {
+        emptyList.visibility = if (session.photos.isEmpty()) View.VISIBLE else View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == TAKE_PICTURE_CODE && resultCode == Activity.RESULT_OK) {
             data?.let {
-                emptyList.visibility = View.GONE
+                checkEmptyList()
                 val photo = it.getParcelableExtra(Constants.PHOTO_EXTRA) as Photo
                 adapter.addPhoto(photo)
+            }
+        }
+        else if (requestCode == VIEW_PICTURE_CODE && resultCode == Constants.REMOVE_PHOTO) {
+            data?.let {
+                presenter.deletePhoto(it.getParcelableExtra<Photo>(Constants.PHOTO_EXTRA).id)
             }
         }
     }

@@ -32,7 +32,7 @@ class ViewVideoActivity: AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        video = intent?.getParcelableExtra(Constants.VIDEO_EXTRA) as Video
+        video = intent?.getParcelableExtra(Constants.VIDEO_EXTRA)
         video?.let {
             val uri = Uri.parse(it.videoUrl)
             vvPlayer.setVideoURI(uri)

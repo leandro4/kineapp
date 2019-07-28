@@ -9,4 +9,6 @@ object Constants {
     const val PHOTO_EXTRA = "PHOTO_EXTRA"
     const val VIDEO_EXTRA = "VIDEO_EXTRA"
 
+    const val REMOVE_PHOTO = 5000
+
 }

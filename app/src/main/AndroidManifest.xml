@@ -20,6 +20,9 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
+            android:name=".ui.activities.ViewPhotoActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.activities.ViewVideoActivity"
             android:screenOrientation="portrait"/>
         <activity
