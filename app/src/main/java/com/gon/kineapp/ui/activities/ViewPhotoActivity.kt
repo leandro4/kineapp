@@ -3,19 +3,15 @@ package com.gon.kineapp.ui.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import com.gon.kineapp.R
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.utils.DialogUtil
 import com.gon.kineapp.utils.ImageLoader
-import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.activity_view_photo.*
-import kotlinx.android.synthetic.main.fragment_session_detail.*
 
 class ViewPhotoActivity: AppCompatActivity() {
 
@@ -64,7 +60,7 @@ class ViewPhotoActivity: AppCompatActivity() {
         DialogUtil.showOptionsAlertDialog(this, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
             val intent = Intent()
             intent.putExtra(Constants.PHOTO_EXTRA, photo)
-            setResult(Constants.REMOVE_PHOTO, intent)
+            setResult(Constants.REMOVED_PHOTO_CODE, intent)
             onBackPressed()
         }
     }

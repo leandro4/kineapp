@@ -28,6 +28,13 @@ class SessionAdapter(private val sessions: MutableList<Session>, private val cal
         holder.bind(sessions[pos], callback)
     }
 
+    fun updateSession(session: Session) {
+        val index = sessions.indexOfFirst { it.id == session.id }
+        sessions.removeAt(index)
+        sessions.add(index, session)
+        notifyItemChanged(index)
+    }
+
     class SessionViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(session: Session, callback: SessionListener) {

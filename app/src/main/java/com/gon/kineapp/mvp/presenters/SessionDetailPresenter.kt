@@ -10,7 +10,8 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
         mvpView?.showProgressView()
         Handler().postDelayed( {
             mvpView?.onPhotoDeleted(id)
-            mvpView?.hideProgressView() }, 1000)
+            mvpView?.hideProgressView()
+        }, 1000)
     }
 
     fun saveSession(session: Session) {

@@ -9,6 +9,8 @@ object Constants {
     const val PHOTO_EXTRA = "PHOTO_EXTRA"
     const val VIDEO_EXTRA = "VIDEO_EXTRA"
 
-    const val REMOVE_PHOTO = 5000
+    const val REMOVED_PHOTO_CODE = 5000
+    const val EDITED_SESSION_CODE = 5001
+    const val EDITED_VIDEOS_CODE = 5002
 
 }

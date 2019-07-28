@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.Session
+import com.gon.kineapp.model.Video
 import com.gon.kineapp.mvp.presenters.SessionListPresenter
 import com.gon.kineapp.mvp.views.SessionListView
 import com.gon.kineapp.ui.activities.BaseActivity
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_patient_detail.*
 class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
 
     private lateinit var patient: Patient
+    private lateinit var adapter: SessionAdapter
     private val presenter = SessionListPresenter()
 
     companion object {
@@ -28,6 +30,9 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
             frag.patient = patient
             return frag
         }
+
+        const val VIEW_SESSION = 2001
+        const val VIEW_VIDEOS = 2002
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -62,7 +67,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
             R.id.videos -> {
                 val intent = Intent(context, PrivateVideosActivity::class.java)
                 intent.putExtra(Constants.PATIENT_EXTRA, patient)
-                activity?.startActivity(intent)
+                activity?.startActivityForResult(intent, VIEW_VIDEOS)
                 return true
             }
             R.id.motion_video -> {
@@ -77,7 +82,8 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     private fun initList(sessions: MutableList<Session>) {
         rvSessions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvSessions.setHasFixedSize(true)
-        rvSessions.adapter = SessionAdapter(sessions, this)
+        adapter = SessionAdapter(sessions, this)
+        rvSessions.adapter = adapter
     }
 
     override fun onSessionsReceived(sessions: MutableList<Session>) {
@@ -88,7 +94,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         val intent = Intent(activity, SessionDetailActivity::class.java)
         intent.putExtra(Constants.SESSION_EXTRA, session)
         intent.putExtra(Constants.NAME_EXTRA, patient.name)
-        activity?.startActivity(intent)
+        activity?.startActivityForResult(intent, VIEW_SESSION)
     }
 
     override fun startPresenter() {
@@ -99,5 +105,22 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     override fun onDestroy() {
         presenter.detachMvpView()
         super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == VIEW_SESSION && resultCode == Constants.EDITED_SESSION_CODE) {
+            data?.let {
+                val session = it.getParcelableExtra<Session>(Constants.SESSION_EXTRA)
+                adapter.updateSession(session)
+            }
+        }
+        else if (requestCode == VIEW_VIDEOS && resultCode == Constants.EDITED_VIDEOS_CODE) {
+            data?.let {
+                val videos = it.getParcelableArrayListExtra<Video>(Constants.VIDEO_EXTRA)
+                patient.videos = videos
+            }
+        }
     }
 }

@@ -3,17 +3,13 @@ package com.gon.kineapp.ui.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.*
-import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.mvp.presenters.SessionDetailPresenter
 import com.gon.kineapp.mvp.views.SessionDetailView
-import com.gon.kineapp.ui.activities.BaseActivity
 import com.gon.kineapp.ui.activities.PictureActivity
 import com.gon.kineapp.ui.activities.ViewPhotoActivity
 import com.gon.kineapp.ui.adapters.PhotoAdapter
@@ -134,11 +130,13 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     }
 
     override fun onPhotoDeleted(id: String) {
+        setSessionResultIntent()
         adapter.removePhoto(id)
         checkEmptyList()
     }
 
     override fun onSessionSaved() {
+        setSessionResultIntent()
         edited = false
         activity?.onBackPressed()
     }
@@ -147,15 +145,22 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
         emptyList.visibility = if (session.photos.isEmpty()) View.VISIBLE else View.GONE
     }
 
+    private fun setSessionResultIntent() {
+        val intent = Intent()
+        intent.putExtra(Constants.SESSION_EXTRA, session)
+        activity?.setResult(Constants.EDITED_SESSION_CODE, intent)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == TAKE_PICTURE_CODE && resultCode == Activity.RESULT_OK) {
             data?.let {
                 checkEmptyList()
                 val photo = it.getParcelableExtra(Constants.PHOTO_EXTRA) as Photo
                 adapter.addPhoto(photo)
+                setSessionResultIntent()
             }
         }
-        else if (requestCode == VIEW_PICTURE_CODE && resultCode == Constants.REMOVE_PHOTO) {
+        else if (requestCode == VIEW_PICTURE_CODE && resultCode == Constants.REMOVED_PHOTO_CODE) {
             data?.let {
                 presenter.deletePhoto(it.getParcelableExtra<Photo>(Constants.PHOTO_EXTRA).id)
             }
