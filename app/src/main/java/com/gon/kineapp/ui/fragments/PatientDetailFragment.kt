@@ -51,9 +51,13 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         (activity as BaseActivity).setToolbarTitle(String.format(getString(R.string.patient_sessions_title), patient.name))
 
         fabAddSession.setOnClickListener {
-            Toast.makeText(context, "agregrar sesión", Toast.LENGTH_SHORT).show()
+            createNewSession()
         }
 
+    }
+
+    private fun createNewSession() {
+        presenter.createSession(patient.id)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -71,7 +75,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
                 return true
             }
             R.id.motion_video -> {
-                Toast.makeText(context, "perfil", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "timeLine", Toast.LENGTH_SHORT).show()
                 return true
             }
         }
@@ -88,6 +92,11 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
     override fun onSessionsReceived(sessions: MutableList<Session>) {
         initList(sessions)
+    }
+
+    override fun onSessionCreated(session: Session) {
+        adapter.addSession(session)
+        onSessionSelected(session)
     }
 
     override fun onSessionSelected(session: Session) {

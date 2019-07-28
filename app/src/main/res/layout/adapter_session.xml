@@ -20,8 +20,9 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:layout_toStartOf="@+id/ivArrow"
-            tools:text="Juanito trabajó la espalda por un mal dolor que le afecta feo"
+            tools:text="Juanito "
             android:textColor="@color/colorPrimary"
+            android:layout_alignParentStart="true"
             style="@style/TextViewStyleRegular"/>
 
         <TextView

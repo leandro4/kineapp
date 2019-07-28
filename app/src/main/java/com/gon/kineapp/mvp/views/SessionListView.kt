@@ -5,5 +5,6 @@ import com.gon.kineapp.model.Session
 interface SessionListView: BaseView {
 
     fun onSessionsReceived(sessions: MutableList<Session>)
+    fun onSessionCreated(session: Session)
 
 }

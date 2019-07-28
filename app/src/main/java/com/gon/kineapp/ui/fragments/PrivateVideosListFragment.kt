@@ -50,8 +50,8 @@ class PrivateVideosListFragment : BaseVideosListFragment(), PrivateVideosView {
     }
 
     override fun onVideoRemoved(id: String) {
-        setVideosResultIntent()
         onRemovedVideo(id)
+        setVideosResultIntent() // after removed from adapter!
     }
 
     override fun onVideoUploaded(video: Video) {

@@ -35,6 +35,11 @@ class SessionAdapter(private val sessions: MutableList<Session>, private val cal
         notifyItemChanged(index)
     }
 
+    fun addSession(session: Session) {
+        sessions.add(0, session)
+        notifyItemInserted(0)
+    }
+
     class SessionViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(session: Session, callback: SessionListener) {
