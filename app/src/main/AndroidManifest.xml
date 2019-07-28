@@ -23,6 +23,9 @@
             android:name=".ui.activities.ViewVideoActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ui.activities.PrivateVideosActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.activities.PublicVideosActivity"
             android:screenOrientation="portrait"/>
         <activity

@@ -1,5 +1,6 @@
 package com.gon.kineapp.mvp.presenters
 
+import android.os.Handler
 import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
 import com.gon.kineapp.model.responses.PatientListResponse
@@ -39,5 +40,16 @@ class PublicVideosListPresenter: BasePresenter<PublicVideosListView>() {
                     mvpView?.onPublicVideosReceived(t.publicVideos)
                 }
             }))
+    }
+
+    fun removeVideo(id: String) {
+
+        mvpView?.showProgressView()
+
+        Handler().postDelayed(
+            {
+                mvpView?.hideProgressView()
+                mvpView?.onVideoRemoved(id)
+            }, 1000)
     }
 }

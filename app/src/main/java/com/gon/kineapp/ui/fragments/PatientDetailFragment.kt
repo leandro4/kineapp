@@ -11,6 +11,7 @@ import com.gon.kineapp.model.Session
 import com.gon.kineapp.mvp.presenters.SessionListPresenter
 import com.gon.kineapp.mvp.views.SessionListView
 import com.gon.kineapp.ui.activities.BaseActivity
+import com.gon.kineapp.ui.activities.PrivateVideosActivity
 import com.gon.kineapp.ui.activities.SessionDetailActivity
 import com.gon.kineapp.ui.adapters.SessionAdapter
 import com.gon.kineapp.utils.Constants
@@ -59,7 +60,9 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
         when (item?.itemId) {
             R.id.videos -> {
-                Toast.makeText(context, "videos", Toast.LENGTH_SHORT).show()
+                val intent = Intent(context, PrivateVideosActivity::class.java)
+                intent.putExtra(Constants.PATIENT_EXTRA, patient)
+                activity?.startActivity(intent)
                 return true
             }
             R.id.motion_video -> {
@@ -83,7 +86,8 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
     override fun onSessionSelected(session: Session) {
         val intent = Intent(activity, SessionDetailActivity::class.java)
-        intent.putExtra(Constants.SESSION_EXTRA, session.apply { patientName = patient.name })
+        intent.putExtra(Constants.SESSION_EXTRA, session)
+        intent.putExtra(Constants.NAME_EXTRA, patient.name)
         activity?.startActivity(intent)
     }
 
@@ -95,9 +99,5 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     override fun onDestroy() {
         presenter.detachMvpView()
         super.onDestroy()
-    }
-
-    override fun onErrorCode(message: String) {
-
     }
 }

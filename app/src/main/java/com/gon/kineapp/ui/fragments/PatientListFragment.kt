@@ -75,10 +75,6 @@ class PatientListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.P
         super.onDestroy()
     }
 
-    override fun onErrorCode(message: String) {
-
-    }
-
     override fun onPatientsReceived(patients: MutableList<Patient>) {
         initList(patients)
     }

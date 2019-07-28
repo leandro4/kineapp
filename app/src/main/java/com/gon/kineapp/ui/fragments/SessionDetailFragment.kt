@@ -49,8 +49,6 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
     }
 
     private fun initUI() {
-        (activity as BaseActivity).setToolbarTitle(session.patientName)
-
         tvDate.text = session.date
         etDescription.setText(session.description)
         rvImages.layoutManager = GridLayoutManager(context, COLUMNS, GridLayoutManager.VERTICAL, false)
@@ -113,8 +111,6 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener {
     override fun startPresenter() {
 
     }
-
-    override fun onErrorCode(message: String) {}
 
     override fun onPhotoSelected(photo: Photo) {
         Toast.makeText(context, "Ver foto", Toast.LENGTH_SHORT).show()

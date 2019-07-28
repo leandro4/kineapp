@@ -6,6 +6,6 @@ interface PublicVideosListView: BaseView {
 
     fun onPublicVideosReceived(videos: MutableList<Video>)
 
-    fun onVideoRemoved()
+    fun onVideoRemoved(id: String)
 
 }

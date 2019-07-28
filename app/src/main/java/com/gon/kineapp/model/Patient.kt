@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 class Patient(
     var age: String,
     var gender: String,
+    var videos: MutableList<Video>,
     override var id: String,
     override var name: String,
     override var surname: String,

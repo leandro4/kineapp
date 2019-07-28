@@ -14,7 +14,7 @@ class PublicVideoAdapter(private val videos: MutableList<Video>, private val cal
 
     interface VideoListener {
         fun onVideoSelected(video: Video)
-        fun onRemoveVideo(id: String)
+        fun onRemoveVideoSelected(id: String)
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): VideoViewHolder {
@@ -45,7 +45,7 @@ class PublicVideoAdapter(private val videos: MutableList<Video>, private val cal
         fun bind(video: Video, callback: VideoListener) {
             Glide.with(viewItem).load(Uri.parse(video.thumbUrl)).into(viewItem.ivVideo)
             viewItem.ivVideo.setOnClickListener { callback.onVideoSelected(video) }
-            viewItem.ivRemove.setOnClickListener { callback.onRemoveVideo(video.id) }
+            viewItem.ivRemove.setOnClickListener { callback.onRemoveVideoSelected(video.id) }
             viewItem.tvTitle.text = video.title
         }
     }

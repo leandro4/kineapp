@@ -148,10 +148,6 @@ class LoginFragment: BaseMvpFragment(), LoginView {
         presenter.attachMvpView(this)
     }
 
-    override fun onErrorCode(message: String) {
-        showErrorMessage(getString(R.string.generic_error_message))
-    }
-
     override fun onDestroy() {
         presenter.detachMvpView()
         super.onDestroy()

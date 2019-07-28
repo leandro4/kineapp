@@ -90,4 +90,9 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
                 activity?.finish()
             }
     }
+
+    override fun onErrorCode(message: String) {
+        showErrorMessage(getString(R.string.http_error_message))
+    }
+
 }

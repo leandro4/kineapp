@@ -11,6 +11,7 @@ class SessionDetailActivity : BaseActivity() {
     private lateinit var fragment: SessionDetailFragment
 
     override fun getFragment(): BaseMvpFragment {
+        setToolbarTitle(intent?.getStringExtra(Constants.NAME_EXTRA) ?: "")
         val session = intent?.getParcelableExtra<Session>(Constants.SESSION_EXTRA)
         fragment = SessionDetailFragment.newInstance(session!!)
         return fragment
