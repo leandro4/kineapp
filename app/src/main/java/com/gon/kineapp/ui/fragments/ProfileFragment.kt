@@ -23,9 +23,9 @@ import android.media.ExifInterface as ExifInterface1
 
 class ProfileFragment: BaseMvpFragment(), LoginView {
     companion object {
-        private val REQUEST_TAKE_PHOTO = 0
-        private val REQUEST_SELECT_IMAGE_IN_ALBUM = 1000
-        private val REQUEST_GALLERY_PERMISSION = 1010
+        private const val REQUEST_TAKE_PHOTO = 0
+        private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 1000
+        private const val REQUEST_GALLERY_PERMISSION = 1010
     }
 
     var presenter = LoginPresenter()
@@ -41,8 +41,7 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
     }
 
     private fun initUI() {
-        val url = "https://www.elpopular.pe/sites/default/files/styles/img_620x465/public/imagen/2018/10/21/Noticia-218698-hombre-se-llevo-sorpresa-al-descubrir-que-su-perrito-era-un-animal-de-otra-especie.jpg?itok=3a9Eb3oL"
-        ImageLoader.load(this, url).circle().into(civAvatar)
+        ImageLoader.load(this, getGoogleAccount()?.photoUrl).circle().into(civAvatar)
         nameTextView.text = getGoogleAccount()?.displayName
         tvSurname.text = getGoogleAccount()?.familyName
         emailTextView.text = getGoogleAccount()?.email
@@ -98,7 +97,7 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(resultCode == RESULT_OK && requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
-            val returnUri = data!!.getData()
+            val returnUri = data!!.data
             ImageLoader.load(this, returnUri).circle().into(civAvatar)
         }
     }

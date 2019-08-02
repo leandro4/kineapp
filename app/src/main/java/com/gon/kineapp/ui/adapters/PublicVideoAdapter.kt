@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.adapter_public_video.view.*
 
 class PublicVideoAdapter(private val videos: MutableList<Video>, private val callback: VideoListener): RecyclerView.Adapter<PublicVideoAdapter.VideoViewHolder>() {
 
+    var removableVideos = true
+
     interface VideoListener {
         fun onVideoSelected(video: Video)
         fun onRemoveVideoSelected(id: String)
@@ -27,6 +29,9 @@ class PublicVideoAdapter(private val videos: MutableList<Video>, private val cal
 
     override fun onBindViewHolder(holder: VideoViewHolder, pos: Int) {
         holder.bind(videos[pos], callback)
+        if (!removableVideos) {
+            holder.setNotRemovableVideo()
+        }
     }
 
     fun addVideo(video: Video) {
@@ -47,6 +52,10 @@ class PublicVideoAdapter(private val videos: MutableList<Video>, private val cal
             viewItem.ivVideo.setOnClickListener { callback.onVideoSelected(video) }
             viewItem.ivRemove.setOnClickListener { callback.onRemoveVideoSelected(video.id) }
             viewItem.tvTitle.text = video.title
+        }
+
+        fun setNotRemovableVideo() {
+            viewItem.ivRemove.visibility = View.GONE
         }
     }
 }

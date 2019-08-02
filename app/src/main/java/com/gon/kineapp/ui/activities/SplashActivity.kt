@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import com.gon.kineapp.R
-import com.gon.kineapp.utils.LockerAppCallback
 
 class SplashActivity : LockableActivity() {
 
@@ -31,7 +30,7 @@ class SplashActivity : LockableActivity() {
     }
 
     private fun goToHome() {
-        startActivity(Intent(this, PatientListActivity::class.java))
+        startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }
 

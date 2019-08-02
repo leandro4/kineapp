@@ -38,7 +38,7 @@
             android:name=".ui.activities.PictureActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activities.PatientListActivity"
+            android:name=".ui.activities.DashboardActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activities.PatientDetailActivity"

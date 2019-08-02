@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.gon.kineapp.R
+import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
-import com.gon.kineapp.ui.activities.PatientListActivity
+import com.gon.kineapp.ui.activities.DashboardActivity
 import com.gon.kineapp.ui.fragments.dialogs.RolSelectionFragment
+import com.gon.kineapp.utils.MyUser
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -35,7 +37,6 @@ class LoginFragment: BaseMvpFragment(), LoginView {
         super.onViewCreated(view, savedInstanceState)
         startPresenter()
         initUI()
-        showRolDialog()
     }
 
     private fun showRolDialog() {
@@ -55,18 +56,22 @@ class LoginFragment: BaseMvpFragment(), LoginView {
 
     private fun initUI() {
         fabLogin.setOnClickListener {
-            if (checkPlayServices() && validateFields()) {
-                val signInIntent = googleSignInClient?.signInIntent
-                activity?.startActivityForResult(signInIntent, RC_SIGN_IN)
-            }
+            MyUser.setMyUser(context!!, User("987127", "Leandro", "Gon Aguirre", "11567255", "pepe@gmail.com", "67433", "medic"))
+            goToHome()
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.google_client_id))
             .requestEmail()
+            .requestProfile()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+
+        if (checkPlayServices()) {
+            val signInIntent = googleSignInClient?.signInIntent
+            activity?.startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
     }
 
     private fun validateFields(): Boolean {
@@ -125,8 +130,6 @@ class LoginFragment: BaseMvpFragment(), LoginView {
             try {
                 val account = task.getResult(ApiException::class.java)
 
-                Toast.makeText(context, account?.displayName, Toast.LENGTH_SHORT).show()
-
                 //presenter.requestLogin()
                 onLoginSuccess()
 
@@ -140,7 +143,7 @@ class LoginFragment: BaseMvpFragment(), LoginView {
     }
 
     private fun goToHome() {
-        activity?.startActivity(Intent(activity, PatientListActivity::class.java))
+        activity?.startActivity(Intent(activity, DashboardActivity::class.java))
         activity?.finish()
     }
 
@@ -154,7 +157,8 @@ class LoginFragment: BaseMvpFragment(), LoginView {
     }
 
     override fun onLoginSuccess() {
-        goToHome()
+        //goToHome()
+        showRolDialog()
     }
 
     override fun onLoginFailure() {

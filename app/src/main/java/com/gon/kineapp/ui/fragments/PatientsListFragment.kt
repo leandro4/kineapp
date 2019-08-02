@@ -17,7 +17,7 @@ import com.gon.kineapp.ui.activities.PublicVideosActivity
 import com.gon.kineapp.ui.adapters.PatientAdapter
 import com.gon.kineapp.utils.Constants
 
-class PatientListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.PatientListener {
+class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.PatientListener {
 
     private val presenter = PatientListPresenter()
 

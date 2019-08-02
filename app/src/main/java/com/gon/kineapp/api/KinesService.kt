@@ -55,12 +55,12 @@ object KinesService {
         )
 
         val list = listOf(
-            Patient("14", "female", videos.toMutableList(), "198281", "Gabriela", "Michoti", "1188776512", "gaby@gmail.com", "22678099")
-            ,Patient("14", "female", videos.toMutableList(), "198281", "Sergio", "Massa", "1188776512", "gaby@gmail.com", "20723993")
-            ,Patient("14", "female", videos.toMutableList(), "198281", "Elisa", "Carrió", "1188776512", "gaby@gmail.com", "16092776")
-            ,Patient("14", "female", videos.toMutableList(), "198281", "Cristina", "Fernande", "1188776512", "gaby@gmail.com", "12098278")
-            ,Patient("14", "female", videos.toMutableList(), "198281", "Nestor", "Quirchner", "1188776512", "gaby@gmail.com", "19098277"),
-            Patient("14", "female", videos.toMutableList(), "198281", "Mauricio", "Macrisis", "1188776512", "gaby@gmail.com", "19443665")
+            Patient("14", "female", videos.toMutableList(), "198281", "Gabriela", "Michoti", "1188776512", "gaby@gmail.com", "22678099", "patient")
+            ,Patient("14", "female", videos.toMutableList(), "198281", "Sergio", "Massa", "1188776512", "gaby@gmail.com", "20723993", "patient")
+            ,Patient("14", "female", videos.toMutableList(), "198281", "Elisa", "Carrió", "1188776512", "gaby@gmail.com", "16092776", "patient")
+            ,Patient("14", "female", videos.toMutableList(), "198281", "Cristina", "Fernande", "1188776512", "gaby@gmail.com", "12098278", "patient")
+            ,Patient("14", "female", videos.toMutableList(), "198281", "Nestor", "Quirchner", "1188776512", "gaby@gmail.com", "19098277", "patient"),
+            Patient("14", "female", videos.toMutableList(), "198281", "Mauricio", "Macrisis", "1188776512", "gaby@gmail.com", "19443665", "patient")
         )
 
         val response = PatientListResponse(list.toMutableList())

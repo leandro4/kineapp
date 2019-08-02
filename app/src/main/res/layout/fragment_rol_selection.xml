@@ -22,7 +22,7 @@
                     android:layout_gravity="center_horizontal"
                     android:textColor="@color/black_title"
                     android:text="@string/rol_selection_title"
-                    style="@style/TextViewStyleBold"/>
+                    style="@style/TextViewStyleLight"/>
 
             <LinearLayout
                     android:layout_marginTop="@dimen/xlarge_margin"
@@ -35,18 +35,18 @@
                 <TextView
                         android:id="@+id/tvProfessional"
                         android:text="@string/professional"
-                        android:textColor="@color/white"
+                        android:textColor="@drawable/btn_state_text_color_blue"
+                        android:background="@drawable/btn_state_blue"
                         android:gravity="center"
-                        android:background="@drawable/btn_blue_rounded_bg"
                         android:padding="@dimen/large_margin"
                         style="@style/TextViewStyleRegular"/>
 
                 <TextView
                         android:id="@+id/tvPatient"
                         android:text="@string/patient"
-                        android:textColor="@color/white"
+                        android:textColor="@drawable/btn_state_text_color_blue"
+                        android:background="@drawable/btn_state_blue"
                         android:layout_marginStart="@dimen/xlarge_margin"
-                        android:background="@drawable/btn_pink_rounded_bg"
                         android:gravity="center"
                         android:minWidth="115dp"
                         android:padding="@dimen/large_margin"

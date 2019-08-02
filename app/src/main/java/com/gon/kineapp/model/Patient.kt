@@ -13,4 +13,5 @@ class Patient(
     override var surname: String,
     override var phone: String,
     override var mail: String,
-    override var number: String): User(id, name, surname, phone, mail, number), Parcelable
+    override var number: String,
+    override var type: String): User(id, name, surname, phone, mail, number, type), Parcelable

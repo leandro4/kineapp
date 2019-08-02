@@ -27,6 +27,7 @@ abstract class BaseVideosListFragment: BaseMvpFragment(), PublicVideoAdapter.Vid
         rvVideos.layoutManager = GridLayoutManager(context, 2)
         rvVideos.setHasFixedSize(true)
         adapter = PublicVideoAdapter(videos, this)
+        adapter.removableVideos = removableVideos()
         rvVideos.adapter = adapter
     }
 
@@ -42,6 +43,10 @@ abstract class BaseVideosListFragment: BaseMvpFragment(), PublicVideoAdapter.Vid
 
     protected fun onRemovedVideo(id: String) {
         adapter.removeVideo(id)
+    }
+
+    protected open fun removableVideos(): Boolean {
+        return true
     }
 
     protected abstract fun removeVideo(id: String)

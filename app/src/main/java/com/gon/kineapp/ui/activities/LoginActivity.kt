@@ -16,6 +16,10 @@ class LoginActivity: BaseActivity() {
         setToolbarTitle(getString(R.string.login_title))
     }
 
+    override fun isLockable(): Boolean {
+        return false
+    }
+
     override fun canNavigateToSignIn(): Boolean {
         return false
     }
