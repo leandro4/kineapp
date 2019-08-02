@@ -24,6 +24,8 @@ import com.gon.kineapp.utils.StateCameraCallback
 import com.gonanimationlib.animations.Animate
 import kotlinx.android.synthetic.main.save_cancel_picture.*
 import java.util.*
+import android.R.attr.rotation
+import android.graphics.Bitmap
 
 class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener {
 
@@ -126,12 +128,11 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             try {
                 val characteristics = manager.getCameraCharacteristics(cameraDevice!!.id)
                 if (characteristics != null) {
-                    jpegSizes =
-                        characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(ImageFormat.JPEG)
+                    jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(ImageFormat.JPEG)
                 }
                 var width = 640
                 var height = 480
-                if (jpegSizes != null && jpegSizes!!.size > 0) {
+                if (jpegSizes != null && jpegSizes!!.isNotEmpty()) {
                     width = jpegSizes!![0].width
                     height = jpegSizes!![0].height
                 }
@@ -143,7 +144,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
                 capturebuilder.addTarget(reader.surface)
                 capturebuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
                 val rotation = windowManager.defaultDisplay.rotation
-                capturebuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation))
+                capturebuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(1))
                 val handlerThread = HandlerThread("takepicture")
                 handlerThread.start()
                 val handler = Handler(handlerThread.looper)
@@ -181,7 +182,6 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
         }
     }
 
@@ -202,6 +202,14 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     @SuppressLint("CheckResult")
     private fun save(bytes: ByteArray) {
         bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+        val matrix = Matrix()
+        matrix.preRotate(90f)
+
+        if (bitmap!!.width > bitmap!!.height) {
+            bitmap = Bitmap.createBitmap(bitmap!!, 0, 0, bitmap!!.width, bitmap!!.height, matrix, true)
+        }
+
         val mainHandler = Handler(this.mainLooper)
         val myRunnable = Runnable {
             preview.setImageBitmap(bitmap)
