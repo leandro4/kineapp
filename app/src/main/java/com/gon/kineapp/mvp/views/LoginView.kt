@@ -5,11 +5,9 @@ import com.gon.kineapp.model.User
 
 interface LoginView: BaseView {
 
-    fun onLoginSuccess()
-
-    fun onLoginFailure()
-
     fun onUserRetrieved(myUser: User, questions: List<Question>)
 
-    fun onUserDoesntExists()
+    fun onUserDoesntExists(questions: List<Question>)
+
+    fun onUserCreated(myUser: User)
 }

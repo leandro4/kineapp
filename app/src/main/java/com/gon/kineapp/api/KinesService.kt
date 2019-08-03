@@ -44,8 +44,8 @@ object KinesService {
         return kinesApi.userExists(body)
     }
 
-    fun registerUser(): Observable<UserRegisteredResponse> {
-        val body = RegisterUserBody("asd")
+    fun registerUser(token: String, firstName: String, lastName: String, license: String?, email: String, questionId: Int, answer: String): Observable<UserRegisteredResponse> {
+        val body = RegisterUserBody(token, firstName, lastName, license, email, questionId, answer)
         return kinesApi.registerUser(body)
     }
 

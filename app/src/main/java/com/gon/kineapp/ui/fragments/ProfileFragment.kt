@@ -4,21 +4,16 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.support.v4.app.ActivityCompat
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.gon.kineapp.R
-import com.gon.kineapp.mvp.presenters.LoginPresenter
-import com.gon.kineapp.mvp.views.LoginView
 import com.gon.kineapp.utils.ImageLoader
-import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.gon.kineapp.utils.MyUser
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_profile.*
-import java.net.URI
 import android.media.ExifInterface as ExifInterface1
 
 class ProfileFragment: BaseMvpFragment() { //}, LoginView {
@@ -42,9 +37,12 @@ class ProfileFragment: BaseMvpFragment() { //}, LoginView {
 
     private fun initUI() {
         ImageLoader.load(this, getGoogleAccount()?.photoUrl).circle().into(civAvatar)
-        nameTextView.text = getGoogleAccount()?.displayName
-        tvSurname.text = getGoogleAccount()?.familyName
-        emailTextView.text = getGoogleAccount()?.email
+        MyUser.get(context!!).let {
+            nameTextView.text = it!!.name
+            tvSurname.text = it.surname
+            if (it.isMedic()) licenseTextView.text = it.medic?.license
+            emailTextView.text = it.mail
+        }
         this.setupClickListeners()
     }
 

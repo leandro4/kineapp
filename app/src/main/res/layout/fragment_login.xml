@@ -54,48 +54,19 @@
                     android:hint="Ingresar..."/>
 
             <TextView
-                    android:layout_marginTop="@dimen/large_margin"
-                    android:id="@+id/tvLicense"
-                    style="@style/TextViewStyleRegular"
-                    android:text="Matrícula:"/>
+                android:id="@+id/tvLicense"
+                android:layout_marginTop="@dimen/large_margin"
+                style="@style/TextViewStyleRegular"
+                android:text="Matrícula:"/>
 
             <EditText
-                    android:id="@+id/etLicense"
-                    android:layout_width="match_parent"
-                    style="@style/TextViewStyleLight"
-                    android:textSize="20sp"
-                    android:inputType="number"
-                    android:imeOptions="actionNext"
-                    android:hint="Ingresar..."/>
-
-            <TextView
-                    android:layout_marginTop="@dimen/large_margin"
-                    android:id="@+id/tvAddress"
-                    style="@style/TextViewStyleRegular"
-                    android:text="Dirección:"/>
-
-            <EditText
-                    android:id="@+id/etAddress"
-                    android:layout_width="match_parent"
-                    style="@style/TextViewStyleLight"
-                    android:textSize="20sp"
-                    android:inputType="textCapWords"
-                    android:imeOptions="actionNext"
-                    android:hint="Ingresar..."/>
-
-            <TextView
-                    android:layout_marginTop="@dimen/large_margin"
-                    style="@style/TextViewStyleRegular"
-                    android:text="Teléfono de contacto:"/>
-
-            <EditText
-                    android:id="@+id/etPhone"
-                    android:layout_width="match_parent"
-                    style="@style/TextViewStyleLight"
-                    android:textSize="20sp"
-                    android:inputType="phone"
-                    android:imeOptions="actionDone"
-                    android:hint="Ingresar..."/>
+                android:id="@+id/etLicense"
+                android:layout_width="match_parent"
+                style="@style/TextViewStyleLight"
+                android:textSize="20sp"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:hint="Ingresar..."/>
 
             <TextView
                 android:layout_marginTop="@dimen/large_margin"
@@ -107,6 +78,22 @@
                 android:layout_marginTop="@dimen/large_margin"
                 android:textSize="20sp"
                 style="@style/TextViewStyleLight"/>
+
+            <Spinner
+                android:id="@+id/spQuestions"
+                android:layout_marginTop="@dimen/large_margin"
+                android:padding="@dimen/small_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/etAnswer"
+                android:layout_width="match_parent"
+                style="@style/TextViewStyleLight"
+                android:textSize="20sp"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:hint="Mi respuesta secreta es..."/>
 
             <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fabLogin"

@@ -2,22 +2,26 @@ package com.gon.kineapp.mvp.presenters
 
 import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
+import com.gon.kineapp.model.Question
 import com.gon.kineapp.model.responses.LoginResponse
 import com.gon.kineapp.model.responses.UserExistsResponse
+import com.gon.kineapp.model.responses.UserRegisteredResponse
 import com.gon.kineapp.mvp.views.LoginView
+import com.gon.kineapp.utils.QuestionsList
+import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class LoginPresenter: BasePresenter<LoginView>() {
 
-    fun requestLogin() {
+    fun registerUser(token: String, firstName: String, lastName: String, license: String?, email: String, questionId: Int, answer: String) {
 
         mvpView?.showProgressView()
 
-/*        compositeSubscription!!.add(KinesService.registerUser()
+        compositeSubscription!!.add(KinesService.registerUser(token, firstName, lastName, license, email, questionId, answer)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : CustomDisposableObserver<LoginResponse>() {
+            .subscribeWith(object : CustomDisposableObserver<UserRegisteredResponse>() {
                 override fun onNoInternetConnection() {
                     mvpView?.hideProgressView()
                     mvpView?.onNoInternetConnection()
@@ -33,12 +37,12 @@ class LoginPresenter: BasePresenter<LoginView>() {
                     mvpView?.onErrorCode(message)
                 }
 
-                override fun onNext(t: LoginResponse) {
+                override fun onNext(t: UserRegisteredResponse) {
                     mvpView?.hideProgressView()
-                    mvpView?.onLoginSuccess()
+                    mvpView?.onUserCreated(t.myUser)
                 }
             })
-        )*/
+        )
     }
 
     fun userExists(googleToken: String) {
@@ -62,7 +66,8 @@ class LoginPresenter: BasePresenter<LoginView>() {
                 override fun onErrorCode(code: Int, message: String) {
                     mvpView?.hideProgressView()
                     if (code == 406) {
-                        mvpView?.onUserDoesntExists()
+                        val questions = Gson().fromJson<QuestionsList.Questions>(message, QuestionsList.Questions::class.java)
+                        mvpView?.onUserDoesntExists(questions.questions)
                     }
                 }
 

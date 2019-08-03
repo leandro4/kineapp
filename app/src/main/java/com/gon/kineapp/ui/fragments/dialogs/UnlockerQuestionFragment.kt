@@ -5,23 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.presenters.QuestionPresenter
 import com.gon.kineapp.mvp.views.QuestionView
 import com.gon.kineapp.utils.LockerAppCallback
+import com.gon.kineapp.utils.QuestionsList
 import com.gon.kineapp.utils.Utils
 import com.gonanimationlib.animations.Animate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_secret_question.*
-import java.util.concurrent.TimeUnit
 
-class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView {
+class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView, AdapterView.OnItemSelectedListener {
 
     private var listener: ResponseListener? = null
     private var presenter = QuestionPresenter()
+
+    private var questionSelectedId = -1
 
     interface ResponseListener {
         fun onSuccessResponse()
@@ -55,11 +56,30 @@ class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView {
     private fun initUI() {
         fabAnswer.setOnClickListener {
             GoogleSignIn.getLastSignedInAccount(context)?.idToken?.let {
-                presenter.checkAnswer(it, 1, etAnswer.text.toString())
+                presenter.checkAnswer(it, questionSelectedId, etAnswer.text.toString())
                 Utils.hideKeyboardFrom(etAnswer)
             }
         }
+        initSpinnerQuestions()
     }
+
+    private fun initSpinnerQuestions() {
+        val questions = QuestionsList.get(context!!)
+
+        val spinnerArray = ArrayList<String>()
+        questions.forEach { spinnerArray.add(it.description) }
+
+        val adapter = ArrayAdapter<String>(context!!, R.layout.spinner_text_arrow_white, spinnerArray)
+        adapter.setDropDownViewResource(R.layout.spinner_text_blue)
+        spQuestions.adapter = adapter
+        spQuestions.onItemSelectedListener = this
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        questionSelectedId = QuestionsList.get(context!!)[position].id
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     fun setListener(listener: ResponseListener): UnlockerQuestionFragment {
         this.listener = listener
@@ -77,7 +97,7 @@ class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView {
     }
 
     override fun onAttemptsLimit() {
-        Toast.makeText(context, "Comela. Llama al centro de atención y recuperala", Toast.LENGTH_SHORT).show()
+
     }
 
     override fun onError(var1: Throwable) {

@@ -24,5 +24,5 @@ object QuestionsList {
         SharedPreferencesEditor(context, PREFIX).setValueForKey(QUESTIONS_KEY, questionsString)
     }
 
-    private class Questions (var questions: List<Question>)
+    class Questions (var questions: List<Question>)
 }

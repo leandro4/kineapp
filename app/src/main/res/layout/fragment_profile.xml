@@ -107,34 +107,6 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_marginTop="@dimen/large_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/phoneLabel"
-                android:text="@string/profile_phone_title"
-                android:textColor="@color/white"
-                style="@style/TextViewStyleBold"/>
-
-            <TextView
-                android:id="@+id/phoneTextView"
-                tools:text="2346-656454"
-                android:textColor="@color/white"
-                android:layout_below="@+id/phoneLabel"
-                style="@style/TextViewStyleLight"/>
-
-            <android.support.v7.widget.AppCompatImageButton
-                android:layout_alignTop="@+id/phoneTextView"
-                android:layout_alignBottom="@+id/phoneTextView"
-                app:srcCompat="@drawable/ic_edit_pencil"
-                android:layout_alignParentEnd="true"
-                android:background="@color/colorPrimary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
-
         <android.support.design.button.MaterialButton
             android:id="@+id/btnLogout"
             android:padding="@dimen/medium_margin"

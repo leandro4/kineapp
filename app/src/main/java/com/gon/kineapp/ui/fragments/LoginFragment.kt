@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Question
@@ -25,12 +27,15 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import kotlinx.android.synthetic.main.fragment_login.*
 
-class LoginFragment: BaseMvpFragment(), LoginView {
+class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedListener {
 
     var presenter = LoginPresenter()
 
     private var googleSignInClient: GoogleSignInClient? = null
     private val RC_SIGN_IN = 1000
+
+    private var isMedic = false
+    private var questionSelectedId = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_login, container, false)
@@ -45,14 +50,13 @@ class LoginFragment: BaseMvpFragment(), LoginView {
     private fun showRolDialog() {
         RolSelectionFragment().setListener(object : RolSelectionFragment.ResponseListener {
             override fun onProfessionalSelected() {
-
+                isMedic = true
             }
 
             override fun onPatientSelected() {
-                /*etLicense.visibility = View.GONE
+                isMedic = false
+                etLicense.visibility = View.GONE
                 tvLicense.visibility = View.GONE
-                etAddress.visibility = View.GONE
-                tvAddress.visibility = View.GONE*/
             }
         }).show(fragmentManager, "selector")
     }
@@ -60,7 +64,11 @@ class LoginFragment: BaseMvpFragment(), LoginView {
     private fun initUI() {
         fabLogin.setOnClickListener {
             if (validateFields()) {
-                presenter
+                presenter.registerUser(getGoogleAccount()?.idToken!!,
+                    etName.text.toString(),
+                    etLastName.text.toString(),
+                    if (etLicense.text.toString().isEmpty()) null else etLicense.text.toString(),
+                        tvEmail.text.toString(), questionSelectedId, etAnswer.text.toString())
             }
         }
 
@@ -94,12 +102,8 @@ class LoginFragment: BaseMvpFragment(), LoginView {
             etLicense.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
-        if (etAddress.text.toString().isEmpty()) {
-            etAddress.error = getString(R.string.mandatory_field)
-            mandatoryField = false
-        }
-        if (etPhone.text.toString().isEmpty()) {
-            etPhone.error = getString(R.string.mandatory_field)
+        if (etAnswer.text.toString().isEmpty()) {
+            etAnswer.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
         return mandatoryField
@@ -161,13 +165,26 @@ class LoginFragment: BaseMvpFragment(), LoginView {
 
     override fun onUserRetrieved(myUser: User, questions: List<Question>) {
         context?.let {
-            MyUser.setMyUser(it, myUser)
+            MyUser.set(it, myUser)
             QuestionsList.set(it, questions)
             goToHome()
         }
     }
 
-    override fun onUserDoesntExists() {
+    override fun onUserCreated(myUser: User) {
+        context?.let {
+            MyUser.set(it, myUser)
+            goToHome()
+        }
+    }
+
+    override fun onUserDoesntExists(questions: List<Question>) {
+        QuestionsList.set(context!!, questions)
+
+        showRolDialog()
+
+        initSpinnerQuestions()
+
         etName.setText(getGoogleAccount()?.displayName)
         etLastName.setText(getGoogleAccount()?.familyName)
         tvEmail.text = getGoogleAccount()?.email
@@ -176,10 +193,23 @@ class LoginFragment: BaseMvpFragment(), LoginView {
         Animate.ALPHA(1f).duration(Animate.DURATION_SHORT).onStart { llForm.visibility = View.VISIBLE }.startAnimation(llForm)
     }
 
-    override fun onLoginSuccess() {
+    private fun initSpinnerQuestions() {
+        val questions = QuestionsList.get(context!!)
+
+        val spinnerArray = ArrayList<String>()
+        questions.forEach { spinnerArray.add(it.description) }
+
+        val adapter = ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_item, spinnerArray)
+
+        //val adapter = ArrayAdapter.createFromResource(context!!, list.toArray(array), android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(R.layout.spinner_text_arrow_white)
+        spQuestions.adapter = adapter
+        spQuestions.onItemSelectedListener = this
     }
 
-    override fun onLoginFailure() {
-        showErrorMessage(getString(R.string.generic_error_message))
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        questionSelectedId = QuestionsList.get(context!!)[position].id
     }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 }

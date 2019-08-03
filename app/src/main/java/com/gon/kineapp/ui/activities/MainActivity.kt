@@ -104,7 +104,7 @@ class MainActivity : BaseCameraActivity() {
         textureView = findViewById(R.id.textureView)
         getPicture = findViewById(R.id.btnTakePicture)
         textureView!!.surfaceTextureListener = this
-        getPicture!!.setOnClickListener { v -> getPicture() }
+        getPicture!!.setOnClickListener { getPicture() }
     }
 
     internal fun getPicture() {

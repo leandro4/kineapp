@@ -30,12 +30,12 @@ abstract class LockableActivity : AppCompatActivity() {
 
     protected fun alreadySignedInUser(): Boolean {
         val googleLogged =  GoogleSignIn.getLastSignedInAccount(this) != null
-        val localLogged = MyUser.getMyUser(this) != null
+        val localLogged = MyUser.get(this) != null
         if (!localLogged && googleLogged) {
             logOut()
             return false
         } else if (!localLogged || !googleLogged) {
-            MyUser.setMyUser(this, null)
+            MyUser.set(this, null)
             return false
         }
         return true

@@ -8,7 +8,7 @@ import com.gon.kineapp.utils.MyUser
 class DashboardActivity : BaseActivity() {
 
     override fun getFragment(): BaseMvpFragment {
-        val myUser = MyUser.getMyUser(this)
+        val myUser = MyUser.get(this)
         return if (myUser!!.isMedic()) PatientsListFragment() else ExerciseRoutineFragment()
     }
 

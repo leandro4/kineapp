@@ -24,7 +24,6 @@ import com.gon.kineapp.utils.StateCameraCallback
 import com.gonanimationlib.animations.Animate
 import kotlinx.android.synthetic.main.save_cancel_picture.*
 import java.util.*
-import android.R.attr.rotation
 import android.graphics.Bitmap
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -81,7 +80,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         }
 
         val adapter = ArrayAdapter.createFromResource(this, R.array.pics_kind_array, android.R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(R.layout.spinner_text_arrow)
+        adapter.setDropDownViewResource(R.layout.spinner_text_arrow_white)
         spKind.adapter = adapter
         spKind.onItemSelectedListener = this
     }
