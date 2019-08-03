@@ -10,8 +10,7 @@ open class User (open var username: String,
                  @Json(name="last_name")open var surname: String,
                  @Json(name="email")open var mail: String,
                  open var medic: Medic?,
-                 open var patient: Patient?,
-                 open val type: String): Parcelable {
+                 open var patient: Patient?): Parcelable {
 
     fun isMedic(): Boolean {
         return medic != null

@@ -16,6 +16,7 @@ import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
 import com.gon.kineapp.ui.activities.DashboardActivity
 import com.gon.kineapp.ui.fragments.dialogs.RolSelectionFragment
+import com.gon.kineapp.ui.fragments.dialogs.UnlockerQuestionFragment
 import com.gon.kineapp.utils.MyUser
 import com.gon.kineapp.utils.QuestionsList
 import com.gonanimationlib.animations.Animate
@@ -167,7 +168,13 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
         context?.let {
             MyUser.set(it, myUser)
             QuestionsList.set(it, questions)
-            goToHome()
+            UnlockerQuestionFragment()
+                .setListener(object : UnlockerQuestionFragment.ResponseListener {
+                    override fun onSuccessResponse() {
+                        goToHome()
+                    }
+                })
+                .show(fragmentManager, "question")
         }
     }
 

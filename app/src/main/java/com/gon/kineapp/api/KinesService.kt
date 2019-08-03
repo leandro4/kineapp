@@ -40,11 +40,20 @@ object KinesService {
         okHttpClient.addInterceptor(interceptor)
         okHttpClient.addInterceptor {
             var request = it.request()
-            val headers = request.headers().newBuilder().add("Authorization", "Token " + Authorization.getInstance().get()).build()
-            request = request.newBuilder().headers(headers).build()
+
+            if (requireHeader(request.url().uri().toString())) {
+                val headers = request.headers().newBuilder().add("Authorization", "Token " + Authorization.getInstance().get()).build()
+                request = request.newBuilder().headers(headers).build()
+            }
+
+
             it.proceed(request)
         }
         return okHttpClient.build()
+    }
+
+    private fun requireHeader(url: String): Boolean {
+        return !(url.contains("user_exists") || url.contains("login") || url.contains("registration"))
     }
 
     fun userExists(googleToken: String): Observable<UserExistsResponse> {
