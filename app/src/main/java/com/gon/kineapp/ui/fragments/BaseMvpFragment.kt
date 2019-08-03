@@ -9,6 +9,8 @@ import android.view.View
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.views.BaseView
 import com.gon.kineapp.ui.activities.SplashActivity
+import com.gon.kineapp.utils.Authorization
+import com.gon.kineapp.utils.MyUser
 import com.gonanimationlib.animations.Animate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -86,6 +88,8 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
         GoogleSignIn.getClient(activity!!, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()).revokeAccess()
         GoogleSignIn.getClient(activity!!, GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()).signOut()
             .addOnCompleteListener(activity!!) {
+                MyUser.set(context!!, null)
+                Authorization.getInstance().set("")
                 activity?.startActivity(Intent(context, SplashActivity::class.java))
                 activity?.finish()
             }

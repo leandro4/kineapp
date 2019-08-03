@@ -2,6 +2,7 @@ package com.gon.kineapp.mvp.presenters
 
 import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
+import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.responses.PatientListResponse
 import com.gon.kineapp.mvp.views.PatientListView
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -4,6 +4,7 @@ import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
 import com.gon.kineapp.model.responses.LoginResponse
 import com.gon.kineapp.mvp.views.QuestionView
+import com.gon.kineapp.utils.Authorization
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -37,7 +38,10 @@ class QuestionPresenter: BasePresenter<QuestionView>() {
                 }
 
                 override fun onNext(t: LoginResponse) {
-                    mvpView?.onCheckedAnswer()
+                    mvpView?.let {
+                        Authorization.getInstance().set(t.token)
+                        it.onCheckedAnswer()
+                    }
                 }
             })
         )

@@ -8,10 +8,9 @@ import kotlinx.android.parcel.Parcelize
 open class User (open var username: String,
                  @Json(name="first_name") open var name: String,
                  @Json(name="last_name")open var surname: String,
-                 open var phone: String,
                  @Json(name="email")open var mail: String,
-                 open var number: String,
                  open var medic: Medic?,
+                 open var patient: Patient?,
                  open val type: String): Parcelable {
 
     fun isMedic(): Boolean {
@@ -19,6 +18,6 @@ open class User (open var username: String,
     }
 
     fun isPatient(): Boolean {
-        return type == "patient"
+        return medic == null
     }
 }

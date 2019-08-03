@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.Session
+import com.gon.kineapp.model.User
 import com.gon.kineapp.model.Video
 import com.gon.kineapp.mvp.presenters.SessionListPresenter
 import com.gon.kineapp.mvp.views.SessionListView
@@ -20,12 +21,12 @@ import kotlinx.android.synthetic.main.fragment_patient_detail.*
 
 class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
 
-    private lateinit var patient: Patient
+    private lateinit var patient: User
     private lateinit var adapter: SessionAdapter
     private val presenter = SessionListPresenter()
 
     companion object {
-        fun newInstance(patient: Patient): PatientDetailFragment {
+        fun newInstance(patient: User): PatientDetailFragment {
             val frag = PatientDetailFragment()
             frag.patient = patient
             return frag
@@ -128,7 +129,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         else if (requestCode == VIEW_VIDEOS && resultCode == Constants.EDITED_VIDEOS_CODE) {
             data?.let {
                 val videos = it.getParcelableArrayListExtra<Video>(Constants.VIDEO_EXTRA)
-                patient.videos = videos
+                patient.patient?.videos = videos
             }
         }
     }

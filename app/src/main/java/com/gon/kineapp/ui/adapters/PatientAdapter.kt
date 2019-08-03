@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Patient
+import com.gon.kineapp.model.User
 import kotlinx.android.synthetic.main.adapter_patient.view.*
 
-class PatientAdapter(private val patients: MutableList<Patient>, private val callback: PatientListener): RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
+class PatientAdapter(private val patients: MutableList<User>, private val callback: PatientListener): RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
 
     interface PatientListener {
-        fun onPatientSelected(patient: Patient)
+        fun onPatientSelected(patient: User)
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PatientViewHolder {
@@ -29,9 +30,9 @@ class PatientAdapter(private val patients: MutableList<Patient>, private val cal
 
     class PatientViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
-        fun bind(patient: Patient, callback: PatientListener) {
+        fun bind(patient: User, callback: PatientListener) {
             viewItem.tvName.text = patient.name
-            viewItem.tvNumber.text = patient.number
+            viewItem.tvNumber.text = "43287324(hardcoded)"
             viewItem.flContent.setOnClickListener {
                 callback.onPatientSelected(patient)
             }

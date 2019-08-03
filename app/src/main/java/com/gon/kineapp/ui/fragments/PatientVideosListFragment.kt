@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Patient
+import com.gon.kineapp.model.User
 import com.gon.kineapp.model.Video
 import com.gon.kineapp.mvp.presenters.PrivateVideosListPresenter
 import com.gon.kineapp.mvp.presenters.PublicVideosListPresenter
@@ -18,10 +19,10 @@ import kotlinx.android.synthetic.main.fragment_public_videos_list.*
 class PatientVideosListFragment : BaseVideosListFragment(), PrivateVideosView {
 
     private val presenter = PrivateVideosListPresenter()
-    private lateinit var patient: Patient
+    private lateinit var patient: User
 
     companion object {
-        fun newInstance(patient: Patient): PatientVideosListFragment {
+        fun newInstance(patient: User): PatientVideosListFragment {
             val frag = PatientVideosListFragment()
             frag.patient = patient
             return frag
@@ -38,7 +39,7 @@ class PatientVideosListFragment : BaseVideosListFragment(), PrivateVideosView {
         fabAddVideo.setOnClickListener {
             Toast.makeText(context, "agregar video", Toast.LENGTH_SHORT).show()
         }
-        setVideos(patient.videos)
+        setVideos(patient.patient!!.videos)
     }
 
     override fun startPresenter() {
@@ -66,7 +67,7 @@ class PatientVideosListFragment : BaseVideosListFragment(), PrivateVideosView {
     private fun setVideosResultIntent() {
         val intent = Intent()
         val list = ArrayList<Video>()
-        patient.videos.forEach { list.add(it) }
+        patient.patient!!.videos.forEach { list.add(it) }
         intent.putParcelableArrayListExtra(Constants.VIDEO_EXTRA, list)
         activity?.setResult(Constants.EDITED_VIDEOS_CODE, intent)
     }

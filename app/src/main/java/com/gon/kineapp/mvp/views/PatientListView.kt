@@ -1,9 +1,9 @@
 package com.gon.kineapp.mvp.views
 
-import com.gon.kineapp.model.Patient
+import com.gon.kineapp.model.User
 
 interface PatientListView: BaseView {
 
-    fun onPatientsReceived(patients: MutableList<Patient>)
+    fun onPatientsReceived(patients: MutableList<User>)
 
 }

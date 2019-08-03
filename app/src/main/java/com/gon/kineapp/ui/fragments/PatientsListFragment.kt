@@ -9,6 +9,7 @@ import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Patient
+import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.PatientListPresenter
 import com.gon.kineapp.mvp.views.PatientListView
 import com.gon.kineapp.ui.activities.PatientDetailActivity
@@ -33,12 +34,9 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
     }
 
     private fun initUI() {
-        fabAddPatient.setOnClickListener {
-            Toast.makeText(context, "agregar paciente", Toast.LENGTH_SHORT).show()
-        }
     }
 
-    private fun initList(patients: MutableList<Patient>) {
+    private fun initList(patients: MutableList<User>) {
         rvPatients.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvPatients.setHasFixedSize(true)
         rvPatients.adapter = PatientAdapter(patients, this)
@@ -75,11 +73,11 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
         super.onDestroy()
     }
 
-    override fun onPatientsReceived(patients: MutableList<Patient>) {
+    override fun onPatientsReceived(patients: MutableList<User>) {
         initList(patients)
     }
 
-    override fun onPatientSelected(patient: Patient) {
+    override fun onPatientSelected(patient: User) {
         val intent = Intent(activity, PatientDetailActivity::class.java)
         intent.putExtra(Constants.PATIENT_EXTRA, patient)
         activity?.startActivity(intent)
