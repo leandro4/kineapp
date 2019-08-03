@@ -98,7 +98,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
             etLastName.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
-        if (etLicense.text.toString().isEmpty()) {
+        if (etLicense.text.toString().isEmpty() && isMedic) {
             etLicense.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
