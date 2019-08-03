@@ -26,8 +26,12 @@ import kotlinx.android.synthetic.main.save_cancel_picture.*
 import java.util.*
 import android.R.attr.rotation
 import android.graphics.Bitmap
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_picture.*
 
-class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener {
+class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener, AdapterView.OnItemSelectedListener {
 
     private var previewsize: Size? = null
     private var jpegSizes: Array<Size>? = null
@@ -42,6 +46,55 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         override fun onOpened(camera: CameraDevice) {
             cameraDevice = camera
             startCamera()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_picture)
+
+        textureView = findViewById(R.id.textureView)
+        getPicture = findViewById(R.id.btnTakePicture)
+        textureView!!.surfaceTextureListener = this
+        getPicture!!.setOnClickListener {
+            rlPreview.visibility = View.VISIBLE
+            Animate.ALPHA(1f).duration(Animate.DURATION_MEDIUM).startAnimation(rlPreview)
+            getPicture()
+        }
+        initUI()
+    }
+
+    private fun initUI() {
+        btnReject.setOnClickListener {
+            llMedia.visibility = View.GONE
+            Animate.ALPHA(0f).duration(Animate.DURATION_MEDIUM).onEnd { rlPreview.visibility = View.GONE }.startAnimation(rlPreview)
+            preview.setImageBitmap(null)
+        }
+        btnAccept.setOnClickListener {
+
+            val photo = Photo("98092", "https://st2.depositphotos.com/1017986/6974/i/950/depositphotos_69742233-stock-photo-businessman-from-back.jpg", "https://st2.depositphotos.com/1017986/6974/i/950/depositphotos_69742233-stock-photo-businessman-from-back.jpg", "BACK")
+
+            val intent = Intent()
+            intent.putExtra(Constants.PHOTO_EXTRA, photo)
+            setResult(Activity.RESULT_OK, intent)
+            this@PictureActivity.finish()
+        }
+
+        val adapter = ArrayAdapter.createFromResource(this, R.array.pics_kind_array, android.R.layout.simple_spinner_item)
+        adapter.setDropDownViewResource(R.layout.spinner_text_arrow)
+        spKind.adapter = adapter
+        spKind.onItemSelectedListener = this
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when (position) {
+            0 -> Toast.makeText(this, "frente", Toast.LENGTH_SHORT).show()
+            1 -> Toast.makeText(this, "derecho", Toast.LENGTH_SHORT).show()
+            2 -> Toast.makeText(this, "espalda", Toast.LENGTH_SHORT).show()
+            3 -> Toast.makeText(this, "izquierdo", Toast.LENGTH_SHORT).show()
+            4 -> ivSiluet.visibility = View.GONE
         }
     }
 
@@ -88,37 +141,6 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
                 e.printStackTrace()
             }
 
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_picture)
-        textureView = findViewById(R.id.textureView)
-        getPicture = findViewById(R.id.btnTakePicture)
-        textureView!!.surfaceTextureListener = this
-        getPicture!!.setOnClickListener {
-            rlPreview.visibility = View.VISIBLE
-            Animate.ALPHA(1f).duration(Animate.DURATION_MEDIUM).startAnimation(rlPreview)
-            getPicture()
-         }
-        initUI()
-    }
-
-    private fun initUI() {
-        btnReject.setOnClickListener {
-            llMedia.visibility = View.GONE
-            Animate.ALPHA(0f).duration(Animate.DURATION_MEDIUM).onEnd { rlPreview.visibility = View.GONE }.startAnimation(rlPreview)
-            preview.setImageBitmap(null)
-        }
-        btnAccept.setOnClickListener {
-
-            val photo = Photo("98092", "https://st2.depositphotos.com/1017986/6974/i/950/depositphotos_69742233-stock-photo-businessman-from-back.jpg", "https://st2.depositphotos.com/1017986/6974/i/950/depositphotos_69742233-stock-photo-businessman-from-back.jpg", "BACK")
-
-            val intent = Intent()
-            intent.putExtra(Constants.PHOTO_EXTRA, photo)
-            setResult(Activity.RESULT_OK, intent)
-            this@PictureActivity.finish()
         }
     }
 

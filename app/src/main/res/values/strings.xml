@@ -31,8 +31,7 @@
     <string name="generic_cancel">Cancelar</string>
     <string name="camera_permission_denied">Sin los permisos de Cámara no podemos continuar</string>
     <string name="camera_ask_permission_title">Necesitamos permisos para utilizar la Cámara</string>
-    <string name="camera_ask_permission_msg">Si no aprueba el permiso, la aplicación no puede funcionar correctamente
-    </string>
+    <string name="camera_ask_permission_msg">Si no aprueba el permiso, la aplicación no puede funcionar correctamente</string>
     <string name="remove_warning_title">¡Cuidado!</string>
     <string name="remove_pic_warning_subtitle">¿Desea borrar esta foto?</string>
     <string name="empty_photos">Para agregar fotos presione el botón flotante de la esquina inferior derecha</string>
@@ -42,5 +41,13 @@
     <string name="public_video_view_title">Video Público</string>
     <string name="http_error_message">Parece que no puede realizar esta operación</string>
     <string name="videos_from_title">Videos para %s</string>
+
+    <string-array name="pics_kind_array">
+        <item>Frente</item>
+        <item>Derecha</item>
+        <item>Espalda</item>
+        <item>Izquierda</item>
+        <item>Otra</item>
+    </string-array>
 
 </resources>

@@ -40,25 +40,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-<!--    <SeekBar
-        app:layout_constraintBottom_toTopOf="@+id/btnTakePicture"
-        app:layout_constraintStart_toStartOf="parent"
+    <Spinner
+        android:id="@+id/spKind"
+        android:padding="@dimen/small_margin"
+        android:background="@drawable/tongue_start_rounded_white"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        android:id="@+id/sbHeight"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>
+        android:spinnerMode="dropdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-    <SeekBar
-        app:layout_constraintBottom_toTopOf="@+id/btnTakePicture"
-        app:layout_constraintStart_toStartOf="parent"
+    <ImageView
+        android:clickable="false"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.8"
-        android:id="@+id/sbWidth"
-        android:layout_marginBottom="@dimen/medium_margin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"/>-->
+        app:srcCompat="@drawable/ic_arrow_drop_down"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <include layout="@layout/save_cancel_picture" />
 
