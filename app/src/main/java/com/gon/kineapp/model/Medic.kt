@@ -5,11 +5,4 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Medic(
-    var licence: String,
-    override var id: String,
-    override var name: String,
-    override var surname: String,
-    override var phone: String,
-    override var mail: String,
-    override var number: String,
-    override var type: String): User(id, name, surname, phone, mail, number, type), Parcelable
+    var license: String): Parcelable

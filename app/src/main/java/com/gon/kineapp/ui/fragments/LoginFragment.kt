@@ -8,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.gon.kineapp.R
+import com.gon.kineapp.model.Question
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
 import com.gon.kineapp.ui.activities.DashboardActivity
 import com.gon.kineapp.ui.fragments.dialogs.RolSelectionFragment
 import com.gon.kineapp.utils.MyUser
+import com.gon.kineapp.utils.QuestionsList
+import com.gonanimationlib.animations.Animate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -56,8 +59,16 @@ class LoginFragment: BaseMvpFragment(), LoginView {
 
     private fun initUI() {
         fabLogin.setOnClickListener {
-            MyUser.setMyUser(context!!, User("987127", "Leandro", "Gon Aguirre", "11567255", "pepe@gmail.com", "67433", "medic"))
-            goToHome()
+            if (validateFields()) {
+                presenter
+            }
+        }
+
+        btnGoogleSignIn.setOnClickListener {
+            if (checkPlayServices()) {
+                val signInIntent = googleSignInClient?.signInIntent
+                activity?.startActivityForResult(signInIntent, RC_SIGN_IN)
+            }
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -67,11 +78,6 @@ class LoginFragment: BaseMvpFragment(), LoginView {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(activity!!, gso)
-
-        if (checkPlayServices()) {
-            val signInIntent = googleSignInClient?.signInIntent
-            activity?.startActivityForResult(signInIntent, RC_SIGN_IN)
-        }
     }
 
     private fun validateFields(): Boolean {
@@ -129,10 +135,7 @@ class LoginFragment: BaseMvpFragment(), LoginView {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)
-
-                //presenter.requestLogin()
-                onLoginSuccess()
-
+                account?.idToken?.let { presenter.userExists(it) }
             } catch (e: ApiException) {
                 Toast.makeText(context, getString(R.string.generic_error_message), Toast.LENGTH_SHORT).show()
             }
@@ -156,9 +159,24 @@ class LoginFragment: BaseMvpFragment(), LoginView {
         super.onDestroy()
     }
 
+    override fun onUserRetrieved(myUser: User, questions: List<Question>) {
+        context?.let {
+            MyUser.setMyUser(it, myUser)
+            QuestionsList.set(it, questions)
+            goToHome()
+        }
+    }
+
+    override fun onUserDoesntExists() {
+        etName.setText(getGoogleAccount()?.displayName)
+        etLastName.setText(getGoogleAccount()?.familyName)
+        tvEmail.text = getGoogleAccount()?.email
+
+        Animate.ALPHA(0f).duration(Animate.DURATION_SHORT).onEnd { llGoogleSignIn.visibility = View.GONE }.startAnimation(llGoogleSignIn)
+        Animate.ALPHA(1f).duration(Animate.DURATION_SHORT).onStart { llForm.visibility = View.VISIBLE }.startAnimation(llForm)
+    }
+
     override fun onLoginSuccess() {
-        //goToHome()
-        showRolDialog()
     }
 
     override fun onLoginFailure() {

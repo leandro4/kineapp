@@ -11,6 +11,7 @@
 
         <LinearLayout
                 android:id="@+id/llForm"
+                android:visibility="gone"
                 android:padding="@dimen/large_margin"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -96,6 +97,17 @@
                     android:imeOptions="actionDone"
                     android:hint="Ingresar..."/>
 
+            <TextView
+                android:layout_marginTop="@dimen/large_margin"
+                style="@style/TextViewStyleRegular"
+                android:text="Email:"/>
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_marginTop="@dimen/large_margin"
+                android:textSize="20sp"
+                style="@style/TextViewStyleLight"/>
+
             <android.support.design.widget.FloatingActionButton
                     android:id="@+id/fabLogin"
                     android:layout_width="wrap_content"
@@ -103,6 +115,46 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_arrow_forward"
                     android:layout_marginTop="@dimen/xxlarge_margin"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llGoogleSignIn"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="70dp"
+                style="@style/TextViewStyleBold"/>
+
+            <TextView
+                android:text="@string/google_sign_in_explanation"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/xxlarge_margin"
+                android:layout_marginBottom="@dimen/large_margin"
+                android:layout_marginStart="@dimen/large_margin"
+                android:layout_marginEnd="@dimen/large_margin"
+                style="@style/TextViewStyleLight"/>
+
+            <Button
+                android:id="@+id/btnGoogleSignIn"
+                android:textColor="@color/white"
+                android:text="@string/google_sign_in_btn"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/xxxlarge_margin"
+                android:layout_marginBottom="@dimen/xxxlarge_margin"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:backgroundTint="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 

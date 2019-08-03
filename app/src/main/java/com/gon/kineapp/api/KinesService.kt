@@ -4,10 +4,10 @@ import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.model.Video
-import com.gon.kineapp.model.responses.LoginResponse
-import com.gon.kineapp.model.responses.PatientListResponse
-import com.gon.kineapp.model.responses.PublicVideosListResponse
-import com.gon.kineapp.model.responses.SessionListResponse
+import com.gon.kineapp.model.requests.LoginBody
+import com.gon.kineapp.model.requests.RegisterUserBody
+import com.gon.kineapp.model.requests.UserExistsBody
+import com.gon.kineapp.model.responses.*
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,8 +39,19 @@ object KinesService {
         return okHttpClient.build()
     }
 
-    fun requestLogin(): Observable<LoginResponse> {
-        return kinesApi.login()
+    fun userExists(googleToken: String): Observable<UserExistsResponse> {
+        val body = UserExistsBody(googleToken)
+        return kinesApi.userExists(body)
+    }
+
+    fun registerUser(): Observable<UserRegisteredResponse> {
+        val body = RegisterUserBody("asd")
+        return kinesApi.registerUser(body)
+    }
+
+    fun checkAnswer(questionId: Int, answer: String, googleToken: String): Observable<LoginResponse> {
+        val body = LoginBody(googleToken, questionId, answer)
+        return kinesApi.login(body)
     }
 
     fun getPatientList(): Observable<PatientListResponse> {
@@ -55,12 +66,12 @@ object KinesService {
         )
 
         val list = listOf(
-            Patient("14", "female", videos.toMutableList(), "198281", "Gabriela", "Michoti", "1188776512", "gaby@gmail.com", "22678099", "patient")
-            ,Patient("14", "female", videos.toMutableList(), "198281", "Sergio", "Massa", "1188776512", "gaby@gmail.com", "20723993", "patient")
-            ,Patient("14", "female", videos.toMutableList(), "198281", "Elisa", "Carrió", "1188776512", "gaby@gmail.com", "16092776", "patient")
-            ,Patient("14", "female", videos.toMutableList(), "198281", "Cristina", "Fernande", "1188776512", "gaby@gmail.com", "12098278", "patient")
-            ,Patient("14", "female", videos.toMutableList(), "198281", "Nestor", "Quirchner", "1188776512", "gaby@gmail.com", "19098277", "patient"),
-            Patient("14", "female", videos.toMutableList(), "198281", "Mauricio", "Macrisis", "1188776512", "gaby@gmail.com", "19443665", "patient")
+            Patient("14", "female", videos.toMutableList(), "198281", "Gabriela", "Michoti", "1188776512", "gaby@gmail.com", "22678099", null,"patient")
+            ,Patient("14", "female", videos.toMutableList(), "198281", "Sergio", "Massa", "1188776512", "gaby@gmail.com", "20723993", null,"patient")
+            ,Patient("14", "female", videos.toMutableList(), "198281", "Elisa", "Carrió", "1188776512", "gaby@gmail.com", "16092776", null,"patient")
+            ,Patient("14", "female", videos.toMutableList(), "198281", "Cristina", "Fernande", "1188776512", "gaby@gmail.com", "12098278", null,"patient")
+            ,Patient("14", "female", videos.toMutableList(), "198281", "Nestor", "Quirchner", "1188776512", "gaby@gmail.com", "19098277", null,"patient"),
+            Patient("14", "female", videos.toMutableList(), "198281", "Mauricio", "Macrisis", "1188776512", "gaby@gmail.com", "19443665", null,"patient")
         )
 
         val response = PatientListResponse(list.toMutableList())

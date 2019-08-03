@@ -57,7 +57,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     private fun createNewSession() {
-        presenter.createSession(patient.id)
+        presenter.createSession(patient.username)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

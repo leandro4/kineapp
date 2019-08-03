@@ -21,14 +21,14 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import java.net.URI
 import android.media.ExifInterface as ExifInterface1
 
-class ProfileFragment: BaseMvpFragment(), LoginView {
+class ProfileFragment: BaseMvpFragment() { //}, LoginView {
     companion object {
         private const val REQUEST_TAKE_PHOTO = 0
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 1000
         private const val REQUEST_GALLERY_PERMISSION = 1010
     }
 
-    var presenter = LoginPresenter()
+    //var presenter = LoginPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_profile, container, false)
@@ -78,20 +78,20 @@ class ProfileFragment: BaseMvpFragment(), LoginView {
     }
 
     override fun startPresenter() {
-        presenter.attachMvpView(this)
+        //presenter.attachMvpView(this)
     }
 
     override fun onDestroy() {
-        presenter.detachMvpView()
+        //presenter.detachMvpView()
         super.onDestroy()
     }
 
-    override fun onLoginSuccess() {
+/*    override fun onLoginSuccess() {
     }
 
     override fun onLoginFailure() {
         showErrorMessage(getString(R.string.generic_error_message))
-    }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

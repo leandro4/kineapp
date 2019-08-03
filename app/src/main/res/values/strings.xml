@@ -7,7 +7,7 @@
     <string name="generic_error_message">Ups! Hubo un error, intente mas tarde</string>
     <string name="generic_accept_button">Aceptar</string>
     <string name="generic_wait_message">Espere por favor&#8230;</string>
-    <string name="secret_question_title">Responda para continuar:</string>
+    <string name="secret_question_title">Elija su pregunta secreta y respóndala:</string>
     <string name="secret_question_hint">La respuesta es&#8230;</string>
     <string name="patients_list_title">Mis Pacientes</string>
     <string name="profile_name_title">Nombre</string>
@@ -41,6 +41,11 @@
     <string name="public_video_view_title">Video Público</string>
     <string name="http_error_message">Parece que no puede realizar esta operación</string>
     <string name="videos_from_title">Videos para %s</string>
+    <string name="google_sign_in_btn">Iniciar con Google</string>
+    <string name="google_sign_in_explanation">Bienvenido a KineApp, la herramienta adecuada para los Kinesiólogos y sus
+        pacientes.\n\nPara continuar debe iniciar sesión con una cuenta de Google.\nA continuación, accederá al
+        sistema.\nSi es la primera vez que ingresa, le pediremos algunos datos sobre su identidad.\n\n¡Gracias!
+    </string>
 
     <string-array name="pics_kind_array">
         <item>Frente</item>
