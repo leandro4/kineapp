@@ -7,6 +7,7 @@ import com.gon.kineapp.model.responses.LoginResponse
 import com.gon.kineapp.model.responses.UserExistsResponse
 import com.gon.kineapp.model.responses.UserRegisteredResponse
 import com.gon.kineapp.mvp.views.LoginView
+import com.gon.kineapp.utils.Authorization
 import com.gon.kineapp.utils.QuestionsList
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,6 +40,7 @@ class LoginPresenter: BasePresenter<LoginView>() {
 
                 override fun onNext(t: UserRegisteredResponse) {
                     mvpView?.hideProgressView()
+                    Authorization.getInstance().set(t.token)
                     mvpView?.onUserCreated(t.myUser)
                 }
             })
