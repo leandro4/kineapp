@@ -69,7 +69,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
                     etName.text.toString(),
                     etLastName.text.toString(),
                     if (etLicense.text.toString().isEmpty()) null else etLicense.text.toString(),
-                        tvEmail.text.toString(), questionSelectedId, etAnswer.text.toString())
+                    tvEmail.text.toString(), questionSelectedId, etAnswer.text.toString())
             }
         }
 

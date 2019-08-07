@@ -6,9 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 
 import kotlinx.android.synthetic.main.fragment_patient_list.*
 import android.view.*
-import android.widget.Toast
 import com.gon.kineapp.R
-import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.PatientListPresenter
 import com.gon.kineapp.mvp.views.PatientListView
@@ -23,7 +21,7 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
     private val presenter = PatientListPresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(com.gon.kineapp.R.layout.fragment_patient_list, container, false)
+        val v = inflater.inflate(R.layout.fragment_patient_list, container, false)
         setHasOptionsMenu(true)
         return v
     }

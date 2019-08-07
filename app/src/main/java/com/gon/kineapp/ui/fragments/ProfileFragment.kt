@@ -40,7 +40,9 @@ class ProfileFragment: BaseMvpFragment() { //}, LoginView {
         MyUser.get(context!!).let {
             nameTextView.text = it!!.name
             tvSurname.text = it.surname
-            if (it.isMedic()) licenseTextView.text = it.medic?.license
+            if (it.isMedic()) {
+                licenseTextView.text = it.medic!!.license
+            } else rlLicense.visibility = View.GONE
             emailTextView.text = it.mail
         }
         this.setupClickListeners()

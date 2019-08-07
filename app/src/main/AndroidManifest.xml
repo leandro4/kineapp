@@ -39,6 +39,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activities.DashboardActivity"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activities.PatientDetailActivity"
@@ -49,6 +50,7 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".ui.activities.SplashActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -58,6 +60,7 @@
         </activity>
         <activity
             android:name=".ui.activities.LoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
     </application>
 

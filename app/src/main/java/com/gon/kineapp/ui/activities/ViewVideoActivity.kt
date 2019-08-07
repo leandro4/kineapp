@@ -43,6 +43,6 @@ class ViewVideoActivity: AppCompatActivity() {
             vvPlayer.start()
 
             tvTitle.text = it.title
-        }
+        } ?: run { finish() }
     }
 }
