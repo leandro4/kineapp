@@ -30,7 +30,7 @@ class ViewPhotoActivity: AppCompatActivity() {
         supportActionBar?.title = photo?.tag
 
         photo?.let {
-            ImageLoader.load(this, Uri.parse(it.imgUrl)).into(ivPhoto)
+            //ImageLoader.load(this, Uri.parse(it.imgId)).into(ivPhoto)
         }
     }
 

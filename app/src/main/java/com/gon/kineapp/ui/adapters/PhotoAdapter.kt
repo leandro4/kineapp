@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Photo
-import kotlinx.android.synthetic.main.adapter_add_photo.view.*
+import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.adapter_photo.view.*
 
 class PhotoAdapter(private val photos: MutableList<Photo>, private val callback: PhotoListener): RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
@@ -44,7 +44,7 @@ class PhotoAdapter(private val photos: MutableList<Photo>, private val callback:
     class PhotoViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(photo: Photo, callback: PhotoListener) {
-            Glide.with(viewItem).load(Uri.parse(photo.thumbUrl)).into(viewItem.ivPhoto)
+            Glide.with(viewItem).load(Utils.convertImage(photo.thumbnail)).into(viewItem.ivPhoto)
             viewItem.containerPhoto.setOnClickListener { callback.onPhotoSelected(photo) }
             viewItem.ivRemove.setOnClickListener { callback.onRemovePhoto(photo.id) }
         }

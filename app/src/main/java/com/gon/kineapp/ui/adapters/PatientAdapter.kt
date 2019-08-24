@@ -31,8 +31,8 @@ class PatientAdapter(private val patients: MutableList<User>, private val callba
     class PatientViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(patient: User, callback: PatientListener) {
-            viewItem.tvName.text = patient.name
-            viewItem.tvNumber.text = "43287324(hardcoded)"
+            viewItem.tvName.text = String.format("%s %s", patient.name, patient.surname)
+            viewItem.tvNumber.text = patient.dni
             viewItem.flContent.setOnClickListener {
                 callback.onPatientSelected(patient)
             }

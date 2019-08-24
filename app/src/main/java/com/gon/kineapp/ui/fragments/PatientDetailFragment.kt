@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
-import com.gon.kineapp.model.Patient
+import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.model.User
 import com.gon.kineapp.model.Video
@@ -48,17 +48,14 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     private fun initUI() {
-
         (activity as BaseActivity).setToolbarTitle(String.format(getString(R.string.patient_sessions_title), patient.name))
-
         fabAddSession.setOnClickListener {
             createNewSession()
         }
-
     }
 
     private fun createNewSession() {
-        presenter.createSession(patient.username)
+        presenter.createSession(patient.id)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -69,7 +66,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item?.itemId) {
-            R.id.videos -> {
+            R.id.exercises -> {
                 val intent = Intent(context, PrivateVideosActivity::class.java)
                 intent.putExtra(Constants.PATIENT_EXTRA, patient)
                 activity?.startActivityForResult(intent, VIEW_VIDEOS)
@@ -109,7 +106,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
     override fun startPresenter() {
         presenter.attachMvpView(this)
-        presenter.getSessions()
+        presenter.getSessions(patient.id)
     }
 
     override fun onDestroy() {

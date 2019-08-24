@@ -69,6 +69,36 @@
                 android:hint="Ingresar..."/>
 
             <TextView
+                android:id="@+id/tvNumber"
+                android:layout_marginTop="@dimen/large_margin"
+                style="@style/TextViewStyleRegular"
+                android:text="Dni:"/>
+
+            <EditText
+                android:id="@+id/etNumber"
+                android:layout_width="match_parent"
+                style="@style/TextViewStyleLight"
+                android:textSize="20sp"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:hint="Ingresar..."/>
+
+            <TextView
+                android:id="@+id/tvBirthday"
+                android:layout_marginTop="@dimen/large_margin"
+                style="@style/TextViewStyleRegular"
+                android:text="Fecha de nacimiento:"/>
+
+            <EditText
+                android:id="@+id/etBirthday"
+                android:layout_width="match_parent"
+                style="@style/TextViewStyleLight"
+                android:textSize="20sp"
+                android:inputType="number"
+                android:imeOptions="actionNext"
+                android:hint="dd/mm/aaaa"/>
+
+            <TextView
                 android:layout_marginTop="@dimen/large_margin"
                 style="@style/TextViewStyleRegular"
                 android:text="Email:"/>

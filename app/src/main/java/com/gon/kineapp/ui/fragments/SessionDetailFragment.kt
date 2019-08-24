@@ -50,7 +50,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     }
 
     private fun initUI() {
-        tvDate.text = session.date
+        tvDate.text = Utils.formatDate(session.date)
         etDescription.setText(session.description)
         rvImages.layoutManager = GridLayoutManager(context, COLUMNS, GridLayoutManager.VERTICAL, false)
         rvImages.setHasFixedSize(true)
@@ -141,6 +141,11 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
         activity?.onBackPressed()
     }
 
+    override fun onPhotoUploaded(photo: Photo) {
+        adapter.addPhoto(photo)
+        setSessionResultIntent()
+    }
+
     private fun checkEmptyList() {
         emptyList.visibility = if (session.photos.isEmpty()) View.VISIBLE else View.GONE
     }
@@ -155,9 +160,8 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
         if (requestCode == TAKE_PICTURE_CODE && resultCode == Activity.RESULT_OK) {
             data?.let {
                 checkEmptyList()
-                val photo = it.getParcelableExtra(Constants.PHOTO_EXTRA) as Photo
-                adapter.addPhoto(photo)
-                setSessionResultIntent()
+                val photo = it.getStringExtra(Constants.PHOTO_EXTRA)
+                presenter.uploadPhoto(session.id, photo, "F")
             }
         }
         else if (requestCode == VIEW_PICTURE_CODE && resultCode == Constants.REMOVED_PHOTO_CODE) {

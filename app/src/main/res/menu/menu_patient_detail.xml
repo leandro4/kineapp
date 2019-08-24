@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/videos"
-            android:title="Crear Video"
-            android:icon="@drawable/ic_video"
+            android:id="@+id/exercises"
+            android:title="Ejercicios"
+            android:icon="@drawable/ic_excercises"
             app:showAsAction="ifRoom"
     />
 

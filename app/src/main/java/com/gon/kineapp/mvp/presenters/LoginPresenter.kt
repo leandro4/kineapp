@@ -15,11 +15,11 @@ import io.reactivex.schedulers.Schedulers
 
 class LoginPresenter: BasePresenter<LoginView>() {
 
-    fun registerUser(token: String, firstName: String, lastName: String, license: String?, email: String, questionId: Int, answer: String) {
+    fun registerUser(token: String, firstName: String, lastName: String, license: String?, number: String?, birthday: String?, email: String, questionId: Int, answer: String) {
 
         mvpView?.showProgressView()
 
-        compositeSubscription!!.add(KinesService.registerUser(token, firstName, lastName, license, email, questionId, answer)
+        compositeSubscription!!.add(KinesService.registerUser(token, firstName, lastName, license, number, birthday, email, questionId, answer)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CustomDisposableObserver<UserRegisteredResponse>() {

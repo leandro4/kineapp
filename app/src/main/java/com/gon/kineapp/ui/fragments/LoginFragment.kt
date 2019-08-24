@@ -17,6 +17,7 @@ import com.gon.kineapp.mvp.views.LoginView
 import com.gon.kineapp.ui.activities.DashboardActivity
 import com.gon.kineapp.ui.fragments.dialogs.RolSelectionFragment
 import com.gon.kineapp.ui.fragments.dialogs.UnlockerQuestionFragment
+import com.gon.kineapp.utils.LockerAppCallback
 import com.gon.kineapp.utils.MyUser
 import com.gon.kineapp.utils.QuestionsList
 import com.gonanimationlib.animations.Animate
@@ -69,7 +70,8 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
                     etName.text.toString(),
                     etLastName.text.toString(),
                     if (etLicense.text.toString().isEmpty()) null else etLicense.text.toString(),
-                    tvEmail.text.toString(), questionSelectedId, etAnswer.text.toString())
+                    etNumber.text.toString(), "1989-06-18",//etBirthday.text.toString(),
+                    tvEmail.text.toString(), questionSelectedId, etAnswer.text.toString().toLowerCase())
             }
         }
 
@@ -105,6 +107,14 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
         }
         if (etAnswer.text.toString().isEmpty()) {
             etAnswer.error = getString(R.string.mandatory_field)
+            mandatoryField = false
+        }
+        if (etBirthday.text.toString().isEmpty()) {
+            etBirthday.error = getString(R.string.mandatory_field)
+            mandatoryField = false
+        }
+        if (etNumber.text.toString().isEmpty()) {
+            etNumber.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
         return mandatoryField
@@ -180,6 +190,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
     override fun onUserCreated(myUser: User) {
         context?.let {
+            LockerAppCallback.TimerSessionClient.registerPausedApp(it, System.currentTimeMillis())
             MyUser.set(it, myUser)
             goToHome()
         }

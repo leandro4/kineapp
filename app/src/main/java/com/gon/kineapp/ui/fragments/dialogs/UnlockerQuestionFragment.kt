@@ -56,7 +56,7 @@ class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView, AdapterView.
     private fun initUI() {
         fabAnswer.setOnClickListener {
             GoogleSignIn.getLastSignedInAccount(context)?.idToken?.let {
-                presenter.checkAnswer(it, questionSelectedId, etAnswer.text.toString())
+                presenter.checkAnswer(it, questionSelectedId, etAnswer.text.toString().toLowerCase())
                 Utils.hideKeyboardFrom(etAnswer)
             }
         }

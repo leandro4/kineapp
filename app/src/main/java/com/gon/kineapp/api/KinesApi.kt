@@ -1,8 +1,8 @@
 package com.gon.kineapp.api
 
-import com.gon.kineapp.model.requests.LoginBody
-import com.gon.kineapp.model.requests.RegisterUserBody
-import com.gon.kineapp.model.requests.UserExistsBody
+import com.gon.kineapp.model.Photo
+import com.gon.kineapp.model.Session
+import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -21,9 +21,27 @@ interface KinesApi {
     @GET(UtilUrl.PATIENTS)
     fun getPatients(): Observable<PatientListResponse>
 
+    @POST(UtilUrl.EXERCISES)
+    fun getExercises(): Observable<ExercisesResponse>
+
     @GET(UtilUrl.PATIENTS)
     fun getPublicVideos(): Observable<PublicVideosListResponse>
 
     @GET(UtilUrl.SESSIONS)
-    fun getSessions(): Observable<SessionListResponse>
+    fun getSessions(@Path("id") id: String): Observable<SessionListResponse>
+
+    @POST(UtilUrl.CREATE_SESSION)
+    fun createSession(@Body id: PatientIdBody): Observable<Session>
+
+    @PATCH(UtilUrl.UPDATE_SESSION)
+    fun updateSession(@Path("id") id: String, @Body body: SessionDescriptionUpdateBody): Observable<Session>
+
+    @POST(UtilUrl.UPLOAD_PHOTO)
+    fun uploadPhoto(@Body body: PhotoUploadBody): Observable<Photo>
+
+    @DELETE(UtilUrl.DELETE_PHOTO)
+    fun deletePhoto(@Path("id") id: String): Observable<Photo>
+
+    @GET(UtilUrl.VIEW_PHOTO)
+    fun getPhoto(@Path("id") id: String): Observable<Photo>
 }

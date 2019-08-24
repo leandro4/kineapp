@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.Session
+import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.adapter_session.view.*
 
 class SessionAdapter(private val sessions: MutableList<Session>, private val callback: SessionListener): RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
@@ -44,7 +45,7 @@ class SessionAdapter(private val sessions: MutableList<Session>, private val cal
 
         fun bind(session: Session, callback: SessionListener) {
             viewItem.tvDescription.text = session.description
-            viewItem.tvDate.text = session.date
+            viewItem.tvDate.text = Utils.formatDate(session.date)
             viewItem.flContent.setOnClickListener {
                 callback.onSessionSelected(session)
             }

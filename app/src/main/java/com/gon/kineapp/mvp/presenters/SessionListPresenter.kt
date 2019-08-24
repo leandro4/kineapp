@@ -1,22 +1,19 @@
 package com.gon.kineapp.mvp.presenters
 
-import android.os.Handler
 import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
-import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.model.responses.SessionListResponse
 import com.gon.kineapp.mvp.views.SessionListView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.ArrayList
 
 class SessionListPresenter: BasePresenter<SessionListView>() {
 
-    fun getSessions() {
+    fun getSessions(id: String) {
         mvpView?.showProgressView()
 
-        compositeSubscription?.addAll(KinesService.getSessionList()
+        compositeSubscription?.addAll(KinesService.getSessionList(id)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CustomDisposableObserver<SessionListResponse>() {
@@ -37,7 +34,7 @@ class SessionListPresenter: BasePresenter<SessionListView>() {
 
                 override fun onNext(t: SessionListResponse) {
                     mvpView?.hideProgressView()
-                    mvpView?.onSessionsReceived(t.patients)
+                    mvpView?.onSessionsReceived(t.sessions)
                 }
             }))
     }
@@ -45,12 +42,30 @@ class SessionListPresenter: BasePresenter<SessionListView>() {
     fun createSession(patientId: String) {
         mvpView?.showProgressView()
 
-        Handler().postDelayed( {
-            mvpView?.hideProgressView()
-            val session = Session("98891", patientId, "21/08/2019", "Obs", ArrayList<Photo>().toMutableList())
-            mvpView?.onSessionCreated(session)
-        }, 1000)
+        compositeSubscription?.addAll(KinesService.createSession(patientId)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CustomDisposableObserver<Session>() {
+                override fun onNoInternetConnection() {
+                    mvpView?.hideProgressView()
+                    mvpView?.onNoInternetConnection()
+                }
 
+                override fun onObserverError(e: Throwable) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onError(e)
+                }
+
+                override fun onErrorCode(code: Int, message: String) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onErrorCode(message)
+                }
+
+                override fun onNext(session: Session) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onSessionCreated(session)
+                }
+            }))
     }
 
 }

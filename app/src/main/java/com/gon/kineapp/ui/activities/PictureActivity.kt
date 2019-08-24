@@ -18,7 +18,6 @@ import android.view.TextureView
 import android.view.View
 import android.widget.ImageView
 import com.gon.kineapp.R
-import com.gon.kineapp.model.Photo
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.StateCameraCallback
 import com.gonanimationlib.animations.Animate
@@ -28,7 +27,10 @@ import android.graphics.Bitmap
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.activity_picture.*
+import java.io.ByteArrayOutputStream
+import android.util.Base64
 
 class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener, AdapterView.OnItemSelectedListener {
 
@@ -40,6 +42,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     private var previewSession: CameraCaptureSession? = null
     private var getPicture: ImageView? = null
     private var bitmap: Bitmap? = null
+    private var encodedPhoto: String? = null
 
     private val stateCallback = object : StateCameraCallback() {
         override fun onOpened(camera: CameraDevice) {
@@ -70,11 +73,8 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             preview.setImageBitmap(null)
         }
         btnAccept.setOnClickListener {
-
-            val photo = Photo("98092", "https://st2.depositphotos.com/1017986/6974/i/950/depositphotos_69742233-stock-photo-businessman-from-back.jpg", "https://st2.depositphotos.com/1017986/6974/i/950/depositphotos_69742233-stock-photo-businessman-from-back.jpg", "BACK")
-
             val intent = Intent()
-            intent.putExtra(Constants.PHOTO_EXTRA, photo)
+            intent.putExtra(Constants.PHOTO_EXTRA, encodedPhoto)
             setResult(Activity.RESULT_OK, intent)
             this@PictureActivity.finish()
         }
@@ -224,12 +224,17 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     private fun save(bytes: ByteArray) {
         bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
-        val matrix = Matrix()
-        matrix.preRotate(90f)
-
         if (bitmap!!.width > bitmap!!.height) {
+            val matrix = Matrix()
+            matrix.preRotate(90f)
             bitmap = Bitmap.createBitmap(bitmap!!, 0, 0, bitmap!!.width, bitmap!!.height, matrix, true)
         }
+        while (bitmap?.byteCount!!.compareTo(12100100) == 1) {
+            bitmap = Bitmap.createScaledBitmap(bitmap!!, bitmap!!.width*3/4, bitmap!!.height*3/4, false)
+        }
+        val outArray = ByteArrayOutputStream()
+        bitmap!!.compress(Bitmap.CompressFormat.JPEG, 30, outArray)
+        encodedPhoto = Base64.encodeToString(outArray.toByteArray(), Base64.DEFAULT)
 
         val mainHandler = Handler(this.mainLooper)
         val myRunnable = Runnable {

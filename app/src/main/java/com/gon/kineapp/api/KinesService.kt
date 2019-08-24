@@ -1,11 +1,10 @@
 package com.gon.kineapp.api
 
+import com.gon.kineapp.model.ExercisesCalendar
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.model.Video
-import com.gon.kineapp.model.requests.LoginBody
-import com.gon.kineapp.model.requests.RegisterUserBody
-import com.gon.kineapp.model.requests.UserExistsBody
+import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import com.gon.kineapp.utils.Authorization
 import io.reactivex.Observable
@@ -61,8 +60,8 @@ object KinesService {
         return kinesApi.userExists(body)
     }
 
-    fun registerUser(token: String, firstName: String, lastName: String, license: String?, email: String, questionId: Int, answer: String): Observable<UserRegisteredResponse> {
-        val body = RegisterUserBody(token, firstName, lastName, questionId, license, email, answer)
+    fun registerUser(token: String, firstName: String, lastName: String, license: String?, number: String?, birthday: String?, email: String, questionId: Int, answer: String): Observable<UserRegisteredResponse> {
+        val body = RegisterUserBody(token, firstName, lastName, questionId, license, number, birthday, email, answer)
         return kinesApi.registerUser(body)
     }
 
@@ -75,13 +74,25 @@ object KinesService {
         return kinesApi.getPatients()
     }
 
-    fun getSessionList(): Observable<SessionListResponse> {
+    fun getExercises(): Observable<ExercisesResponse> {
 
-        val photos = listOf(
-            Photo("12322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "frente"),
-            Photo("22322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "derecha"),
-            Photo("52322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000", "dorso"),
-            Photo("72322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "izquierda")
+        val ex = listOf(ExercisesCalendar(0, "Hacer 3 series de 20 repeticiones de movimiento de codo derecho arriba y abajo", null),
+            ExercisesCalendar(2, "Hacer 5 series de 15 repeticiones de movimiento de codo derecho arriba y abajo", null),
+            ExercisesCalendar(4, "Hacer 7 series de 20 repeticiones de movimiento de codo derecho arriba y abajo", null),
+            ExercisesCalendar(5, "Hacer 10 series de 20 repeticiones de movimiento de codo derecho arriba y abajo", null))
+        val list = ExercisesResponse(ex.toMutableList())
+        return Observable.just(list).delay(1000, TimeUnit.MILLISECONDS)
+
+        //return kinesApi.getExercises()
+    }
+
+    fun getSessionList(id: String): Observable<SessionListResponse> {
+
+/*        val photos = listOf(
+            Photo("12322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000","frente"),
+            Photo("22322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "derecha"),
+            Photo("52322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/ander-frente-1.jpg?w=2000","dorso"),
+            Photo("72322","https://i2.wp.com/saracossio.com/wp-content/uploads/2017/01/andre-pixelada-lateral.jpg?w=2000", "izquierda")
         )
 
         val list = listOf(
@@ -93,9 +104,29 @@ object KinesService {
 
         val response = SessionListResponse(list.toMutableList())
 
-        return Observable.just(response).delay(1000, TimeUnit.MILLISECONDS)
+        return Observable.just(response).delay(1000, TimeUnit.MILLISECONDS)*/
 
-        //return kinesApi.getPatients()
+        return kinesApi.getSessions(id)
+    }
+
+    fun createSession(patientId: String): Observable<Session> {
+        return kinesApi.createSession(PatientIdBody(patientId))
+    }
+
+    fun updateSession(sessionId: String, description: String): Observable<Session> {
+        return kinesApi.updateSession(sessionId, SessionDescriptionUpdateBody(description))
+    }
+
+    fun uploadPhoto(sessionId: String, content: String, tag: String): Observable<Photo> {
+        return kinesApi.uploadPhoto(PhotoUploadBody(sessionId, content, tag))
+    }
+
+    fun deletePhoto(photoId: String): Observable<Photo> {
+        return kinesApi.deletePhoto(photoId)
+    }
+
+    fun getPhoto(photoId: String): Observable<Photo> {
+        return kinesApi.getPhoto(photoId)
     }
 
     fun getPublicVideos(): Observable<PublicVideosListResponse> {

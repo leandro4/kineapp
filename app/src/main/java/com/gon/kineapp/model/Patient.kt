@@ -5,4 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Patient(
-    var videos: MutableList<Video>): Parcelable
+    var videos: MutableList<Video>,
+    var exercises: ExercisesCalendar?): Parcelable
