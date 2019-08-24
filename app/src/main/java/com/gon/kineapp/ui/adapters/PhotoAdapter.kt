@@ -44,7 +44,7 @@ class PhotoAdapter(private val photos: MutableList<Photo>, private val callback:
     class PhotoViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(photo: Photo, callback: PhotoListener) {
-            Glide.with(viewItem).load(Utils.convertImage(photo.thumbnail)).into(viewItem.ivPhoto)
+            Glide.with(viewItem).load(Utils.convertImage(photo.thumbnail!!)).into(viewItem.ivPhoto)
             viewItem.containerPhoto.setOnClickListener { callback.onPhotoSelected(photo) }
             viewItem.ivRemove.setOnClickListener { callback.onRemovePhoto(photo.id) }
         }

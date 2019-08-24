@@ -4,6 +4,7 @@ import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
+import com.gon.kineapp.model.responses.PhotoResponse
 import com.gon.kineapp.mvp.views.SessionDetailView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -14,10 +15,10 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
         mvpView?.showProgressView()
 
         compositeSubscription!!.add(
-            KinesService.deletePhoto(id)
+            KinesService.getPhoto(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : CustomDisposableObserver<Photo>() {
+                .subscribeWith(object : CustomDisposableObserver<PhotoResponse>() {
                     override fun onNoInternetConnection() {
                         mvpView?.hideProgressView()
                         mvpView?.onNoInternetConnection()
@@ -33,9 +34,9 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
                         mvpView?.onErrorCode(message)
                     }
 
-                    override fun onNext(p: Photo) {
+                    override fun onNext(p: PhotoResponse) {
                         mvpView?.hideProgressView()
-                        mvpView?.onPhotoDeleted(p.id)
+                        mvpView?.onPhotoLoaded(Photo(p.id, p.thumbnail, p.content, p.tag))
                     }
                 })
         )
@@ -48,7 +49,7 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
             KinesService.deletePhoto(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : CustomDisposableObserver<Photo>() {
+                .subscribeWith(object : CustomDisposableObserver<PhotoResponse>() {
                     override fun onNoInternetConnection() {
                         mvpView?.hideProgressView()
                         mvpView?.onNoInternetConnection()
@@ -64,9 +65,9 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
                         mvpView?.onErrorCode(message)
                     }
 
-                    override fun onNext(p: Photo) {
+                    override fun onNext(p: PhotoResponse) {
                         mvpView?.hideProgressView()
-                        mvpView?.onPhotoDeleted(p.id)
+                        mvpView?.onPhotoDeleted(Photo(p.id, p.thumbnail, p.content, p.tag))
                     }
                 })
         )
@@ -79,7 +80,7 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
             KinesService.uploadPhoto(sessionId, contentPhoto, tag)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : CustomDisposableObserver<Photo>() {
+                .subscribeWith(object : CustomDisposableObserver<PhotoResponse>() {
                     override fun onNoInternetConnection() {
                         mvpView?.hideProgressView()
                         mvpView?.onNoInternetConnection()
@@ -95,9 +96,9 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
                         mvpView?.onErrorCode(message)
                     }
 
-                    override fun onNext(p: Photo) {
-                        mvpView?.onPhotoUploaded(p)
+                    override fun onNext(p: PhotoResponse) {
                         mvpView?.hideProgressView()
+                        mvpView?.onPhotoUploaded(Photo(p.id, p.thumbnail, p.content, p.tag))
                     }
                 })
         )

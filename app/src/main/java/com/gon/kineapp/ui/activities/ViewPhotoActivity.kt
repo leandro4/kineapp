@@ -11,6 +11,7 @@ import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.utils.DialogUtil
 import com.gon.kineapp.utils.ImageLoader
+import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.activity_view_photo.*
 
 class ViewPhotoActivity: AppCompatActivity() {
@@ -30,7 +31,7 @@ class ViewPhotoActivity: AppCompatActivity() {
         supportActionBar?.title = photo?.tag
 
         photo?.let {
-            //ImageLoader.load(this, Uri.parse(it.imgId)).into(ivPhoto)
+            ImageLoader.load(this, Utils.convertImage(it.content!!)).into(ivPhoto)
         }
     }
 
@@ -59,7 +60,7 @@ class ViewPhotoActivity: AppCompatActivity() {
     private fun removePhoto() {
         DialogUtil.showOptionsAlertDialog(this, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
             val intent = Intent()
-            intent.putExtra(Constants.PHOTO_EXTRA, photo)
+            intent.putExtra(Constants.PHOTO_EXTRA, photo?.id)
             setResult(Constants.REMOVED_PHOTO_CODE, intent)
             onBackPressed()
         }

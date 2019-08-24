@@ -8,13 +8,11 @@ import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import com.gon.kineapp.utils.Authorization
 import io.reactivex.Observable
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 object KinesService {
@@ -117,15 +115,15 @@ object KinesService {
         return kinesApi.updateSession(sessionId, SessionDescriptionUpdateBody(description))
     }
 
-    fun uploadPhoto(sessionId: String, content: String, tag: String): Observable<Photo> {
+    fun uploadPhoto(sessionId: String, content: String, tag: String): Observable<PhotoResponse> {
         return kinesApi.uploadPhoto(PhotoUploadBody(sessionId, content, tag))
     }
 
-    fun deletePhoto(photoId: String): Observable<Photo> {
+    fun deletePhoto(photoId: String): Observable<PhotoResponse> {
         return kinesApi.deletePhoto(photoId)
     }
 
-    fun getPhoto(photoId: String): Observable<Photo> {
+    fun getPhoto(photoId: String): Observable<PhotoResponse> {
         return kinesApi.getPhoto(photoId)
     }
 

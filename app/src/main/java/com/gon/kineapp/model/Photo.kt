@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Photo(
         var id: String,
-        var thumbnail: String,
+        var thumbnail: String? = null,
+        var content: String? = null,
         var tag: String): Parcelable

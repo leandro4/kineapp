@@ -112,12 +112,16 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
         presenter.attachMvpView(this)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
         presenter.detachMvpView()
+        super.onDestroy()
     }
 
     override fun onPhotoSelected(photo: Photo) {
+        presenter.getPhoto(photo.id)
+    }
+
+    override fun onPhotoLoaded(photo: Photo) {
         val intent = Intent(context, ViewPhotoActivity::class.java)
         intent.putExtra(Constants.PHOTO_EXTRA, photo)
         activity?.startActivityForResult(intent, VIEW_PICTURE_CODE)
@@ -125,13 +129,13 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
 
     override fun onRemovePhoto(id: String) {
         DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
-            presenter.deletePhoto(id)
+            removePhoto(id)
         }
     }
 
-    override fun onPhotoDeleted(id: String) {
+    override fun onPhotoDeleted(photo: Photo) {
         setSessionResultIntent()
-        adapter.removePhoto(id)
+        adapter.removePhoto(photo.id)
         checkEmptyList()
     }
 
@@ -144,6 +148,10 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     override fun onPhotoUploaded(photo: Photo) {
         adapter.addPhoto(photo)
         setSessionResultIntent()
+    }
+
+    private fun removePhoto(id: String) {
+        presenter.deletePhoto(id)
     }
 
     private fun checkEmptyList() {
@@ -166,7 +174,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
         }
         else if (requestCode == VIEW_PICTURE_CODE && resultCode == Constants.REMOVED_PHOTO_CODE) {
             data?.let {
-                presenter.deletePhoto(it.getParcelableExtra<Photo>(Constants.PHOTO_EXTRA).id)
+                removePhoto(it.getStringExtra(Constants.PHOTO_EXTRA))
             }
         }
     }

@@ -37,11 +37,11 @@ interface KinesApi {
     fun updateSession(@Path("id") id: String, @Body body: SessionDescriptionUpdateBody): Observable<Session>
 
     @POST(UtilUrl.UPLOAD_PHOTO)
-    fun uploadPhoto(@Body body: PhotoUploadBody): Observable<Photo>
+    fun uploadPhoto(@Body body: PhotoUploadBody): Observable<PhotoResponse>
 
     @DELETE(UtilUrl.DELETE_PHOTO)
-    fun deletePhoto(@Path("id") id: String): Observable<Photo>
+    fun deletePhoto(@Path("id") id: String): Observable<PhotoResponse>
 
     @GET(UtilUrl.VIEW_PHOTO)
-    fun getPhoto(@Path("id") id: String): Observable<Photo>
+    fun getPhoto(@Path("id") id: String): Observable<PhotoResponse>
 }
