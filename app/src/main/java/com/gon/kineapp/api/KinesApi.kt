@@ -1,7 +1,7 @@
 package com.gon.kineapp.api
 
-import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
+import com.gon.kineapp.model.User
 import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import io.reactivex.Observable
@@ -44,4 +44,10 @@ interface KinesApi {
 
     @GET(UtilUrl.VIEW_PHOTO)
     fun getPhoto(@Path("id") id: String): Observable<PhotoResponse>
+
+    @GET(UtilUrl.MEDICS)
+    fun getMedicList(): Observable<MedicListResponse>
+
+    @PATCH(UtilUrl.PATIENTS_DETAIL)
+    fun updateCurrentMedic(@Body body: UpdateMedicBody): Observable<User>
 }

@@ -203,7 +203,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
         initSpinnerQuestions()
 
-        etName.setText(getGoogleAccount()?.displayName)
+        etName.setText(getGoogleAccount()?.givenName)
         etLastName.setText(getGoogleAccount()?.familyName)
         tvEmail.text = getGoogleAccount()?.email
 

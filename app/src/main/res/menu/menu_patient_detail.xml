@@ -3,16 +3,23 @@
 
     <item
             android:id="@+id/exercises"
-            android:title="Ejercicios"
+            android:title="@string/exercises_title"
             android:icon="@drawable/ic_excercises"
             app:showAsAction="ifRoom"
     />
 
     <item
             android:id="@+id/motion_video"
-            android:title="Timelapse"
+            android:title="@string/timeline_title"
             android:icon="@drawable/ic_motion_video"
             app:showAsAction="ifRoom"
+    />
+
+    <item
+        android:id="@+id/take_video"
+        android:title="@string/take_video_title"
+        android:icon="@drawable/ic_video"
+        app:showAsAction="ifRoom"
     />
 
 </menu>

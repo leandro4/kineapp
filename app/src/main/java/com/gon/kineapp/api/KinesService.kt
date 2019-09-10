@@ -1,9 +1,6 @@
 package com.gon.kineapp.api
 
-import com.gon.kineapp.model.ExercisesCalendar
-import com.gon.kineapp.model.Photo
-import com.gon.kineapp.model.Session
-import com.gon.kineapp.model.Video
+import com.gon.kineapp.model.*
 import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import com.gon.kineapp.utils.Authorization
@@ -143,5 +140,13 @@ object KinesService {
         return Observable.just(response).delay(1000, TimeUnit.MILLISECONDS)
 
         //return kinesApi.getPublicVideos()
+    }
+
+    fun getMedicList(): Observable<MedicListResponse> {
+        return kinesApi.getMedicList()
+    }
+
+    fun updateCurrentMedic(license: String?): Observable<User> {
+        return kinesApi.updateCurrentMedic(UpdateMedicBody(UpdateMedicBody.License(license?:"0")))
     }
 }

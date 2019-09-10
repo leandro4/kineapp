@@ -10,20 +10,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.support.v4.app.ActivityCompat
 import com.gon.kineapp.R
+import com.gon.kineapp.model.User
+import com.gon.kineapp.mvp.presenters.ProfilePresenter
+import com.gon.kineapp.mvp.views.ProfileView
+import com.gon.kineapp.ui.adapters.MedicSelectorAdapter
+import com.gon.kineapp.ui.fragments.dialogs.SearchMedicFragment
 import com.gon.kineapp.utils.ImageLoader
 import com.gon.kineapp.utils.MyUser
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import android.media.ExifInterface as ExifInterface1
 
-class ProfileFragment: BaseMvpFragment() { //}, LoginView {
+class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.MedicListener {
+
     companion object {
         private const val REQUEST_TAKE_PHOTO = 0
         private const val REQUEST_SELECT_IMAGE_IN_ALBUM = 1000
         private const val REQUEST_GALLERY_PERMISSION = 1010
     }
 
-    //var presenter = LoginPresenter()
+    var presenter = ProfilePresenter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_profile, container, false)
@@ -42,7 +48,17 @@ class ProfileFragment: BaseMvpFragment() { //}, LoginView {
             tvSurname.text = it.surname
             if (it.isMedic()) {
                 licenseTextView.text = it.medic!!.license
-            } else rlLicense.visibility = View.GONE
+                rlMedic.visibility = View.GONE
+            } else {
+                rlLicense.visibility = View.GONE
+                it.patient?.medicLicense?.let { license ->
+                    medicAction.setImageResource(R.drawable.ic_remove)
+                    tvMedic.text = "matrícula: " + license
+                    medicAction.setOnClickListener { presenter.deleteCurrentMedic() }
+                } ?: run  {
+                    tvMedic.text = getString(R.string.not_medic_assigned)
+                    medicAction.setOnClickListener { presenter.getMedicList() } }
+            }
             emailTextView.text = it.mail
         }
         this.setupClickListeners()
@@ -78,20 +94,13 @@ class ProfileFragment: BaseMvpFragment() { //}, LoginView {
     }
 
     override fun startPresenter() {
-        //presenter.attachMvpView(this)
+        presenter.attachMvpView(this)
     }
 
     override fun onDestroy() {
-        //presenter.detachMvpView()
+        presenter.detachMvpView()
         super.onDestroy()
     }
-
-/*    override fun onLoginSuccess() {
-    }
-
-    override fun onLoginFailure() {
-        showErrorMessage(getString(R.string.generic_error_message))
-    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -106,5 +115,22 @@ class ProfileFragment: BaseMvpFragment() { //}, LoginView {
         if(grantResults.contains(PackageManager.PERMISSION_GRANTED) && requestCode == REQUEST_GALLERY_PERMISSION) {
             this.selectImageFromGallery()
         }
+    }
+
+    override fun onMedicSelected(license: String) {
+        presenter.updateCurrentMedic(license)
+    }
+
+    override fun onMedicListResponse(medics: List<User>) {
+        SearchMedicFragment.newInstance(medics, this).show(fragmentManager, "dialog")
+    }
+
+    override fun onMedicUpdated(user: User) {
+        MyUser.set(context!!, user)
+        initUI()
+    }
+
+    override fun onPhotoEdited() {
+
     }
 }

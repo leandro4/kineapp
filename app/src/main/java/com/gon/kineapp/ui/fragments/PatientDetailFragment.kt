@@ -1,5 +1,7 @@
 package com.gon.kineapp.ui.fragments
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.gon.kineapp.ui.activities.PrivateVideosActivity
 import com.gon.kineapp.ui.activities.SessionDetailActivity
 import com.gon.kineapp.ui.adapters.SessionAdapter
 import com.gon.kineapp.utils.Constants
+import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.fragment_patient_detail.*
 
 class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
@@ -34,6 +37,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
         const val VIEW_SESSION = 2001
         const val VIEW_VIDEOS = 2002
+        const val TAKE_VIDEO = 2003
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -75,6 +79,9 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
             R.id.motion_video -> {
                 Toast.makeText(context, "timeLine", Toast.LENGTH_SHORT).show()
                 return true
+            }
+            R.id.take_video -> {
+                Utils.takeVideo(activity!!, TAKE_VIDEO)
             }
         }
 
@@ -127,6 +134,13 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
             data?.let {
                 val videos = it.getParcelableArrayListExtra<Video>(Constants.VIDEO_EXTRA)
                 patient.patient?.videos = videos
+            }
+        }
+        else if (requestCode == TAKE_VIDEO) {
+            when (resultCode) {
+                RESULT_OK -> Toast.makeText(context, "Video saved to:\n" + data?.data, Toast.LENGTH_LONG).show()
+                RESULT_CANCELED -> Toast.makeText(context, "Video recording cancelled.", Toast.LENGTH_LONG).show()
+                else -> Toast.makeText(context, "Failed to record video", Toast.LENGTH_LONG).show()
             }
         }
     }

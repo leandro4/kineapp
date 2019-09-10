@@ -37,6 +37,5 @@ class PatientAdapter(private val patients: MutableList<User>, private val callba
                 callback.onPatientSelected(patient)
             }
         }
-
     }
 }

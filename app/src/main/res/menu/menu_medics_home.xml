@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/videos"
-        android:title="Crear Video"
+        android:title="Videos"
         android:icon="@drawable/ic_video"
         app:showAsAction="ifRoom"
      />

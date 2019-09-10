@@ -8,6 +8,7 @@
     <dimen name="xlarge_margin">24dp</dimen>
     <dimen name="xxlarge_margin">32dp</dimen>
     <dimen name="xxxlarge_margin">48dp</dimen>
+    <dimen name="ultra_margin">70dp</dimen>
 
     <dimen name="small_radius">6dp</dimen>
     <dimen name="medium_radius">10dp</dimen>

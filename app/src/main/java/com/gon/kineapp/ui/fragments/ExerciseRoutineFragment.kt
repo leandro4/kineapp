@@ -20,7 +20,7 @@ class ExerciseRoutineFragment: BaseMvpFragment(), ExercisesView {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_home, menu)
+        inflater.inflate(R.menu.menu_patients_home, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

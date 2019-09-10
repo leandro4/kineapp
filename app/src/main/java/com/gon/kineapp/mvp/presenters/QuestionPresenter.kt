@@ -45,7 +45,5 @@ class QuestionPresenter: BasePresenter<QuestionView>() {
                 }
             })
         )
-
     }
-
 }

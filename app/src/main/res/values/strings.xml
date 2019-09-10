@@ -46,6 +46,14 @@
         pacientes.\n\nPara continuar debe iniciar sesión con una cuenta de Google.\nA continuación, accederá al
         sistema.\nSi es la primera vez que ingresa, le pediremos algunos datos sobre su identidad.\n\n¡Gracias!
     </string>
+    <string name="exercises_title">Ejercicios</string>
+    <string name="timeline_title">Timeline</string>
+    <string name="take_video_title">Grabar video</string>
+    <string name="profile_medic_title">Médico</string>
+    <string name="not_medic_assigned">No tiene médico asignado</string>
+    <string name="medic_selector_title">Buscar médico:</string>
+    <string name="medic_selector_hint">Ingrese matrícula, nombre o apellido&#8230;</string>
+    <string name="medic_selector_count">Resultados: %s</string>
 
     <string-array name="pics_kind_array">
         <item>Frente</item>

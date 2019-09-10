@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.WindowManager
 import com.gon.kineapp.R
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.model.Photo
@@ -20,6 +21,7 @@ class ViewPhotoActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         setContentView(R.layout.activity_view_photo)
 
         setSupportActionBar(toolbar)

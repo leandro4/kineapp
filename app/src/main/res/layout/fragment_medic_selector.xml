@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/flContainer">
+
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="@dimen/large_radius"
+        app:cardBackgroundColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/ultra_margin"
+        android:maxHeight="450dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_margin="@dimen/large_margin"
+            android:animateLayoutChanges="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:text="@string/medic_selector_title"
+                android:textColor="@color/black_title"
+                style="@style/TextViewStyleRegular"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:hint="@string/medic_selector_hint"
+                android:textColorHint="@color/black_hint"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:maxEms="20"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:imeOptions="actionDone"
+                android:inputType="textNoSuggestions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                android:layout_marginTop="@dimen/large_margin"
+                style="@style/TextViewStyleLight"/>
+
+            <TextView
+                android:id="@+id/tvResultCount"
+                android:textColor="@color/black_title"
+                style="@style/TextViewStyleLight"
+                android:textSize="14sp"
+                android:layout_marginTop="@dimen/small_margin"
+                app:layout_constraintTop_toBottomOf="@+id/etSearch"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvMedicsResult"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/large_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvResultCount"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

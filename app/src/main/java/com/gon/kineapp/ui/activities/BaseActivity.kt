@@ -10,12 +10,14 @@ import com.gon.kineapp.R
 import com.gon.kineapp.ui.fragments.BaseMvpFragment
 import kotlinx.android.synthetic.main.activity_base_content.*
 import android.app.ActivityOptions
+import android.view.WindowManager
 import com.gonanimationlib.animations.Animate
 
 abstract class BaseActivity: LockableActivity(), BaseMvpFragment.ActivityProgress {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         setAnimation()
         setContentView(R.layout.activity_base_content)
         setSupportActionBar(toolbar)

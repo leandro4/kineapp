@@ -10,6 +10,11 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
+import android.provider.MediaStore
+import android.content.Intent
+import android.net.Uri
+import android.os.Environment.getExternalStorageDirectory
+import java.io.File
 
 object Utils {
 
@@ -44,5 +49,18 @@ object Utils {
         } catch (e: Exception) {
             "Check date"
         }
+    }
+
+    fun takeVideo(activity: Activity, requestCode: Int) {
+        val timestamp = System.currentTimeMillis()
+        val mediaFile = File(getExternalStorageDirectory().absolutePath + "/kine_" + timestamp + ".mp4")
+        val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        val videoUri = Uri.fromFile(mediaFile)
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0)
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 20)
+
+        activity.startActivityForResult(intent, requestCode)
     }
 }

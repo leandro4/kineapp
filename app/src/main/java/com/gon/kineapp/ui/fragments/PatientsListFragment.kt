@@ -41,7 +41,7 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_home, menu)
+        inflater.inflate(R.menu.menu_medics_home, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
