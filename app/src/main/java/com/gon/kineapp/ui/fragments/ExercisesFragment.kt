@@ -38,7 +38,7 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
 
     private fun initUI() {
         rvExercises.layoutManager = LinearLayoutManager(context)
-        adapter = ExerciseAdapter(routine.exercises.toMutableList(), this, isMedic)
+        adapter = ExerciseAdapter(routine.exercises, this, isMedic)
         rvExercises.adapter = adapter
 
         if (routine.exercises.isEmpty()) {
@@ -55,7 +55,9 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
     }
 
     override fun onExerciseMarkedAsDone(exerciseId: String) {
-        Toast.makeText(context, "done", Toast.LENGTH_SHORT).show()
+        val index = routine.exercises.indexOfFirst { it.id == (exerciseId) }
+        routine.exercises[index].done = true
+        adapter.notifyItemChanged(index)
     }
 
     override fun onExerciseRemove(exerciseId: String) {

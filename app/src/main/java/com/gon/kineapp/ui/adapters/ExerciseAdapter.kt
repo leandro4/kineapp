@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Exercise
-import com.gon.kineapp.model.User
 import kotlinx.android.synthetic.main.adapter_exercise.view.*
-import kotlinx.android.synthetic.main.adapter_patient.view.*
 
 class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val callback: ExerciseListener, private val isMedic: Boolean): RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
 
@@ -36,6 +34,13 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
 
         fun bind(exercise: Exercise, callback: ExerciseListener, isMedic: Boolean) {
             viewItem.tvDescription.text = exercise.description
+            if (exercise.done) {
+                viewItem.ivDone.setImageResource(R.drawable.ic_done)
+                viewItem.tvDone.text = viewItem.context.getString(R.string.exercice_done)
+            } else {
+                viewItem.ivDone.setImageResource(R.drawable.ic_undone)
+                viewItem.tvDone.text = viewItem.context.getString(R.string.exercice_undone)
+            }
             exercise.video?.let { video ->
                 viewItem.llWatchVideo.visibility = View.GONE
                 viewItem.llWatchVideo.visibility = View.VISIBLE
@@ -54,7 +59,7 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
             } else {
                 viewItem.llRemove.visibility = View.GONE
                 viewItem.llDone.visibility = View.VISIBLE
-                viewItem.llDone.setOnClickListener { callback.onExerciseMarkedAsDone(exercise.id) }
+                viewItem.llDone.setOnClickListener { if (!exercise.done) callback.onExerciseMarkedAsDone(exercise.id) }
             }
         }
     }

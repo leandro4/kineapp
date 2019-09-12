@@ -85,6 +85,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/ivDone"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_undone"
                     android:tint="@color/colorAccent"
@@ -92,6 +93,7 @@
                     android:layout_height="60dp"/>
 
                 <TextView
+                    android:id="@+id/tvDone"
                     android:text="@string/exercice_undone"
                     android:textColor="@color/colorAccent"
                     style="@style/TextViewStyleBold" />
