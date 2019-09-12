@@ -34,7 +34,7 @@ class ViewVideoActivity: AppCompatActivity() {
         super.onResume()
         video = intent?.getParcelableExtra(Constants.VIDEO_EXTRA)
         video?.let {
-            val uri = Uri.parse(it.videoUrl)
+            val uri = Uri.parse(it.url)
             vvPlayer.setVideoURI(uri)
 
             val vidControl = MediaController(this)
@@ -42,7 +42,7 @@ class ViewVideoActivity: AppCompatActivity() {
             vvPlayer.setMediaController(vidControl)
             vvPlayer.start()
 
-            tvTitle.text = it.title
+            tvTitle.text = it.name
         } ?: run { finish() }
     }
 }

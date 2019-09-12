@@ -51,7 +51,7 @@ class PublicVideoAdapter(private val videos: MutableList<Video>, private val cal
             Glide.with(viewItem).load(Uri.parse(video.thumbUrl)).into(viewItem.ivVideo)
             viewItem.ivVideo.setOnClickListener { callback.onVideoSelected(video) }
             viewItem.ivRemove.setOnClickListener { callback.onRemoveVideoSelected(video.id) }
-            viewItem.tvTitle.text = video.title
+            viewItem.tvTitle.text = video.name
         }
 
         fun setNotRemovableVideo() {

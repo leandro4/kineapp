@@ -1,20 +1,13 @@
 package com.gon.kineapp.mvp.presenters
 
-import com.gon.kineapp.api.CustomDisposableObserver
-import com.gon.kineapp.api.KinesService
-import com.gon.kineapp.model.ExercisesCalendar
-import com.gon.kineapp.model.Session
-import com.gon.kineapp.model.responses.ExercisesResponse
-import com.gon.kineapp.mvp.views.ExercisesView
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.gon.kineapp.mvp.views.RoutineView
 
-class ExercisesPresenter: BasePresenter<ExercisesView>() {
+class RoutinePresenter: BasePresenter<RoutineView>() {
 
-    fun getExercises() {
+    fun markAsDone() {
         mvpView?.showProgressView()
 
-        compositeSubscription?.add(KinesService.getExercises()
+        /*compositeSubscription?.add(KinesService.getExercises()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CustomDisposableObserver<ExercisesResponse>() {
@@ -37,10 +30,6 @@ class ExercisesPresenter: BasePresenter<ExercisesView>() {
                     mvpView?.hideProgressView()
                     mvpView?.onExercisesResponse(t.exercises)
                 }
-            }))
-    }
-
-    fun updateExercises(exercises: MutableList<ExercisesCalendar>) {
-
+            }))*/
     }
 }

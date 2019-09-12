@@ -54,6 +54,13 @@
     <string name="medic_selector_title">Buscar médico:</string>
     <string name="medic_selector_hint">Ingrese matrícula, nombre o apellido&#8230;</string>
     <string name="medic_selector_count">Resultados: %s</string>
+    <string name="exercice_description_title">Descripción:</string>
+    <string name="exercice_watch_video">Ver Video</string>
+    <string name="exercice_add_video">Agregar Video</string>
+    <string name="exercice_done">¡Hecho!</string>
+    <string name="exercice_undone">Sin Hacer</string>
+    <string name="exercice_remove">Eliminar</string>
+    <string name="routine_empty">Hoy no tienes ejercicios que hacer\n¡a descansar!</string>
 
     <string-array name="pics_kind_array">
         <item>Frente</item>
