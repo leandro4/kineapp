@@ -61,6 +61,12 @@
     <string name="exercice_undone">Sin Hacer</string>
     <string name="exercice_remove">Eliminar</string>
     <string name="routine_empty">Hoy no tienes ejercicios que hacer\n¡a descansar!</string>
+    <string name="create_session_title">Está a punto de crear una nueva sesión</string>
+    <string name="create_session_msg">¿Desea continuar?</string>
+    <string name="take_video_msg">Recuerde que la duración máxima del mismo es de 20
+        segundos.
+    </string>
+    <string name="routines_title">Rutinas</string>
 
     <string-array name="pics_kind_array">
         <item>Frente</item>

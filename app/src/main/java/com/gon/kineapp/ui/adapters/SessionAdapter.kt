@@ -44,7 +44,7 @@ class SessionAdapter(private val sessions: MutableList<Session>, private val cal
     class SessionViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(session: Session, callback: SessionListener) {
-            viewItem.tvDescription.text = session.description
+            viewItem.tvDescription.text = if (!session.description.isEmpty()) session.description else viewItem.context.getString(R.string.observations_title)
             viewItem.tvDate.text = Utils.formatDate(session.date)
             viewItem.flContent.setOnClickListener {
                 callback.onSessionSelected(session)

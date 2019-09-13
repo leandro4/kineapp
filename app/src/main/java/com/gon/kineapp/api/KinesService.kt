@@ -115,7 +115,7 @@ object KinesService {
         return kinesApi.getMedicList()
     }
 
-    fun updateCurrentMedic(license: String?): Observable<User> {
-        return kinesApi.updateCurrentMedic(UpdateMedicBody(UpdateMedicBody.License(license?:"0")))
+    fun updateCurrentMedic(license: String): Observable<User> {
+        return kinesApi.updateCurrentMedic(UpdateMedicBody(UpdateMedicBody.License(license)))
     }
 }

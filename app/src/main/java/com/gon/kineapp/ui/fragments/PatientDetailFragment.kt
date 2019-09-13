@@ -5,20 +5,21 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.ArrayMap
 import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
-import com.gon.kineapp.model.Photo
-import com.gon.kineapp.model.Session
-import com.gon.kineapp.model.User
-import com.gon.kineapp.model.Video
+import com.gon.kineapp.model.*
 import com.gon.kineapp.mvp.presenters.SessionListPresenter
 import com.gon.kineapp.mvp.views.SessionListView
 import com.gon.kineapp.ui.activities.BaseActivity
+import com.gon.kineapp.ui.activities.EditPatientRoutineActivity
 import com.gon.kineapp.ui.activities.PrivateVideosActivity
 import com.gon.kineapp.ui.activities.SessionDetailActivity
 import com.gon.kineapp.ui.adapters.SessionAdapter
 import com.gon.kineapp.utils.Constants
+import com.gon.kineapp.utils.DialogUtil
+import com.gon.kineapp.utils.MyUser
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.fragment_patient_detail.*
 
@@ -38,6 +39,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         const val VIEW_SESSION = 2001
         const val VIEW_VIDEOS = 2002
         const val TAKE_VIDEO = 2003
+        const val EDIT_ROUTINE = 2004
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,7 +56,9 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     private fun initUI() {
         (activity as BaseActivity).setToolbarTitle(String.format(getString(R.string.patient_sessions_title), patient.name))
         fabAddSession.setOnClickListener {
-            createNewSession()
+            DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.create_session_title), getString(R.string.create_session_msg)) {
+                createNewSession()
+            }
         }
     }
 
@@ -71,9 +75,14 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
         when (item?.itemId) {
             R.id.exercises -> {
-                val intent = Intent(context, PrivateVideosActivity::class.java)
+                /*val intent = Intent(context, PrivateVideosActivity::class.java)
                 intent.putExtra(Constants.PATIENT_EXTRA, patient)
-                activity?.startActivityForResult(intent, VIEW_VIDEOS)
+                activity?.startActivityForResult(intent, VIEW_VIDEOS)*/
+
+                val intent = Intent(context, EditPatientRoutineActivity::class.java)
+                intent.putExtra(Constants.USER_EXTRA, patient)
+                activity?.startActivityForResult(intent, EDIT_ROUTINE)
+
                 return true
             }
             R.id.motion_video -> {
@@ -134,6 +143,12 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
             data?.let {
                 val videos = it.getParcelableArrayListExtra<Video>(Constants.VIDEO_EXTRA)
                 patient.patient?.videos = videos
+            }
+        }
+        else if (requestCode == EDIT_ROUTINE && resultCode == Constants.EDITED_ROUTINE_CODE) {
+            data?.let {
+                val user = it.getParcelableExtra<User>(Constants.USER_EXTRA)
+                patient.patient?.routine = user.patient?.routine
             }
         }
         else if (requestCode == TAKE_VIDEO) {

@@ -43,7 +43,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
     }
 
 
-    fun updateCurrentMedic(license: String?) {
+    fun updateCurrentMedic(license: String) {
 
         mvpView?.showProgressView()
 
@@ -75,7 +75,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
     }
 
     fun deleteCurrentMedic() {
-        updateCurrentMedic(null)
+        updateCurrentMedic("0")
     }
 
 }
