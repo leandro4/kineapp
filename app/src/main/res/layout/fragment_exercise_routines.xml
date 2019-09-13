@@ -20,6 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddExercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_add"
+        android:layout_margin="@dimen/xlarge_margin"/>
+
     <include
         android:id="@+id/viewLoading"
         android:visibility="gone"

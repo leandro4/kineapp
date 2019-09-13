@@ -6,15 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Exercise
+import com.gon.kineapp.model.Video
 import kotlinx.android.synthetic.main.adapter_exercise.view.*
 
 class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val callback: ExerciseListener, private val isMedic: Boolean): RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
 
     interface ExerciseListener {
-        fun onWatchVideo(url: String)
-        fun onAddVideo(exerciseId: String)
-        fun onExerciseMarkedAsDone(exerciseId: String)
-        fun onExerciseRemove(exerciseId: String)
+        fun onWatchVideo(video: Video)
+        fun onAddVideo(exercise: Exercise)
+        fun onExerciseMarkedAsDone(exercise: Exercise)
+        fun onExerciseRemove(exercise: Exercise)
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ExerciseViewHolder {
@@ -44,22 +45,22 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
             exercise.video?.let { video ->
                 viewItem.llWatchVideo.visibility = View.GONE
                 viewItem.llWatchVideo.visibility = View.VISIBLE
-                viewItem.llWatchVideo.setOnClickListener { callback.onWatchVideo(video.url) }
+                viewItem.llWatchVideo.setOnClickListener { callback.onWatchVideo(video) }
             } ?: run {
                 if (isMedic) {
                     viewItem.llWatchVideo.visibility = View.GONE
                     viewItem.llAddVideo.visibility = View.VISIBLE
-                    viewItem.llAddVideo.setOnClickListener { callback.onAddVideo(exercise.id) }
+                    viewItem.llAddVideo.setOnClickListener { callback.onAddVideo(exercise) }
                 }
             }
             if (isMedic) {
                 viewItem.llDone.visibility = View.GONE
                 viewItem.llRemove.visibility = View.VISIBLE
-                viewItem.llRemove.setOnClickListener { callback.onExerciseRemove(exercise.id) }
+                viewItem.llRemove.setOnClickListener { callback.onExerciseRemove(exercise) }
             } else {
                 viewItem.llRemove.visibility = View.GONE
                 viewItem.llDone.visibility = View.VISIBLE
-                viewItem.llDone.setOnClickListener { if (!exercise.done) callback.onExerciseMarkedAsDone(exercise.id) }
+                viewItem.llDone.setOnClickListener { if (!exercise.done) callback.onExerciseMarkedAsDone(exercise) }
             }
         }
     }

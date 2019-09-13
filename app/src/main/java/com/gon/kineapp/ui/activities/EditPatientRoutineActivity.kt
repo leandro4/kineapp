@@ -40,5 +40,4 @@ class EditPatientRoutineActivity : BaseActivity() {
         return RoutineFragment.newInstance(true, patient)
     }
 
-
 }

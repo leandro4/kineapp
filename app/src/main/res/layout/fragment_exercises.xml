@@ -18,12 +18,14 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/emptyViewIcon"
             android:src="@drawable/ic_smile"
             android:layout_gravity="center"
             android:layout_width="80dp"
             android:layout_height="80dp"/>
 
         <TextView
+            android:id="@+id/emptyViewTitle"
             android:text="@string/routine_empty"
             android:gravity="center"
             android:layout_marginTop="@dimen/large_margin"

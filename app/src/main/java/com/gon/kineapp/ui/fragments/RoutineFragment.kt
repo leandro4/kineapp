@@ -3,15 +3,18 @@ package com.gon.kineapp.ui.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import com.gon.kineapp.R
+import com.gon.kineapp.model.Exercise
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.RoutinePresenter
 import com.gon.kineapp.mvp.views.RoutineView
 import com.gon.kineapp.ui.activities.ProfileActivity
 import com.gon.kineapp.ui.adapters.RoutinePagerAdapter
 import kotlinx.android.synthetic.main.fragment_exercise_routines.*
+import kotlinx.android.synthetic.main.fragment_exercises.*
 
-class RoutineFragment: BaseMvpFragment(), RoutineView {
+class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.ExerciseListener {
 
     private val presenter = RoutinePresenter()
     private lateinit var adapter: RoutinePagerAdapter
@@ -60,12 +63,20 @@ class RoutineFragment: BaseMvpFragment(), RoutineView {
     private fun initUI() {
         adapter = RoutinePagerAdapter(fragmentManager!!)
         user.patient?.routine?.values?.forEach {
-            adapter.addFragment(ExercisesFragment.newInstance(isMedic, it))
+            adapter.addFragment(ExercisesFragment.newInstance(isMedic, it, this@RoutineFragment))
         }
         vpRoutines.offscreenPageLimit = 7
         vpRoutines.adapter = adapter
 
         tabLayout.setupWithViewPager(vpRoutines)
+
+        if (!isMedic) {
+            fabAddExercise.hide()
+        } else {
+            fabAddExercise.setOnClickListener {
+                Toast.makeText(context, "new ex", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun startPresenter() {
@@ -78,5 +89,17 @@ class RoutineFragment: BaseMvpFragment(), RoutineView {
     }
 
     override fun onExercisesEdited() {
+    }
+
+    override fun onAddVideo(exercise: Exercise) {
+
+    }
+
+    override fun onMarkAsDoneVideo(exercise: Exercise) {
+
+    }
+
+    override fun onRemoveExercise(exercise: Exercise) {
+
     }
 }
