@@ -10,6 +10,7 @@ import android.view.WindowManager
 import com.gon.kineapp.R
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.model.Photo
+import com.gon.kineapp.model.PhotoTag
 import com.gon.kineapp.utils.DialogUtil
 import com.gon.kineapp.utils.ImageLoader
 import com.gon.kineapp.utils.Utils
@@ -30,9 +31,9 @@ class ViewPhotoActivity: AppCompatActivity() {
 
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = photo?.tag
 
         photo?.let {
+            supportActionBar?.title = PhotoTag.valueOf(it.tag).getCompleteName()
             ImageLoader.load(this, Utils.convertImage(it.content!!)).into(ivPhoto)
         }
     }

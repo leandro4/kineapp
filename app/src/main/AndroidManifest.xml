@@ -67,6 +67,9 @@
             android:name=".ui.activities.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activities.TimeLineActivity"
+            android:screenOrientation="portrait"/>
 
 
         <provider

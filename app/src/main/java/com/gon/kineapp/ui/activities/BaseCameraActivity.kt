@@ -13,7 +13,7 @@ import com.gon.kineapp.R
 import com.gon.kineapp.utils.DialogUtil
 import com.gon.kineapp.utils.Utils
 
-abstract class BaseCameraActivity : AppCompatActivity(), TextureView.SurfaceTextureListener {
+abstract class BaseCameraActivity : LockableActivity(), TextureView.SurfaceTextureListener {
 
     private val CAMERA_PERMISSION_CODE = 10001
 

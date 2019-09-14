@@ -68,13 +68,14 @@
         segundos.
     </string>
     <string name="routines_title">Rutinas</string>
+    <string name="timeline_speed_title">Velocidad:</string>
 
     <string-array name="pics_kind_array">
+        <item>Otra</item>
         <item>Frente</item>
         <item>Derecha</item>
         <item>Espalda</item>
         <item>Izquierda</item>
-        <item>Otra</item>
     </string-array>
 
 </resources>

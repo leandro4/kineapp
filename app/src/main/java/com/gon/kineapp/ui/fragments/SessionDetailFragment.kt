@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.*
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Photo
+import com.gon.kineapp.model.PhotoTag
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.mvp.presenters.SessionDetailPresenter
 import com.gon.kineapp.mvp.views.SessionDetailView
@@ -169,7 +170,8 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
             data?.let {
                 checkEmptyList()
                 val photo = it.getStringExtra(Constants.PHOTO_EXTRA)
-                presenter.uploadPhoto(session.id, photo, "F")
+                val tag = it.getStringExtra(Constants.PHOTO_TAG_EXTRA)
+                presenter.uploadPhoto(session.id, photo, tag)
             }
         }
         else if (requestCode == VIEW_PICTURE_CODE && resultCode == Constants.REMOVED_PHOTO_CODE) {

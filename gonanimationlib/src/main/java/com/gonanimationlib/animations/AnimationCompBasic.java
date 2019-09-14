@@ -12,7 +12,7 @@ public abstract class AnimationCompBasic extends AnimationCompBase {
     protected int delay = 0;
     protected int repeat = 0;
     protected Interpolator interpolator = new LinearInterpolator();
-
+    protected boolean fillAfter = false;
 
     public AnimationCompBasic duration(long during) {
         if (during > 0)
@@ -23,6 +23,11 @@ public abstract class AnimationCompBasic extends AnimationCompBase {
     public AnimationCompBasic startOffset(int delay) {
         if (delay > 0)
             this.delay = delay;
+        return this;
+    }
+
+    public AnimationCompBasic fillAfter(boolean fillAfter) {
+        this.fillAfter = fillAfter;
         return this;
     }
 

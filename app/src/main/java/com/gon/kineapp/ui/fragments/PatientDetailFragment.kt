@@ -12,10 +12,7 @@ import com.gon.kineapp.R
 import com.gon.kineapp.model.*
 import com.gon.kineapp.mvp.presenters.SessionListPresenter
 import com.gon.kineapp.mvp.views.SessionListView
-import com.gon.kineapp.ui.activities.BaseActivity
-import com.gon.kineapp.ui.activities.EditPatientRoutineActivity
-import com.gon.kineapp.ui.activities.PrivateVideosActivity
-import com.gon.kineapp.ui.activities.SessionDetailActivity
+import com.gon.kineapp.ui.activities.*
 import com.gon.kineapp.ui.adapters.SessionAdapter
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.DialogUtil
@@ -27,6 +24,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
     private lateinit var patient: User
     private lateinit var adapter: SessionAdapter
+    private var sessions: MutableList<Session>? = null
     private val presenter = SessionListPresenter()
 
     companion object {
@@ -86,18 +84,31 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
                 return true
             }
             R.id.motion_video -> {
-                Toast.makeText(context, "timeLine", Toast.LENGTH_SHORT).show()
-                return true
+                sessions?.let {
+                    goToTimeLine(it)
+                    return true
+                }
+                return false
             }
             R.id.take_video -> {
                 Utils.takeVideo(activity!!, TAKE_VIDEO)
             }
         }
-
         return super.onOptionsItemSelected(item)
     }
 
+    private fun goToTimeLine(sessions: MutableList<Session>) {
+        // TODO: acá van las fotos de todas las sessiones que tienen un mismo TAG!!
+        val list = ArrayList<Photo>()
+        sessions[0].photos.forEach { s -> list.add(s) }
+        val intent = Intent(context, TimeLineActivity::class.java)
+        intent.putParcelableArrayListExtra(Constants.TIME_LINE_PHOTOS_EXTRA, list)
+        activity?.startActivityForResult(intent, EDIT_ROUTINE)
+
+    }
+
     private fun initList(sessions: MutableList<Session>) {
+        this.sessions = sessions
         rvSessions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvSessions.setHasFixedSize(true)
         adapter = SessionAdapter(sessions, this)

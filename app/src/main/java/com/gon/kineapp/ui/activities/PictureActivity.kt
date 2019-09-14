@@ -31,6 +31,7 @@ import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.activity_picture.*
 import java.io.ByteArrayOutputStream
 import android.util.Base64
+import com.gon.kineapp.model.PhotoTag
 
 class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener, AdapterView.OnItemSelectedListener {
 
@@ -43,6 +44,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     private var getPicture: ImageView? = null
     private var bitmap: Bitmap? = null
     private var encodedPhoto: String? = null
+    private var tag = PhotoTag.O
 
     private val stateCallback = object : StateCameraCallback() {
         override fun onOpened(camera: CameraDevice) {
@@ -75,6 +77,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         btnAccept.setOnClickListener {
             val intent = Intent()
             intent.putExtra(Constants.PHOTO_EXTRA, encodedPhoto)
+            intent.putExtra(Constants.PHOTO_TAG_EXTRA, tag.name)
             setResult(Activity.RESULT_OK, intent)
             this@PictureActivity.finish()
         }
@@ -89,11 +92,14 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (position) {
-            0 -> Toast.makeText(this, "frente", Toast.LENGTH_SHORT).show()
-            1 -> Toast.makeText(this, "derecho", Toast.LENGTH_SHORT).show()
-            2 -> Toast.makeText(this, "espalda", Toast.LENGTH_SHORT).show()
-            3 -> Toast.makeText(this, "izquierdo", Toast.LENGTH_SHORT).show()
-            4 -> ivSiluet.visibility = View.GONE
+            0 -> {
+                tag = PhotoTag.O
+                ivSiluet.visibility = View.GONE
+            }
+            1 -> tag = PhotoTag.F
+            2 -> tag = PhotoTag.D
+            3 -> tag = PhotoTag.E
+            4 -> tag = PhotoTag.I
         }
     }
 

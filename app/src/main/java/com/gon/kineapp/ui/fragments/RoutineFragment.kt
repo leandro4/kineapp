@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Exercise
+import com.gon.kineapp.model.Routine
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.RoutinePresenter
 import com.gon.kineapp.mvp.views.RoutineView
@@ -63,7 +64,7 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
     private fun initUI() {
         adapter = RoutinePagerAdapter(fragmentManager!!)
         user.patient?.routine?.values?.forEach {
-            adapter.addFragment(ExercisesFragment.newInstance(isMedic, it, this@RoutineFragment))
+            adapter.addFragment(ExercisesFragment.newInstance(isMedic, Routine(it), this@RoutineFragment))
         }
         vpRoutines.offscreenPageLimit = 7
         vpRoutines.adapter = adapter

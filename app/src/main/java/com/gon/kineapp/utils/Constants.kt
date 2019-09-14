@@ -7,6 +7,8 @@ object Constants {
     const val NAME_EXTRA = "NAME_EXTRA"
     const val BITMAP_EXTRA = "BITMAP_EXTRA"
     const val PHOTO_EXTRA = "PHOTO_EXTRA"
+    const val PHOTO_TAG_EXTRA = "PHOTO_TAG_EXTRA"
+    const val TIME_LINE_PHOTOS_EXTRA = "TIME_LINE_PHOTOS_EXTRA"
     const val VIDEO_EXTRA = "VIDEO_EXTRA"
     const val USER_EXTRA = "USER_EXTRA"
     const val ROUTINE_EXTRA = "ROUTINE_EXTRA"
