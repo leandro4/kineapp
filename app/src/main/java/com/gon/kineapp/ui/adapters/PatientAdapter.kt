@@ -9,7 +9,7 @@ import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.User
 import kotlinx.android.synthetic.main.adapter_patient.view.*
 
-class PatientAdapter(private val patients: MutableList<User>, private val callback: PatientListener): RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
+class PatientAdapter(private var patients: MutableList<User>, private val callback: PatientListener): RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
 
     interface PatientListener {
         fun onPatientSelected(patient: User)
@@ -26,6 +26,11 @@ class PatientAdapter(private val patients: MutableList<User>, private val callba
 
     override fun onBindViewHolder(holder: PatientViewHolder, pos: Int) {
         holder.bind(patients[pos], callback)
+    }
+
+    fun setPatients(patients: MutableList<User>) {
+        this.patients = patients
+        notifyDataSetChanged()
     }
 
     class PatientViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {

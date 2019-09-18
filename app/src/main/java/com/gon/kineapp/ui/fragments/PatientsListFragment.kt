@@ -2,6 +2,7 @@ package com.gon.kineapp.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 
 import kotlinx.android.synthetic.main.fragment_patient_list.*
@@ -19,6 +20,7 @@ import com.gon.kineapp.utils.Constants
 class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.PatientListener {
 
     private val presenter = PatientListPresenter()
+    private val adapter = PatientAdapter(ArrayList(), this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_patient_list, container, false)
@@ -32,12 +34,19 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
     }
 
     private fun initUI() {
-    }
+        swipeRefresh.setOnRefreshListener {
+            presenter.getPatientList()
+        }
+        presenter.getPatientList()
+        swipeRefresh.isRefreshing = true
 
-    private fun initList(patients: MutableList<User>) {
         rvPatients.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvPatients.setHasFixedSize(true)
-        rvPatients.adapter = PatientAdapter(patients, this)
+        rvPatients.adapter = adapter
+    }
+
+    private fun updateList(patients: MutableList<User>) {
+        adapter.setPatients(patients)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,7 +72,6 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
 
     override fun startPresenter() {
         presenter.attachMvpView(this)
-        presenter.getPatientList()
     }
 
     override fun onDestroy() {
@@ -72,7 +80,8 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
     }
 
     override fun onPatientsReceived(patients: MutableList<User>) {
-        initList(patients)
+        updateList(patients)
+        swipeRefresh.isRefreshing = false
     }
 
     override fun onPatientSelected(patient: User) {
