@@ -83,28 +83,17 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
                 return true
             }
-            R.id.motion_video -> {
-                sessions?.let {
-                    goToTimeLine(it)
-                    return true
-                }
-                return false
-            }
-            R.id.take_video -> {
-                Utils.takeVideo(activity!!, TAKE_VIDEO)
-            }
+            R.id.motion_video -> goToTimeLine()
+            R.id.take_video -> Utils.takeVideo(activity!!, TAKE_VIDEO)
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun goToTimeLine(sessions: MutableList<Session>) {
-        // TODO: acá van las fotos de todas las sessiones que tienen un mismo TAG!!
-        val list = ArrayList<Photo>()
-        sessions[0].photos.forEach { s -> list.add(s) }
-        val intent = Intent(context, TimeLineActivity::class.java)
-        intent.putParcelableArrayListExtra(Constants.TIME_LINE_PHOTOS_EXTRA, list)
-        activity?.startActivityForResult(intent, EDIT_ROUTINE)
-
+    private fun goToTimeLine() {
+        val options = ArrayList<PhotoTag>().apply { PhotoTag.values().forEach { if (it != PhotoTag.O) add(it) } }
+        DialogUtil.showChooserListDialog(context!!, getString(R.string.choose_tag_title), options.map { it.getCompleteName() }) {
+            PhotoTag.getTag(PhotoTag.values()[it].getCompleteName())?.name?.let { tag -> presenter.getPhotosByTag(patient.id, tag) }
+        }
     }
 
     private fun initList(sessions: MutableList<Session>) {
@@ -129,6 +118,12 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         intent.putExtra(Constants.SESSION_EXTRA, session)
         intent.putExtra(Constants.NAME_EXTRA, patient.name)
         activity?.startActivityForResult(intent, VIEW_SESSION)
+    }
+
+    override fun onPhotosByTagReceived(photos: ArrayList<Photo>) {
+        val intent = Intent(context, TimeLineActivity::class.java)
+        intent.putParcelableArrayListExtra(Constants.TIME_LINE_PHOTOS_EXTRA, photos)
+        activity?.startActivityForResult(intent, EDIT_ROUTINE)
     }
 
     override fun startPresenter() {

@@ -13,4 +13,16 @@ enum class PhotoTag {
             else -> "Otra"
         }
     }
+
+    companion object {
+        fun getTag(name: String): PhotoTag? {
+            return when (name) {
+                "Frente" -> F
+                "Espalda" -> E
+                "Izquierda" -> I
+                "Derecha" -> D
+                else -> null
+            }
+        }
+    }
 }

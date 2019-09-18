@@ -39,4 +39,11 @@ object DialogUtil {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.show()
     }
+
+    fun showChooserListDialog(context: Context, title: String, options: List<String>, listener: (which: Int) -> Unit) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setItems(options.toTypedArray()) { _, which -> listener(which) }
+        builder.show()
+    }
 }

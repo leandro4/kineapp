@@ -93,13 +93,25 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (position) {
             0 -> {
-                tag = PhotoTag.O
                 ivSiluet.visibility = View.GONE
+                tag = PhotoTag.O
             }
-            1 -> tag = PhotoTag.F
-            2 -> tag = PhotoTag.D
-            3 -> tag = PhotoTag.E
-            4 -> tag = PhotoTag.I
+            1 -> {
+                ivSiluet.visibility = View.VISIBLE
+                tag = PhotoTag.F
+            }
+            2 -> {
+                ivSiluet.visibility = View.VISIBLE
+                tag = PhotoTag.D
+            }
+            3 -> {
+                ivSiluet.visibility = View.VISIBLE
+                tag = PhotoTag.E
+            }
+            4 -> {
+                ivSiluet.visibility = View.VISIBLE
+                tag = PhotoTag.I
+            }
         }
     }
 

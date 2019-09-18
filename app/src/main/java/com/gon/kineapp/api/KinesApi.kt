@@ -42,6 +42,9 @@ interface KinesApi {
     @DELETE(UtilUrl.DELETE_PHOTO)
     fun deletePhoto(@Path("id") id: String): Observable<PhotoResponse>
 
+    @GET(UtilUrl.GET_PHOTOS_BY_TAG)
+    fun getPhotosByTag(@Path("patientId") id: String, @Path("tag") tag: String): Observable<PhotosListResponse>
+
     @GET(UtilUrl.VIEW_PHOTO)
     fun getPhoto(@Path("id") id: String): Observable<PhotoResponse>
 

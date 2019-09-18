@@ -69,6 +69,7 @@
     </string>
     <string name="routines_title">Rutinas</string>
     <string name="timeline_speed_title">Velocidad:</string>
+    <string name="choose_tag_title">Seleccione postura</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>

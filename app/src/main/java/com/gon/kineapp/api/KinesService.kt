@@ -93,6 +93,10 @@ object KinesService {
         return kinesApi.getPhoto(photoId)
     }
 
+    fun getPhotosByTag(patientId: String, tag: String): Observable<PhotosListResponse> {
+        return kinesApi.getPhotosByTag(patientId, tag)
+    }
+
     fun getPublicVideos(): Observable<PublicVideosListResponse> {
 
         val videos = listOf(

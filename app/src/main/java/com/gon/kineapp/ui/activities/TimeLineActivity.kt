@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 
 class TimeLineActivity: LockableActivity() {
 
-    private var TIME_BETWEEN_PICS = 2L
+    private var TIME_BETWEEN_PICS = 5L
 
     private var bitmaps = ArrayList<Bitmap>()
     private lateinit var imageA: ImageView
@@ -82,11 +82,13 @@ class TimeLineActivity: LockableActivity() {
             updateTextSpeed()
         }
         ivHighSpeed.setOnClickListener {
-            if (TIME_BETWEEN_PICS < 20) {
+            if (TIME_BETWEEN_PICS < 5) {
                 TIME_BETWEEN_PICS++
             }
             updateTextSpeed()
         }
+
+        updateTextSpeed()
     }
 
     private fun updateTextSpeed() {
@@ -108,7 +110,7 @@ class TimeLineActivity: LockableActivity() {
             runing = false
             stop()
         } else {
-            Observable.just(true).delay(TIME_BETWEEN_PICS, TimeUnit.SECONDS)
+            Observable.just(true).delay(getTime(), TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { start() }
         }
@@ -116,5 +118,15 @@ class TimeLineActivity: LockableActivity() {
 
     private fun stop() {
         fabController.setImageResource(R.drawable.ic_play)
+    }
+
+    private fun getTime(): Long {
+        return when(TIME_BETWEEN_PICS) {
+            1L -> 10L
+            2L -> 6L
+            3L -> 4L
+            4L -> 2L
+            else -> 1L
+        }
     }
 }
