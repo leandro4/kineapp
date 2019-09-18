@@ -82,7 +82,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             this@PictureActivity.finish()
         }
 
-        val adapter = ArrayAdapter.createFromResource(this, R.array.pics_kind_array, android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter.createFromResource(this, R.array.pics_kind_array, R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(R.layout.spinner_text_arrow_white)
         spKind.adapter = adapter
         spKind.onItemSelectedListener = this
