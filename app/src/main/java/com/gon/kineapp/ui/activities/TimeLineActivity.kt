@@ -64,7 +64,7 @@ class TimeLineActivity: LockableActivity() {
         imageB = findViewById(R.id.ivPhotoSecond)
 
         val photos = intent?.getParcelableArrayListExtra<Photo>(Constants.TIME_LINE_PHOTOS_EXTRA)
-        photos?.forEach { it.thumbnail?.let { t -> bitmaps.add(Utils.convertImage(t)) } } //TODO: cambiar a CONTENT en vez de THUMB
+        photos?.forEach { it.content?.let { t -> bitmaps.add(Utils.convertImage(t)) } }
 
         fabController.setOnClickListener {
             if (runing) {

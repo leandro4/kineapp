@@ -20,11 +20,11 @@
 
     <ImageView
         android:id="@+id/ivSiluet"
-        android:src="@drawable/frente"
+        android:visibility="gone"
+        android:src="@drawable/front_back_large_2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:alpha="0.5"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:layout_marginTop="@dimen/xxxlarge_margin"
         android:layout_marginBottom="@dimen/xxxlarge_margin"
         app:layout_constraintTop_toTopOf="@+id/textureView"
@@ -50,6 +50,71 @@
         android:spinnerMode="dropdown"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:visibility="gone"
+        android:padding="@dimen/large_margin"
+        android:background="@drawable/tongue_left_bg"
+        android:src="@drawable/ic_arrow_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/xxxlarge_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnTakePicture"/>
+
+    <LinearLayout
+        android:id="@+id/llTemplate"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btnTakePicture"
+        android:background="@color/black_hint"
+        android:orientation="vertical"
+        android:padding="@dimen/large_margin"
+        android:layout_marginBottom="@dimen/large_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="@string/picture_selector_height"
+                android:shadowRadius="3"
+                android:shadowColor="@color/black_title"
+                android:layout_weight="1"
+                style="@style/TextViewStyleBold"/>
+
+            <TextView
+                android:id="@+id/tvHide"
+                android:text="@string/picture_selector_hide"
+                android:shadowRadius="3"
+                android:shadowColor="@color/black_title"
+                style="@style/TextViewStyleBold"/>
+
+        </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/sbHeight"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="@string/picture_selector_width"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:shadowRadius="3"
+            android:shadowColor="@color/black_title"
+            style="@style/TextViewStyleBold"/>
+
+        <SeekBar
+            android:id="@+id/sbWidth"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <ImageView
         android:clickable="false"

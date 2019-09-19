@@ -16,7 +16,6 @@ import android.util.SparseIntArray
 import android.view.Surface
 import android.view.TextureView
 import android.view.View
-import android.widget.ImageView
 import com.gon.kineapp.R
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.StateCameraCallback
@@ -24,14 +23,13 @@ import com.gonanimationlib.animations.Animate
 import kotlinx.android.synthetic.main.save_cancel_picture.*
 import java.util.*
 import android.graphics.Bitmap
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.activity_picture.*
 import java.io.ByteArrayOutputStream
 import android.util.Base64
+import android.widget.*
 import com.gon.kineapp.model.PhotoTag
+import com.gonanimationlib.animations.CompSlide
 
 class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener, AdapterView.OnItemSelectedListener {
 
@@ -81,11 +79,41 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             setResult(Activity.RESULT_OK, intent)
             this@PictureActivity.finish()
         }
+        tvHide.setOnClickListener {
+            ivArrow.visibility = View.VISIBLE
+            Animate.SLIDE(CompSlide.TO.LEFT).relative(CompSlide.RELATIVE_TO.PARENT).duration(Animate.DURATION_SHORT).onEnd { llTemplate.visibility = View.GONE }.startAnimation(llTemplate)
+            Animate.SLIDE(CompSlide.FROM.LEFT).relative(CompSlide.RELATIVE_TO.PARENT).duration(Animate.DURATION_SHORT).startAnimation(ivArrow)
+        }
+        ivArrow.setOnClickListener {
+            llTemplate.visibility = View.VISIBLE
+            Animate.SLIDE(CompSlide.FROM.LEFT).relative(CompSlide.RELATIVE_TO.PARENT).duration(Animate.DURATION_SHORT).startAnimation(llTemplate)
+            Animate.SLIDE(CompSlide.TO.LEFT).relative(CompSlide.RELATIVE_TO.PARENT).duration(Animate.DURATION_SHORT).onEnd { ivArrow.visibility = View.GONE }.startAnimation(ivArrow)
+        }
 
         val adapter = ArrayAdapter.createFromResource(this, R.array.pics_kind_array, R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(R.layout.spinner_text_arrow_white)
         spKind.adapter = adapter
         spKind.onItemSelectedListener = this
+
+        sbWidth.max = 3
+        sbWidth.incrementProgressBy(1)
+        sbHeight.max = 3
+        sbHeight.incrementProgressBy(1)
+
+        sbWidth.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                ivSiluet.setImageResource(tag.getDrawable(progress, sbHeight.progress))
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+        sbHeight.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                ivSiluet.setImageResource(tag.getDrawable(sbWidth.progress, progress))
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -93,24 +121,40 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (position) {
             0 -> {
-                ivSiluet.visibility = View.GONE
+                setVisibleControls(false)
                 tag = PhotoTag.O
+                return
             }
             1 -> {
-                ivSiluet.visibility = View.VISIBLE
                 tag = PhotoTag.F
             }
             2 -> {
-                ivSiluet.visibility = View.VISIBLE
                 tag = PhotoTag.D
             }
             3 -> {
-                ivSiluet.visibility = View.VISIBLE
                 tag = PhotoTag.E
             }
             4 -> {
-                ivSiluet.visibility = View.VISIBLE
                 tag = PhotoTag.I
+            }
+        }
+        setVisibleControls(true)
+    }
+
+    private fun setVisibleControls(visible: Boolean) {
+        if (visible) {
+            ivSiluet.visibility = View.VISIBLE
+            if (ivArrow.visibility == View.GONE && llTemplate.visibility == View.GONE) {
+                ivArrow.visibility = View.VISIBLE
+                Animate.SLIDE(CompSlide.FROM.LEFT).relative(CompSlide.RELATIVE_TO.PARENT).duration(Animate.DURATION_SHORT).startAnimation(ivArrow)
+            }
+        } else {
+            ivSiluet.visibility = View.GONE
+            if (llTemplate.visibility == View.VISIBLE) {
+                Animate.SLIDE(CompSlide.TO.LEFT).relative(CompSlide.RELATIVE_TO.PARENT).duration(Animate.DURATION_SHORT).onEnd { llTemplate.visibility = View.GONE }.startAnimation(llTemplate)
+            }
+            if (ivArrow.visibility == View.VISIBLE) {
+                Animate.SLIDE(CompSlide.TO.LEFT).relative(CompSlide.RELATIVE_TO.PARENT).duration(Animate.DURATION_SHORT).onEnd { ivArrow.visibility = View.GONE }.startAnimation(ivArrow)
             }
         }
     }
