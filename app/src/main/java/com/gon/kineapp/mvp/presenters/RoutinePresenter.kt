@@ -2,18 +2,22 @@ package com.gon.kineapp.mvp.presenters
 
 import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
+import com.gon.kineapp.model.Exercise
 import com.gon.kineapp.model.responses.ExercisesResponse
 import com.gon.kineapp.mvp.views.RoutineView
+import io.reactivex.Completable
+import io.reactivex.CompletableObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.schedulers.Schedulers
 
 class RoutinePresenter: BasePresenter<RoutineView>() {
 
-    fun createExercise(name: String, description: String, id: String?, day: Int) {
+    fun createExercise(patientId: String, name: String, description: String, id: String?, day: ArrayList<Int>) {
         mvpView?.showProgressView()
 
         compositeSubscription?.add(
-            KinesService.createExercise(name, description, id, day)
+            KinesService.createExercise(patientId, name, description, id, day)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CustomDisposableObserver<ExercisesResponse>() {
@@ -34,7 +38,7 @@ class RoutinePresenter: BasePresenter<RoutineView>() {
 
                 override fun onNext(t: ExercisesResponse) {
                     mvpView?.hideProgressView()
-                    mvpView?.onExerciseCreated()
+                    mvpView?.onExercisesCreated(t.exercises)
                 }
             }))
     }
@@ -46,23 +50,13 @@ class RoutinePresenter: BasePresenter<RoutineView>() {
             KinesService.deleteExercise(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : CustomDisposableObserver<Void>() {
-                    override fun onNoInternetConnection() {
+                .subscribeWith(object : DisposableCompletableObserver() {
+                    public override fun onStart() {}
+                    override fun onError(error: Throwable) {
                         mvpView?.hideProgressView()
-                        mvpView?.onNoInternetConnection()
+                        mvpView?.onError(error)
                     }
-
-                    override fun onObserverError(e: Throwable) {
-                        mvpView?.hideProgressView()
-                        mvpView?.onError(e)
-                    }
-
-                    override fun onErrorCode(code: Int, message: String) {
-                        mvpView?.hideProgressView()
-                        mvpView?.onErrorCode(message)
-                    }
-
-                    override fun onNext(t: Void) {
+                    override fun onComplete() {
                         mvpView?.hideProgressView()
                         mvpView?.onExerciseDeleted()
                     }
@@ -73,10 +67,10 @@ class RoutinePresenter: BasePresenter<RoutineView>() {
         mvpView?.showProgressView()
 
         compositeSubscription?.add(
-            KinesService.deleteExercise(id)
+            KinesService.markAsDoneExercise(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : CustomDisposableObserver<Void>() {
+                .subscribeWith(object : CustomDisposableObserver<Exercise>() {
                     override fun onNoInternetConnection() {
                         mvpView?.hideProgressView()
                         mvpView?.onNoInternetConnection()
@@ -92,9 +86,9 @@ class RoutinePresenter: BasePresenter<RoutineView>() {
                         mvpView?.onErrorCode(message)
                     }
 
-                    override fun onNext(t: Void) {
+                    override fun onNext(t: Exercise) {
                         mvpView?.hideProgressView()
-                        mvpView?.onExercisesEdited()
+                        mvpView?.onExercisesEdited(t)
                     }
                 }))
     }

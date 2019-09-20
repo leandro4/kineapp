@@ -30,9 +30,15 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
         holder.bind(exercises[pos], callback, isMedic)
     }
 
+    fun addExercise(exercise: Exercise) {
+        exercises.add(0, exercise)
+        notifyItemInserted(0)
+    }
+
     class ExerciseViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(exercise: Exercise, callback: ExerciseListener, isMedic: Boolean) {
+            viewItem.tvTitle.text = exercise.name
             viewItem.tvDescription.text = exercise.description
             if (exercise.done) {
                 viewItem.ivDone.setImageResource(R.drawable.ic_done)
@@ -48,12 +54,11 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
                 viewItem.llWatchVideo.visibility = View.GONE
             }
             if (isMedic) {
-                viewItem.llDone.visibility = View.GONE
+                viewItem.llDone.setOnClickListener(null)
                 viewItem.llRemove.visibility = View.VISIBLE
                 viewItem.llRemove.setOnClickListener { callback.onExerciseRemove(exercise) }
             } else {
                 viewItem.llRemove.visibility = View.GONE
-                viewItem.llDone.visibility = View.VISIBLE
                 viewItem.llDone.setOnClickListener { if (!exercise.done) callback.onExerciseMarkedAsDone(exercise) }
             }
         }

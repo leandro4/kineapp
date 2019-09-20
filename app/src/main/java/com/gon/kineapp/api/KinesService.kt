@@ -4,6 +4,7 @@ import com.gon.kineapp.model.*
 import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import com.gon.kineapp.utils.Authorization
+import io.reactivex.Completable
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -123,15 +124,16 @@ object KinesService {
         return kinesApi.updateCurrentMedic(UpdateMedicBody(UpdateMedicBody.License(license)))
     }
 
-    fun createExercise(name: String, description: String, id: String?, day: Int): Observable<ExercisesResponse> {
-        return kinesApi.createExercise(NewExerciseBody(name, description, id, day))
+    fun createExercise(patientId: String, name: String, description: String, id: String?, day: ArrayList<Int>): Observable<ExercisesResponse> {
+        val body = NewExerciseBody(patientId, name, description, id, day)
+        return kinesApi.createExercise(body)
     }
 
-    fun deleteExercise(id: String): Observable<Void> {
+    fun deleteExercise(id: String): Completable {
         return kinesApi.deleteExercise(id)
     }
 
-    fun markAsDoneExercise(id: String): Observable<Void> {
-        return kinesApi.markAsDoneExercise(id, true)
+    fun markAsDoneExercise(id: String): Observable<Exercise> {
+        return kinesApi.markAsDoneExercise(id, DoneExerciseBody(true))
     }
 }

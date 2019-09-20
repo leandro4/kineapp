@@ -8,5 +8,6 @@ import kotlinx.android.parcel.Parcelize
 class Exercise (var id: String,
                 var name: String,
                 var description: String,
+                var day: Int,
                 var done: Boolean,
                 var video: Video?): Parcelable

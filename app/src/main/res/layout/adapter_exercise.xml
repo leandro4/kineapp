@@ -17,6 +17,18 @@
         android:orientation="vertical">
 
         <TextView
+            android:text="@string/new_exercise_title_label"
+            android:textColor="@color/black_title"
+            style="@style/TextViewStyleRegular" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:textColor="@color/black_title"
+            tools:text="Realizar 3 series de 5 repeticiones extendiendo lo mas posible los brazos"
+            style="@style/TextViewStyleLight" />
+
+        <TextView
+            android:layout_marginTop="@dimen/medium_margin"
             android:text="@string/exercice_description_title"
             android:textColor="@color/black_title"
             style="@style/TextViewStyleRegular" />
@@ -44,8 +56,8 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_play_circle"
                     android:tint="@color/colorPrimary"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
 
                 <TextView
                     android:text="@string/exercice_watch_video"
@@ -66,8 +78,8 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_delete"
                     android:tint="@color/colorAccent"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
 
                 <TextView
                     android:text="@string/exercice_remove"
@@ -78,7 +90,6 @@
 
             <LinearLayout
                 android:id="@+id/llDone"
-                android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_gravity="end"
                 android:layout_width="wrap_content"
@@ -89,8 +100,8 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_undone"
                     android:tint="@color/colorAccent"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"/>
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
 
                 <TextView
                     android:id="@+id/tvDone"

@@ -1,9 +1,11 @@
 package com.gon.kineapp.mvp.views
 
+import com.gon.kineapp.model.Exercise
+
 interface RoutineView: BaseView {
 
-    fun onExercisesEdited()
-    fun onExerciseCreated()
+    fun onExercisesEdited(ex: Exercise)
+    fun onExercisesCreated(exercises: MutableList<Exercise>)
     fun onExerciseDeleted()
 
 }

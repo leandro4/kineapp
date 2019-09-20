@@ -1,9 +1,11 @@
 package com.gon.kineapp.api
 
+import com.gon.kineapp.model.Exercise
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.model.User
 import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
+import io.reactivex.Completable
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -22,13 +24,13 @@ interface KinesApi {
     fun getPatients(): Observable<PatientListResponse>
 
     @POST(UtilUrl.EXERCISE)
-    fun createExercise(@Body body: NewExerciseBody): Observable<ExercisesResponse>
+    fun createExercise(@Body ex: NewExerciseBody): Observable<ExercisesResponse>
 
     @DELETE(UtilUrl.EXERCISE_ROUTE)
-    fun deleteExercise(@Path("id") id: String): Observable<Void>
+    fun deleteExercise(@Path("id") id: String): Completable
 
     @PATCH(UtilUrl.EXERCISE_ROUTE)
-    fun markAsDoneExercise(@Path("id") id: String, @Body done: Boolean): Observable<Void>
+    fun markAsDoneExercise(@Path("id") id: String, @Body body: DoneExerciseBody): Observable<Exercise>
 
     @GET(UtilUrl.PATIENTS)
     fun getPublicVideos(): Observable<PublicVideosListResponse>

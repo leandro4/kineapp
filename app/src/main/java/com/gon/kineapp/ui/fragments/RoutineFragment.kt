@@ -15,6 +15,7 @@ import com.gon.kineapp.ui.activities.CreateExerciseActivity
 import com.gon.kineapp.ui.activities.ProfileActivity
 import com.gon.kineapp.ui.adapters.RoutinePagerAdapter
 import com.gon.kineapp.utils.Constants
+import com.gon.kineapp.utils.MyUser
 import kotlinx.android.synthetic.main.fragment_exercise_routines.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 
@@ -94,16 +95,25 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
         presenter.detachMvpView()
     }
 
-    override fun onExercisesEdited() {
+    override fun onExercisesEdited(ex: Exercise) {
+        if (!isMedic) {
+            val user = MyUser.get(context!!)
+            user?.patient?.routine?.get(ex.day)?.let {
+                val found = it.find { e -> e.id == ex.id }
+                found?.done = ex.done
+                found?.name = ex.name
+                found?.description = ex.description
+                found?.video = ex.video
+            }
+            MyUser.set(context!!, user)
+        }
     }
 
-    override fun onExerciseCreated() {
-        Toast.makeText(context, "created", Toast.LENGTH_SHORT).show()
+    override fun onExercisesCreated(exercises: MutableList<Exercise>) {
+        exercises.forEach { adapter.fragments[it.day].add(it) }
     }
 
-    override fun onExerciseDeleted() {
-
-    }
+    override fun onExerciseDeleted() {}
 
     override fun onMarkAsDoneVideo(exercise: Exercise) {
         presenter.markAsDoneExercise(exercise.id)
@@ -119,10 +129,10 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
             data?.let {
                 val title = it.getStringExtra(Constants.EXERCISE_TITLE_EXTRA)
                 val description = it.getStringExtra(Constants.EXERCISE_DESCRIPTION_EXTRA)
-                val day = it.getIntExtra(Constants.EXERCISE_DAY_EXTRA, 0)
+                val days = it.getIntegerArrayListExtra(Constants.EXERCISE_DAYS_EXTRA)
                 val videoId = it.getStringExtra(Constants.EXERCISE_VIDEO_ID_EXTRA)
 
-                presenter.createExercise(title, description, videoId, day)
+                presenter.createExercise(user.id, title, description, videoId, days)
             }
         }
     }

@@ -76,9 +76,11 @@
     <string name="new_exercise_title">Crear ejercicio</string>
     <string name="new_exercise_title_label">Tïtulo del ejercicio</string>
     <string name="new_exercise_description_label">Describa el ejercicio</string>
-    <string name="new_exercise_day_label">Día de la semana:</string>
-    <string name="newexercise_title_hint">Ingresar nombre...</string>
-    <string name="newexercise_description_hint">De la manera mas sencilla...</string>
+    <string name="new_exercise_day_label">Días de la semana:</string>
+    <string name="newexercise_title_hint">Ingresar nombre&#8230;</string>
+    <string name="newexercise_description_hint">De la manera mas sencilla&#8230;</string>
+    <string name="new_exercise_warning_title">¡Atención!</string>
+    <string name="new_exercise_warning_message">Debe seleccionar al menos un día</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>

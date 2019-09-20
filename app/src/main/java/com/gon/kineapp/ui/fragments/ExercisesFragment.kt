@@ -89,4 +89,8 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
             emptyView.visibility = View.VISIBLE
         }
     }
+
+    fun add(exercise: Exercise) {
+        adapter.addExercise(exercise)
+    }
 }

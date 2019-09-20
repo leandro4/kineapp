@@ -69,14 +69,99 @@
             android:text="@string/new_exercise_day_label"
             style="@style/TextViewStyleBold"/>
 
-        <Spinner
-            android:id="@+id/spDay"
-            android:layout_marginTop="@dimen/medium_margin"
-            android:padding="@dimen/small_margin"
-            android:background="@drawable/btn_rounded_solid_blue"
-            android:spinnerMode="dropdown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_marginTop="@dimen/large_margin"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <Button
+                android:id="@+id/day0"
+                android:text="Lun"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@drawable/state_day_text"
+                android:background="@drawable/state_day"
+                android:layout_margin="@dimen/xsmall_margin"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/day1"
+                android:text="Mar"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@drawable/state_day_text"
+                android:background="@drawable/state_day"
+                android:layout_margin="@dimen/xsmall_margin"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/day2"
+                android:text="Mié"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@drawable/state_day_text"
+                android:background="@drawable/state_day"
+                android:layout_margin="@dimen/xsmall_margin"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/day3"
+                android:text="Jue"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@drawable/state_day_text"
+                android:background="@drawable/state_day"
+                android:layout_margin="@dimen/xsmall_margin"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/day4"
+                android:text="Vie"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@drawable/state_day_text"
+                android:background="@drawable/state_day"
+                android:layout_margin="@dimen/xsmall_margin"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/day5"
+                android:text="Sáb"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@drawable/state_day_text"
+                android:background="@drawable/state_day"
+                android:layout_margin="@dimen/xsmall_margin"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/day6"
+                android:text="Dom"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@drawable/state_day_text"
+                android:background="@drawable/state_day"
+                android:layout_margin="@dimen/xsmall_margin"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            
+        </LinearLayout>
 
     </LinearLayout>
 

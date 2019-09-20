@@ -8,11 +8,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.gon.kineapp.R
 import com.gon.kineapp.utils.Constants
+import com.gon.kineapp.utils.DialogUtil
 import kotlinx.android.synthetic.main.activity_create_exercise.*
 
 class CreateExerciseActivity : LockableActivity() {
 
-    private var day = 0
+    private lateinit var days: List<View>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,19 +28,11 @@ class CreateExerciseActivity : LockableActivity() {
     }
 
     private fun initUI() {
-        val adapter = ArrayAdapter.createFromResource(this, R.array.days_array, R.layout.simple_spinner_item)
-        adapter.setDropDownViewResource(R.layout.spinner_text_arrow_white)
-        spDay.adapter = adapter
-        spDay.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                day = position
-            }
-        }
-
         fabSave.setOnClickListener {
             save()
         }
+        days = listOf(day0, day1, day2, day3, day4, day5, day6)
+        days.forEach { it.setOnClickListener { b -> b.isSelected = !b.isSelected } }
     }
 
     private fun save() {
@@ -49,12 +42,17 @@ class CreateExerciseActivity : LockableActivity() {
         } else if (etDescription.text.toString().isEmpty()) {
             etDescription.error = getString(R.string.mandatory_field)
             return
+        } else if (days.firstOrNull { it.isSelected } == null ) {
+            DialogUtil.showGenericAlertDialog(this, getString(R.string.new_exercise_warning_title), getString(R.string.new_exercise_warning_message))
+            return
         }
+
+        val list = ArrayList<Int>().apply { days.forEachIndexed { index, view -> if (view.isSelected) add(index) } }
 
         setResult(Activity.RESULT_OK, Intent().apply {
             putExtra(Constants.EXERCISE_TITLE_EXTRA, etTitle.text.toString())
             putExtra(Constants.EXERCISE_DESCRIPTION_EXTRA, etDescription.text.toString())
-            putExtra(Constants.EXERCISE_DAY_EXTRA, day)
+            putIntegerArrayListExtra(Constants.EXERCISE_DAYS_EXTRA, list)
             //putExtra(Constants.EXERCISE_VIDEO_ID_EXTRA, null)
         })
         finish()
