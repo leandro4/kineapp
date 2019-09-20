@@ -25,7 +25,6 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
     private lateinit var listener: ExerciseListener
 
     interface ExerciseListener {
-        fun onAddVideo(exercise: Exercise)
         fun onMarkAsDoneVideo(exercise: Exercise)
         fun onRemoveExercise(exercise: Exercise)
     }
@@ -65,10 +64,6 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
         val intent = Intent(activity, ViewVideoActivity::class.java)
         intent.putExtra(Constants.VIDEO_EXTRA, video)
         activity?.startActivity(intent)
-    }
-
-    override fun onAddVideo(exercise: Exercise) {
-        listener.onAddVideo(exercise)
     }
 
     override fun onExerciseMarkedAsDone(exercise: Exercise) {

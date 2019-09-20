@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        app:titleTextColor="@color/white"
+        android:theme="@style/ToolbarTheme" />
+
+    <LinearLayout
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="@dimen/large_margin"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/new_exercise_title_label"
+            style="@style/TextViewStyleBold"/>
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:maxLength="30"
+            android:maxLines="1"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:inputType="textCapSentences"
+            android:imeOptions="actionNext"
+            android:hint="@string/newexercise_title_hint"
+            android:textColorHint="@color/black_hint"
+            android:textSize="20sp"
+            android:textColor="@color/black_title"
+            android:layout_width="match_parent"
+            style="@style/TextViewStyleLight"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/large_margin"
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/new_exercise_description_label"
+            style="@style/TextViewStyleBold"/>
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:inputType="textCapSentences"
+            android:imeOptions="actionDone"
+            android:hint="@string/newexercise_description_hint"
+            android:textColorHint="@color/black_hint"
+            android:textSize="20sp"
+            android:textColor="@color/black_title"
+            android:layout_width="match_parent"
+            android:maxLines="6"
+            style="@style/TextViewStyleLight"/>
+
+        <TextView
+            android:layout_marginTop="@dimen/large_margin"
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/new_exercise_day_label"
+            style="@style/TextViewStyleBold"/>
+
+        <Spinner
+            android:id="@+id/spDay"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:padding="@dimen/small_margin"
+            android:background="@drawable/btn_rounded_solid_blue"
+            android:spinnerMode="dropdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_check"
+        android:layout_margin="@dimen/large_margin"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

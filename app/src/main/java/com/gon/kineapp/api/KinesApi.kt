@@ -21,8 +21,14 @@ interface KinesApi {
     @GET(UtilUrl.PATIENTS)
     fun getPatients(): Observable<PatientListResponse>
 
-    @POST(UtilUrl.EXERCISES)
-    fun getExercises(): Observable<ExercisesResponse>
+    @POST(UtilUrl.EXERCISE)
+    fun createExercise(@Body body: NewExerciseBody): Observable<ExercisesResponse>
+
+    @DELETE(UtilUrl.EXERCISE_ROUTE)
+    fun deleteExercise(@Path("id") id: String): Observable<Void>
+
+    @PATCH(UtilUrl.EXERCISE_ROUTE)
+    fun markAsDoneExercise(@Path("id") id: String, @Body done: Boolean): Observable<Void>
 
     @GET(UtilUrl.PATIENTS)
     fun getPublicVideos(): Observable<PublicVideosListResponse>

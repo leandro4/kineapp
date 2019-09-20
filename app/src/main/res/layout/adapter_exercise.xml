@@ -100,28 +100,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llAddVideo"
-                android:visibility="gone"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/ic_upload"
-                    android:tint="@color/colorPrimary"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"/>
-
-                <TextView
-                    android:text="@string/exercice_add_video"
-                    android:textColor="@color/colorPrimary"
-                    style="@style/TextViewStyleBold" />
-
-            </LinearLayout>
-
         </FrameLayout>
 
     </LinearLayout>

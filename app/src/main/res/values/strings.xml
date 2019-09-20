@@ -73,6 +73,12 @@
     <string name="picture_selector_height">Altura</string>
     <string name="picture_selector_width">Contextura</string>
     <string name="picture_selector_hide">Ocultar</string>
+    <string name="new_exercise_title">Crear ejercicio</string>
+    <string name="new_exercise_title_label">Tïtulo del ejercicio</string>
+    <string name="new_exercise_description_label">Describa el ejercicio</string>
+    <string name="new_exercise_day_label">Día de la semana:</string>
+    <string name="newexercise_title_hint">Ingresar nombre...</string>
+    <string name="newexercise_description_hint">De la manera mas sencilla...</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>
@@ -80,6 +86,16 @@
         <item>Derecha</item>
         <item>Espalda</item>
         <item>Izquierda</item>
+    </string-array>
+
+    <string-array name="days_array">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miércoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sábado</item>
+        <item>Domingo</item>
     </string-array>
 
 </resources>

@@ -122,4 +122,16 @@ object KinesService {
     fun updateCurrentMedic(license: String): Observable<User> {
         return kinesApi.updateCurrentMedic(UpdateMedicBody(UpdateMedicBody.License(license)))
     }
+
+    fun createExercise(name: String, description: String, id: String?, day: Int): Observable<ExercisesResponse> {
+        return kinesApi.createExercise(NewExerciseBody(name, description, id, day))
+    }
+
+    fun deleteExercise(id: String): Observable<Void> {
+        return kinesApi.deleteExercise(id)
+    }
+
+    fun markAsDoneExercise(id: String): Observable<Void> {
+        return kinesApi.markAsDoneExercise(id, true)
+    }
 }

@@ -13,7 +13,6 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
 
     interface ExerciseListener {
         fun onWatchVideo(video: Video)
-        fun onAddVideo(exercise: Exercise)
         fun onExerciseMarkedAsDone(exercise: Exercise)
         fun onExerciseRemove(exercise: Exercise)
     }
@@ -43,15 +42,10 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
                 viewItem.tvDone.text = viewItem.context.getString(R.string.exercice_undone)
             }
             exercise.video?.let { video ->
-                viewItem.llWatchVideo.visibility = View.GONE
                 viewItem.llWatchVideo.visibility = View.VISIBLE
                 viewItem.llWatchVideo.setOnClickListener { callback.onWatchVideo(video) }
             } ?: run {
-                if (isMedic) {
-                    viewItem.llWatchVideo.visibility = View.GONE
-                    viewItem.llAddVideo.visibility = View.VISIBLE
-                    viewItem.llAddVideo.setOnClickListener { callback.onAddVideo(exercise) }
-                }
+                viewItem.llWatchVideo.visibility = View.GONE
             }
             if (isMedic) {
                 viewItem.llDone.visibility = View.GONE

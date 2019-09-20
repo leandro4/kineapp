@@ -1,5 +1,6 @@
 package com.gon.kineapp.ui.fragments
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -10,8 +11,10 @@ import com.gon.kineapp.model.Routine
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.RoutinePresenter
 import com.gon.kineapp.mvp.views.RoutineView
+import com.gon.kineapp.ui.activities.CreateExerciseActivity
 import com.gon.kineapp.ui.activities.ProfileActivity
 import com.gon.kineapp.ui.adapters.RoutinePagerAdapter
+import com.gon.kineapp.utils.Constants
 import kotlinx.android.synthetic.main.fragment_exercise_routines.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
 
@@ -29,6 +32,8 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
             frag.user = user
             return frag
         }
+
+        const val CREATE_EXERCISE_CODE = 3000
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -75,7 +80,7 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
             fabAddExercise.hide()
         } else {
             fabAddExercise.setOnClickListener {
-                Toast.makeText(context, "new ex", Toast.LENGTH_SHORT).show()
+                activity?.startActivityForResult(Intent(activity, CreateExerciseActivity::class.java), CREATE_EXERCISE_CODE)
             }
         }
     }
@@ -92,15 +97,33 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
     override fun onExercisesEdited() {
     }
 
-    override fun onAddVideo(exercise: Exercise) {
+    override fun onExerciseCreated() {
+        Toast.makeText(context, "created", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onExerciseDeleted() {
 
     }
 
     override fun onMarkAsDoneVideo(exercise: Exercise) {
-
+        presenter.markAsDoneExercise(exercise.id)
     }
 
     override fun onRemoveExercise(exercise: Exercise) {
+        presenter.deleteExercise(exercise.id)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CREATE_EXERCISE_CODE && resultCode == RESULT_OK) {
+            data?.let {
+                val title = it.getStringExtra(Constants.EXERCISE_TITLE_EXTRA)
+                val description = it.getStringExtra(Constants.EXERCISE_DESCRIPTION_EXTRA)
+                val day = it.getIntExtra(Constants.EXERCISE_DAY_EXTRA, 0)
+                val videoId = it.getStringExtra(Constants.EXERCISE_VIDEO_ID_EXTRA)
+
+                presenter.createExercise(title, description, videoId, day)
+            }
+        }
     }
 }
