@@ -5,7 +5,7 @@ import com.gon.kineapp.model.responses.PhotoResponse
 
 interface SessionDetailView: BaseView {
 
-    fun onPhotoDeleted(photo: Photo)
+    fun onPhotoDeleted()
     fun onPhotoUploaded(photo: Photo)
     fun onPhotoLoaded(photo: Photo)
     fun onSessionSaved()

@@ -86,7 +86,7 @@ object KinesService {
         return kinesApi.uploadPhoto(PhotoUploadBody(sessionId, content, tag))
     }
 
-    fun deletePhoto(photoId: String): Observable<PhotoResponse> {
+    fun deletePhoto(photoId: String): Completable {
         return kinesApi.deletePhoto(photoId)
     }
 

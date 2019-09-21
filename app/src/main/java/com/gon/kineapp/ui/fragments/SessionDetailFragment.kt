@@ -131,13 +131,13 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     override fun onRemovePhoto(id: String) {
         DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
             removePhoto(id)
+            adapter.removePhoto(id)
+            checkEmptyList()
         }
     }
 
-    override fun onPhotoDeleted(photo: Photo) {
+    override fun onPhotoDeleted() {
         setSessionResultIntent()
-        adapter.removePhoto(photo.id)
-        checkEmptyList()
     }
 
     override fun onSessionSaved() {

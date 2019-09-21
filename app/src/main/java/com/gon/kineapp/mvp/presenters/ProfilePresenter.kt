@@ -42,7 +42,6 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
         )
     }
 
-
     fun updateCurrentMedic(license: String) {
 
         mvpView?.showProgressView()

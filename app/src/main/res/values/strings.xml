@@ -81,6 +81,8 @@
     <string name="newexercise_description_hint">De la manera mas sencilla&#8230;</string>
     <string name="new_exercise_warning_title">¡Atención!</string>
     <string name="new_exercise_warning_message">Debe seleccionar al menos un día</string>
+    <string name="channel_name">default_channel</string>
+    <string name="channel_description">Canal standard de Notificaciones</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>

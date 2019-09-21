@@ -16,8 +16,10 @@ import com.gon.kineapp.ui.activities.ProfileActivity
 import com.gon.kineapp.ui.adapters.RoutinePagerAdapter
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.MyUser
+import com.gon.kineapp.utils.Notification
 import kotlinx.android.synthetic.main.fragment_exercise_routines.*
 import kotlinx.android.synthetic.main.fragment_exercises.*
+import java.util.*
 
 class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.ExerciseListener {
 
@@ -115,8 +117,16 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
 
     override fun onExerciseDeleted() {}
 
-    override fun onMarkAsDoneVideo(exercise: Exercise) {
+    override fun onMarkAsDone(exercise: Exercise) {
         presenter.markAsDoneExercise(exercise.id)
+
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, 12)
+            set(Calendar.MINUTE, 24)
+        }
+
+        Notification.setAlarm(context!!, calendar.timeInMillis, exercise.name, exercise.description)
     }
 
     override fun onRemoveExercise(exercise: Exercise) {

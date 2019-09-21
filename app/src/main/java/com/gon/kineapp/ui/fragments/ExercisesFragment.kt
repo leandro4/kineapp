@@ -25,7 +25,7 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
     private lateinit var listener: ExerciseListener
 
     interface ExerciseListener {
-        fun onMarkAsDoneVideo(exercise: Exercise)
+        fun onMarkAsDone(exercise: Exercise)
         fun onRemoveExercise(exercise: Exercise)
     }
 
@@ -71,7 +71,7 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
         routine.exercises[index].done = true
         adapter.notifyItemChanged(index)
 
-        listener.onMarkAsDoneVideo(exercise)
+        listener.onMarkAsDone(exercise)
     }
 
     override fun onExerciseRemove(exercise: Exercise) {
