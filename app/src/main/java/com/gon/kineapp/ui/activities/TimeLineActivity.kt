@@ -11,6 +11,7 @@ import android.widget.ImageView
 import com.gon.kineapp.R
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.model.Photo
+import com.gon.kineapp.utils.PhotosRepository
 import com.gon.kineapp.utils.Utils
 import com.gonanimationlib.animations.Animate
 import io.reactivex.Observable
@@ -63,8 +64,7 @@ class TimeLineActivity: LockableActivity() {
         imageA = findViewById(R.id.ivPhotoFirst)
         imageB = findViewById(R.id.ivPhotoSecond)
 
-        val photos = intent?.getParcelableArrayListExtra<Photo>(Constants.TIME_LINE_PHOTOS_EXTRA)
-        photos?.forEach { it.content?.let { t -> bitmaps.add(Utils.convertImage(t)) } }
+        PhotosRepository.photos.forEach { it.content?.let { t -> bitmaps.add(Utils.convertImage(t)) } }
 
         fabController.setOnClickListener {
             if (runing) {

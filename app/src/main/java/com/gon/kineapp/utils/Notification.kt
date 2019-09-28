@@ -68,11 +68,11 @@ object Notification {
             val time = calendar.timeInMillis
         }*/
 
-        alarmMgr.setExact(
-            AlarmManager.RTC_WAKEUP,
-            time,
-            alarmIntent
-        )
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, alarmIntent)
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> alarmMgr.setExact(AlarmManager.RTC_WAKEUP, time, alarmIntent)
+            else -> alarmMgr.set(AlarmManager.RTC_WAKEUP, time, alarmIntent)
+        }
     }
 
     fun createNotificationChannel(context: Context) {

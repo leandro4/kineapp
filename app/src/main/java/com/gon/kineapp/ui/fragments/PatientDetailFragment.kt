@@ -14,10 +14,7 @@ import com.gon.kineapp.mvp.presenters.SessionListPresenter
 import com.gon.kineapp.mvp.views.SessionListView
 import com.gon.kineapp.ui.activities.*
 import com.gon.kineapp.ui.adapters.SessionAdapter
-import com.gon.kineapp.utils.Constants
-import com.gon.kineapp.utils.DialogUtil
-import com.gon.kineapp.utils.MyUser
-import com.gon.kineapp.utils.Utils
+import com.gon.kineapp.utils.*
 import kotlinx.android.synthetic.main.fragment_patient_detail.*
 
 class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
@@ -122,7 +119,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
     override fun onPhotosByTagReceived(photos: ArrayList<Photo>) {
         val intent = Intent(context, TimeLineActivity::class.java)
-        intent.putParcelableArrayListExtra(Constants.TIME_LINE_PHOTOS_EXTRA, photos)
+        PhotosRepository.photos = photos
         activity?.startActivityForResult(intent, EDIT_ROUTINE)
     }
 
