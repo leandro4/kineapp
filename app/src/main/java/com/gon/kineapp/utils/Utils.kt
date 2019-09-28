@@ -60,13 +60,16 @@ object Utils {
             val timestamp = System.currentTimeMillis()
             val mediaFile = File(getExternalStorageDirectory().absolutePath + "/kine_" + timestamp + ".mp4")
             val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-            val videoUri = FileProvider.getUriForFile(activity, "com.gon.kineapp.provider", mediaFile)
 
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)
+            /*val videoUri = FileProvider.getUriForFile(activity, "com.gon.kineapp.provider", mediaFile)
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)*/
+
             intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0)
             intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 20)
 
-            activity.startActivityForResult(intent, requestCode)
+            intent.resolveActivity(activity.packageManager)?.also {
+                activity.startActivityForResult(intent, requestCode)
+            }
         }
     }
 }

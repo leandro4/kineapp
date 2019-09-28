@@ -7,7 +7,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvExercises"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/xxxlarge_margin"
+        android:clipToPadding="false"/>
 
     <LinearLayout
         android:id="@+id/emptyView"

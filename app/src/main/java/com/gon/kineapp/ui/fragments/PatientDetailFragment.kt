@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.widget.LinearLayoutManager
 import android.util.ArrayMap
 import android.view.*
@@ -156,7 +157,13 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         }
         else if (requestCode == TAKE_VIDEO) {
             when (resultCode) {
-                RESULT_OK -> Toast.makeText(context, "Video saved to:\n" + data?.data, Toast.LENGTH_LONG).show()
+                RESULT_OK -> data?.data?.let {
+                    activity!!.contentResolver.query(it,null,null,null,null)?.let { c ->
+                        c.moveToFirst()
+                        val path = c.getString(c.getColumnIndex(MediaStore.Video.Media.DATA))
+                        presenter.uploadVideo(path, "Flexiones")
+                    }
+                }
                 RESULT_CANCELED -> Toast.makeText(context, "Video recording cancelled.", Toast.LENGTH_LONG).show()
                 else -> Toast.makeText(context, "Failed to record video", Toast.LENGTH_LONG).show()
             }

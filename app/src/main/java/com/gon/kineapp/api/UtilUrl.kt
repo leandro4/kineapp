@@ -23,6 +23,7 @@ class UtilUrl {
         const val UPLOAD_PHOTO = "image"
         const val DELETE_PHOTO = "image/{id}"
         const val PATIENTS_DETAIL = PATIENTS + "/detail"
+        const val UPLOAD_VIDEO = "video"
 
     }
 }

@@ -8,6 +8,7 @@ import com.gon.kineapp.model.Video
 import com.gon.kineapp.utils.Constants
 import kotlinx.android.synthetic.main.activity_view_video.*
 import android.widget.MediaController
+import android.widget.Toast
 
 class ViewVideoActivity: AppCompatActivity() {
 

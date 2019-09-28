@@ -7,7 +7,15 @@ import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import retrofit2.http.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.http.POST
+import retrofit2.http.Multipart
+
+
 
 interface KinesApi {
 
@@ -61,4 +69,8 @@ interface KinesApi {
 
     @PATCH(UtilUrl.PATIENTS_DETAIL)
     fun updateCurrentMedic(@Body body: UpdateMedicBody): Observable<User>
+
+    @Multipart
+    @POST(UtilUrl.UPLOAD_VIDEO)
+    fun uploadVideo(@Part content: MultipartBody.Part, @Part("name") videoName: RequestBody): Observable<ResponseBody>
 }
