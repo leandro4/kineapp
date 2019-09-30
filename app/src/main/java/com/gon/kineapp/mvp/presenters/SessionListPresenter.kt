@@ -4,6 +4,7 @@ import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
+import com.gon.kineapp.model.Video
 import com.gon.kineapp.model.responses.PhotosListResponse
 import com.gon.kineapp.model.responses.SessionListResponse
 import com.gon.kineapp.mvp.views.SessionListView
@@ -108,7 +109,7 @@ class SessionListPresenter: BasePresenter<SessionListView>() {
         compositeSubscription?.addAll(KinesService.uploadVideo(path, name)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : CustomDisposableObserver<ResponseBody>() {
+            .subscribeWith(object : CustomDisposableObserver<Video>() {
                 override fun onNoInternetConnection() {
                     mvpView?.hideProgressView()
                     mvpView?.onNoInternetConnection()
@@ -124,8 +125,9 @@ class SessionListPresenter: BasePresenter<SessionListView>() {
                     mvpView?.onErrorCode(message)
                 }
 
-                override fun onNext(t: ResponseBody) {
+                override fun onNext(t: Video) {
                     mvpView?.hideProgressView()
+                    mvpView?.onVideoUploaded(t)
                 }
             }))
     }

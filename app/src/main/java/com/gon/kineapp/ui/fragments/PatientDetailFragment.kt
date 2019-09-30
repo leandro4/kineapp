@@ -3,10 +3,10 @@ package com.gon.kineapp.ui.fragments
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.widget.LinearLayoutManager
-import android.util.ArrayMap
 import android.view.*
 import android.widget.Toast
 import com.gon.kineapp.R
@@ -17,6 +17,10 @@ import com.gon.kineapp.ui.activities.*
 import com.gon.kineapp.ui.adapters.SessionAdapter
 import com.gon.kineapp.utils.*
 import kotlinx.android.synthetic.main.fragment_patient_detail.*
+import com.vincent.videocompressor.VideoCompress
+import java.io.File
+import android.os.Environment
+import android.util.Log
 
 class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
 
@@ -124,6 +128,10 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         activity?.startActivityForResult(intent, EDIT_ROUTINE)
     }
 
+    override fun onVideoUploaded(video: Video) {
+        Toast.makeText(context!!, video.id, Toast.LENGTH_SHORT).show()
+    }
+
     override fun startPresenter() {
         presenter.attachMvpView(this)
         presenter.getSessions(patient.id)
@@ -157,16 +165,45 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         }
         else if (requestCode == TAKE_VIDEO) {
             when (resultCode) {
-                RESULT_OK -> data?.data?.let {
-                    activity!!.contentResolver.query(it,null,null,null,null)?.let { c ->
-                        c.moveToFirst()
-                        val path = c.getString(c.getColumnIndex(MediaStore.Video.Media.DATA))
-                        presenter.uploadVideo(path, "Flexiones")
-                    }
-                }
+                RESULT_OK -> data?.data?.let { compressVideo(it) }
                 RESULT_CANCELED -> Toast.makeText(context, "Video recording cancelled.", Toast.LENGTH_LONG).show()
                 else -> Toast.makeText(context, "Failed to record video", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun compressVideo(uri: Uri) {
+        val cursor = activity!!.contentResolver.query(uri,null,null,null,null)
+        if (cursor == null) {
+            onErrorCode("No se pudo grabar el video")
+            return
+        }
+
+        cursor.moveToFirst()
+        val videoPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))
+        cursor.close()
+
+        val folderFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+        val outFile = folderFile + File.separator + "kineapp_compress_" + System.currentTimeMillis() + ".mp4"
+
+        VideoCompress.compressVideoLow(videoPath, outFile, object : VideoCompress.CompressListener {
+                override fun onStart() {
+                    showProgressView()
+                }
+
+                override fun onSuccess() {
+                    presenter.uploadVideo(outFile, "Flexiones")
+                    Log.d("Compressor", "DONE!!")
+                }
+
+                override fun onFail() {
+                    hideProgressView()
+                    onErrorCode("Error al comprimir")
+                }
+
+                override fun onProgress(percent: Float) {
+                    Log.d("Compressor", "Compress: " + percent)
+                }
+            })
     }
 }

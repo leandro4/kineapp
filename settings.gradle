@@ -1,1 +1,1 @@
-include ':app', ':gonanimationlib'
+include ':app', ':gonanimationlib', ':videocompressor'

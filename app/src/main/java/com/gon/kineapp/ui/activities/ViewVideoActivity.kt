@@ -9,6 +9,8 @@ import com.gon.kineapp.utils.Constants
 import kotlinx.android.synthetic.main.activity_view_video.*
 import android.widget.MediaController
 import android.widget.Toast
+import com.gon.kineapp.api.UtilUrl
+import java.net.URLEncoder
 
 class ViewVideoActivity: AppCompatActivity() {
 
@@ -35,8 +37,7 @@ class ViewVideoActivity: AppCompatActivity() {
         super.onResume()
         video = intent?.getParcelableExtra(Constants.VIDEO_EXTRA)
         video?.let {
-            val uri = Uri.parse(it.url)
-            vvPlayer.setVideoURI(uri)
+            vvPlayer.setVideoPath(it.url)
 
             val vidControl = MediaController(this)
             vidControl.setAnchorView(vvPlayer)

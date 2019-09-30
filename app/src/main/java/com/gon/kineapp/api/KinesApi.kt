@@ -3,6 +3,7 @@ package com.gon.kineapp.api
 import com.gon.kineapp.model.Exercise
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.model.User
+import com.gon.kineapp.model.Video
 import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import io.reactivex.Completable
@@ -72,5 +73,5 @@ interface KinesApi {
 
     @Multipart
     @POST(UtilUrl.UPLOAD_VIDEO)
-    fun uploadVideo(@Part content: MultipartBody.Part, @Part("name") videoName: RequestBody): Observable<ResponseBody>
+    fun uploadVideo(@Part content: MultipartBody.Part, @Part("name") videoName: RequestBody): Observable<Video>
 }

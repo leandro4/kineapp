@@ -4,6 +4,7 @@ class UtilUrl {
 
     companion object {
 
+        const val SERVER_URL = "http://198.199.121.38"
         const val BASE_URL = "http://198.199.121.38/api/v1/"
         //const val BASE_URL = "https://kinesioapp.herokuapp.com/api/v1/"
         const val USER_EXISTS = "user_exists"

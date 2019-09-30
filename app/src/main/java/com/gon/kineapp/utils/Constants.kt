@@ -18,6 +18,8 @@ object Constants {
     const val EXERCISE_DAYS_EXTRA = "EXERCISE_DAYS_EXTRA"
     const val EXERCISE_VIDEO_ID_EXTRA = "EXERCISE_VIDEO_ID_EXTRA"
 
+    const val EXTERNAL_VIDEO_FOLDER = "KineAppVideos"
+
     const val REMOVED_PHOTO_CODE = 5000
     const val EDITED_SESSION_CODE = 5001
     const val EDITED_VIDEOS_CODE = 5002

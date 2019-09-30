@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.adapter_medic_selector.view.*
 class MedicSelectorAdapter(private val medics: List<User>, private val callback: MedicListener)
     : RecyclerView.Adapter<MedicSelectorAdapter.MedicViewHolder>(), Filterable {
 
-    private lateinit var filteredMedics: List<User>
+    private var filteredMedics: List<User>
 
     interface MedicListener {
         fun onMedicSelected(license: String)

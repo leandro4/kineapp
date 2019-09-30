@@ -12,11 +12,8 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import android.provider.MediaStore
 import android.content.Intent
-import android.net.Uri
 import android.os.Environment.getExternalStorageDirectory
 import java.io.File
-import com.gon.kineapp.ui.activities.MainActivity
-import android.support.v4.content.FileProvider
 import com.gon.kineapp.R
 
 
@@ -58,7 +55,7 @@ object Utils {
     fun takeVideo(activity: Activity, requestCode: Int) {
         DialogUtil.showOptionsAlertDialog(activity, activity.getString(R.string.take_video_title), activity.getString(R.string.take_video_msg)) {
             val timestamp = System.currentTimeMillis()
-            val mediaFile = File(getExternalStorageDirectory().absolutePath + "/kine_" + timestamp + ".mp4")
+            //val mediaFile = File(getExternalStorageDirectory().absolutePath + "/kine_" + timestamp + ".mp4")
             val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
 
             /*val videoUri = FileProvider.getUriForFile(activity, "com.gon.kineapp.provider", mediaFile)

@@ -210,9 +210,9 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
             val manager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
             try {
                 val characteristics = manager.getCameraCharacteristics(cameraDevice!!.id)
-                if (characteristics != null) {
-                    jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(ImageFormat.JPEG)
-                }
+
+                jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)!!.getOutputSizes(ImageFormat.JPEG)
+
                 var width = 640
                 var height = 480
                 if (jpegSizes != null && jpegSizes!!.isNotEmpty()) {
@@ -226,7 +226,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
                 val capturebuilder = cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE)
                 capturebuilder.addTarget(reader.surface)
                 capturebuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
-                val rotation = windowManager.defaultDisplay.rotation
+                //val rotation = windowManager.defaultDisplay.rotation
                 capturebuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(1))
                 val handlerThread = HandlerThread("takepicture")
                 handlerThread.start()
