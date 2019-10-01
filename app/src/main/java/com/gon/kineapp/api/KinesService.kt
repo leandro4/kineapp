@@ -36,6 +36,8 @@ object KinesService {
         val okHttpClient = OkHttpClient().newBuilder()
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
+        okHttpClient.readTimeout(180, TimeUnit.SECONDS)
+        okHttpClient.connectTimeout(120, TimeUnit.SECONDS)
         okHttpClient.addInterceptor(interceptor)
         okHttpClient.addInterceptor {
             var request = it.request()
@@ -129,7 +131,7 @@ object KinesService {
     }
 
     fun createExercise(patientId: String, name: String, description: String, id: String?, day: ArrayList<Int>): Observable<ExercisesResponse> {
-        val body = NewExerciseBody(patientId, name, description, "8", day)
+        val body = NewExerciseBody(patientId, name, description, "10", day)
         return kinesApi.createExercise(body)
     }
 

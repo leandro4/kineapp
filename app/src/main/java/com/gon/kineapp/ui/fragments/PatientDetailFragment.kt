@@ -21,6 +21,7 @@ import com.vincent.videocompressor.VideoCompress
 import java.io.File
 import android.os.Environment
 import android.util.Log
+import com.gon.kineapp.ui.fragments.dialogs.InputDialogFragment
 
 class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
 
@@ -173,34 +174,22 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     private fun compressVideo(uri: Uri) {
-        val cursor = activity!!.contentResolver.query(uri,null,null,null,null)
-        if (cursor == null) {
-            onErrorCode(getString(R.string.error_take_video))
-            return
-        }
-
-        cursor.moveToFirst()
-        val videoPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))
-        cursor.close()
-
-        val folderFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
-        val outFile = folderFile + File.separator + getString(R.string.app_name) + System.currentTimeMillis() + getString(R.string.video_extension)
-
-        VideoCompress.compressVideoLow(videoPath, outFile, object : VideoCompress.CompressListener {
-                override fun onStart() {
-                    showProgressView()
-                }
-
-                override fun onSuccess() {
-                    presenter.uploadVideo(outFile, "Flexiones")
-                }
-
-                override fun onFail() {
+        activity?.contentResolver?.let {
+            showProgressView()
+            Utils.compressVideo(uri, it, { msg ->
                     hideProgressView()
-                    onErrorCode(getString(R.string.error_comprees_video))
-                }
+                    onErrorCode(msg) }, this::uploadVideo)
+        }
+    }
 
-                override fun onProgress(percent: Float) {}
-            })
+    private fun uploadVideo(path: String) {
+        InputDialogFragment()
+            .setTitle(getString(R.string.input_video_title))
+            .setCancellable(false)
+            .setCallback(object : InputDialogFragment.InputListener {
+                override fun onInputDone(input: String) {
+                    presenter.uploadVideo(path, input)
+                }
+            }).show(fragmentManager, "inputDialog")
     }
 }

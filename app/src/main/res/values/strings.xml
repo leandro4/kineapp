@@ -86,6 +86,8 @@
     <string name="error_take_video">Error al grabar el video, intente nuevamente</string>
     <string name="error_comprees_video">Error al comprimir el video, intente nuevamente</string>
     <string name="video_extension">.mp4</string>
+    <string name="generic_hint">Ingresar...</string>
+    <string name="input_video_title">Ingrese título del video:</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>

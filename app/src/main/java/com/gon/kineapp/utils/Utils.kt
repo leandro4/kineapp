@@ -1,6 +1,7 @@
 package com.gon.kineapp.utils
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -12,9 +13,13 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import android.provider.MediaStore
 import android.content.Intent
+import android.content.res.Resources
+import android.net.Uri
+import android.os.Environment
 import android.os.Environment.getExternalStorageDirectory
 import java.io.File
 import com.gon.kineapp.R
+import com.vincent.videocompressor.VideoCompress
 
 
 object Utils {
@@ -68,5 +73,34 @@ object Utils {
                 activity.startActivityForResult(intent, requestCode)
             }
         }
+    }
+
+    fun compressVideo(uri: Uri, contentResolver: ContentResolver, onError: (error: String) -> Unit, onCompress: (uriOutput: String) -> Unit) {
+        val cursor = contentResolver.query(uri,null,null,null,null)
+        if (cursor == null) {
+            onError("Error al grabar video")
+            return
+        }
+
+        cursor.moveToFirst()
+        val videoPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))
+        cursor.close()
+
+        val folderFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
+        val outFile = folderFile + File.separator + "kineapp_" + System.currentTimeMillis() + ".mp4"
+
+        VideoCompress.compressVideoLow(videoPath, outFile, object : VideoCompress.CompressListener {
+            override fun onStart() {}
+
+            override fun onSuccess() {
+                onCompress(outFile)
+            }
+
+            override fun onFail() {
+                onError(Resources.getSystem().getString(R.string.error_comprees_video))
+            }
+
+            override fun onProgress(percent: Float) {}
+        })
     }
 }

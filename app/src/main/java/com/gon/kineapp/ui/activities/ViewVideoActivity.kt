@@ -37,48 +37,12 @@ class ViewVideoActivity: AppCompatActivity() {
 
         video = intent?.getParcelableExtra(Constants.VIDEO_EXTRA)
 
-        supportActionBar?.title = video?.name//getString(com.gon.kineapp.R.string.public_video_view_title)
+        supportActionBar?.title = video?.name
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-    /*override fun onResume() {
-        super.onResume()
-        video = intent?.getParcelableExtra(Constants.VIDEO_EXTRA)
-        video?.let {
-            vvPlayer.setVideoPath(it.url)
-
-            val vidControl = MediaController(this)
-            vidControl.setAnchorView(vvPlayer)
-            vvPlayer.setMediaController(vidControl)
-            vvPlayer.start()
-
-            tvTitle.text = it.name
-        } ?: run { finish() }
-    }*/
-
-
-    public override fun onStart() {
-        super.onStart()
-        if (SDK_INT > 23) initializePlayer()
-    }
-
-    public override fun onResume() {
-        super.onResume()
-        if (SDK_INT <= 23 || player == null) initializePlayer()
-    }
-
-    public override fun onPause() {
-        super.onPause()
-        if (SDK_INT <= 23) releasePlayer()
-    }
-
-    public override fun onStop() {
-        super.onStop()
-        if (SDK_INT > 23) releasePlayer()
     }
 
     private fun initializePlayer() {
@@ -108,5 +72,26 @@ class ViewVideoActivity: AppCompatActivity() {
             player?.release()
             player = null
         }
+    }
+
+
+    public override fun onStart() {
+        super.onStart()
+        if (SDK_INT > 23) initializePlayer()
+    }
+
+    public override fun onResume() {
+        super.onResume()
+        if (SDK_INT <= 23 || player == null) initializePlayer()
+    }
+
+    public override fun onPause() {
+        super.onPause()
+        if (SDK_INT <= 23) releasePlayer()
+    }
+
+    public override fun onStop() {
+        super.onStop()
+        if (SDK_INT > 23) releasePlayer()
     }
 }
