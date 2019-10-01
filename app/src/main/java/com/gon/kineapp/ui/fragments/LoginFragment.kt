@@ -15,6 +15,7 @@ import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.LoginPresenter
 import com.gon.kineapp.mvp.views.LoginView
 import com.gon.kineapp.ui.activities.DashboardActivity
+import com.gon.kineapp.ui.adapters.FragmentPagerAdapter
 import com.gon.kineapp.ui.fragments.dialogs.RolSelectionFragment
 import com.gon.kineapp.ui.fragments.dialogs.UnlockerQuestionFragment
 import com.gon.kineapp.utils.LockerAppCallback
@@ -38,6 +39,8 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
     private var isMedic = false
     private var questionSelectedId = 0
+
+    private val pages = listOf (OnboardingStepOneFragment(), OnboardingStepTwoFragment(), OnboardingStepThreeFragment())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_login, container, false)
@@ -64,6 +67,12 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
     }
 
     private fun initUI() {
+        val adapter = FragmentPagerAdapter(activity!!.supportFragmentManager)
+        vpTutorial.adapter = adapter
+        pages.forEach { adapter.addPage(it) }
+
+        vpIndicator.setViewPager(vpTutorial)
+
         fabLogin.setOnClickListener {
             if (validateFields()) {
                 presenter.registerUser(getGoogleAccount()?.idToken!!,

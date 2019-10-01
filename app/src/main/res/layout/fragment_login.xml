@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <FrameLayout
             android:layout_width="match_parent"
@@ -139,7 +140,7 @@
             android:id="@+id/llGoogleSignIn"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:text="@string/app_name"
@@ -150,15 +151,22 @@
                 android:layout_marginTop="70dp"
                 style="@style/TextViewStyleBold"/>
 
-            <TextView
-                android:text="@string/google_sign_in_explanation"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/xxlarge_margin"
-                android:layout_marginBottom="@dimen/large_margin"
-                android:layout_marginStart="@dimen/large_margin"
-                android:layout_marginEnd="@dimen/large_margin"
-                style="@style/TextViewStyleLight"/>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpTutorial"
+                android:layout_marginTop="@dimen/xxxlarge_margin"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/vpIndicator"
+                app:radius="4dp"
+                app:fillColor="@color/colorAccent"
+                app:strokeColor="@color/colorPrimary"
+                app:pageColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xsmall_margin"
+                android:padding="2dp"/>
 
             <Button
                 android:id="@+id/btnGoogleSignIn"
@@ -166,8 +174,8 @@
                 android:text="@string/google_sign_in_btn"
                 android:textAllCaps="false"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/xxxlarge_margin"
                 android:layout_marginBottom="@dimen/xxxlarge_margin"
+                android:layout_marginTop="@dimen/xxxlarge_margin"
                 android:fontFamily="@font/sourcesanspro_light"
                 android:backgroundTint="@color/colorAccent"
                 android:layout_width="wrap_content"

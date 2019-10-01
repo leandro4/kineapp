@@ -42,10 +42,9 @@
     <string name="http_error_message">Parece que no puede realizar esta operación</string>
     <string name="videos_from_title">Videos para %s</string>
     <string name="google_sign_in_btn">Iniciar con Google</string>
-    <string name="google_sign_in_explanation">Bienvenido a KineApp, la herramienta adecuada para los Kinesiólogos y sus
-        pacientes.\n\nPara continuar debe iniciar sesión con una cuenta de Google.\nA continuación, accederá al
-        sistema.\nSi es la primera vez que ingresa, le pediremos algunos datos sobre su identidad.\n\n¡Gracias!
-    </string>
+    <string name="google_sign_in_explanation_one">Bienvenido a KineApp, la herramienta adecuada para los Kinesiólogos y sus pacientes.</string>
+    <string name="google_sign_in_explanation_two">Para continuar debe iniciar sesión con una cuenta de Google.\n\nA continuación, accederá al sistema.</string>
+    <string name="google_sign_in_explanation_three">Si es la primera vez que ingresa, le pediremos algunos datos sobre su identidad.\n\n¡Gracias!</string>
     <string name="exercises_title">Ejercicios</string>
     <string name="timeline_title">Timeline</string>
     <string name="take_video_title">Grabar video</string>
