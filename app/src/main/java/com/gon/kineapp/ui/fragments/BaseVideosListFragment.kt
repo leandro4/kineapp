@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,10 @@ abstract class BaseVideosListFragment: BaseMvpFragment(), PublicVideoAdapter.Vid
         val intent = Intent(activity, ViewVideoActivity::class.java)
         intent.putExtra(Constants.VIDEO_EXTRA, video)
         activity?.startActivity(intent)
+    }
+
+    protected fun onVideoAdded(video: Video) {
+        adapter.addVideo(video)
     }
 
     protected fun onRemovedVideo(id: String) {

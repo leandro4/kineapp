@@ -32,7 +32,7 @@
     <string name="camera_permission_denied">Sin los permisos de Cámara no podemos continuar</string>
     <string name="camera_ask_permission_title">Necesitamos permisos para utilizar la Cámara</string>
     <string name="camera_ask_permission_msg">Si no aprueba el permiso, la aplicación no puede funcionar correctamente</string>
-    <string name="remove_warning_title">¡Cuidado!</string>
+    <string name="remove_warning_title">¡Atención!</string>
     <string name="remove_pic_warning_subtitle">¿Desea borrar esta foto?</string>
     <string name="empty_photos">Para agregar fotos presione el botón flotante de la esquina inferior derecha</string>
     <string name="profile_title">Perfil</string>
@@ -88,6 +88,8 @@
     <string name="video_extension">.mp4</string>
     <string name="generic_hint">Ingresar...</string>
     <string name="input_video_title">Ingrese título del video:</string>
+    <string name="success_video_title">Video Disponible</string>
+    <string name="success_video_msg">¡Perfecto! Ya podes utilizar el video para las rutinas de tus pacientes.</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>

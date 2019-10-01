@@ -38,9 +38,8 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         }
 
         const val VIEW_SESSION = 2001
-        const val VIEW_VIDEOS = 2002
-        const val TAKE_VIDEO = 2003
-        const val EDIT_ROUTINE = 2004
+        const val TAKE_VIDEO = 2002
+        const val EDIT_ROUTINE = 2003
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -130,6 +129,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     override fun onVideoUploaded(video: Video) {
+        DialogUtil.showGenericAlertDialog(context!!, getString(R.string.success_video_title), getString(R.string.success_video_msg))
         Toast.makeText(context!!, video.id, Toast.LENGTH_SHORT).show()
     }
 
@@ -152,12 +152,6 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
                 adapter.updateSession(session)
             }
         }
-        else if (requestCode == VIEW_VIDEOS && resultCode == Constants.EDITED_VIDEOS_CODE) {
-            data?.let {
-                val videos = it.getParcelableArrayListExtra<Video>(Constants.VIDEO_EXTRA)
-                patient.patient?.videos = videos
-            }
-        }
         else if (requestCode == EDIT_ROUTINE && resultCode == Constants.EDITED_ROUTINE_CODE) {
             data?.let {
                 val user = it.getParcelableExtra<User>(Constants.USER_EXTRA)
@@ -167,8 +161,8 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         else if (requestCode == TAKE_VIDEO) {
             when (resultCode) {
                 RESULT_OK -> data?.data?.let { compressVideo(it) }
-                RESULT_CANCELED -> Toast.makeText(context, "Video recording cancelled.", Toast.LENGTH_LONG).show()
-                else -> Toast.makeText(context, "Failed to record video", Toast.LENGTH_LONG).show()
+                //RESULT_CANCELED -> Toast.makeText(context, "Video recording cancelled.", Toast.LENGTH_LONG).show()
+                else -> onErrorCode(getString(R.string.error_take_video))
             }
         }
     }

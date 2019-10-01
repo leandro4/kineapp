@@ -41,9 +41,6 @@ interface KinesApi {
     @PATCH(UtilUrl.EXERCISE_ROUTE)
     fun markAsDoneExercise(@Path("id") id: String, @Body body: DoneExerciseBody): Observable<Exercise>
 
-    @GET(UtilUrl.PATIENTS)
-    fun getPublicVideos(): Observable<PublicVideosListResponse>
-
     @GET(UtilUrl.SESSIONS)
     fun getSessions(@Path("id") id: String): Observable<SessionListResponse>
 
@@ -74,4 +71,7 @@ interface KinesApi {
     @Multipart
     @POST(UtilUrl.UPLOAD_VIDEO)
     fun uploadVideo(@Part content: MultipartBody.Part, @Part("name") videoName: RequestBody): Observable<Video>
+
+    @GET(UtilUrl.DELETE_VIDEO)
+    fun deleteVideo(@Path("id") id: String): Completable
 }

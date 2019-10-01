@@ -35,8 +35,8 @@ class PublicVideoAdapter(private val videos: MutableList<Video>, private val cal
     }
 
     fun addVideo(video: Video) {
-        videos.add(video)
-        notifyItemInserted(videos.size - 1)
+        videos.add(0, video)
+        notifyItemInserted(0)
     }
 
     fun removeVideo(id: String) {

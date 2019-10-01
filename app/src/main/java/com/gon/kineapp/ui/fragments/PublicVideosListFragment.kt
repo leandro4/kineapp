@@ -2,12 +2,16 @@ package com.gon.kineapp.ui.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import com.gon.kineapp.R
 import com.gon.kineapp.model.Video
 import com.gon.kineapp.mvp.presenters.PublicVideosListPresenter
 import com.gon.kineapp.mvp.views.PublicVideosListView
+import com.gon.kineapp.ui.fragments.dialogs.InputDialogFragment
+import com.gon.kineapp.utils.MyUser
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.fragment_public_videos_list.*
 
@@ -25,22 +29,28 @@ class PublicVideosListFragment : BaseVideosListFragment(), PublicVideosListView 
     }
 
     private fun initUI() {
+        val videos = MyUser.get(context!!)?.medic?.videos
+        videos?.let { setVideos(it) }
+
         fabAddVideo.setOnClickListener {
             Utils.takeVideo(activity!!, TAKE_VIDEO)
         }
     }
 
-    override fun onPublicVideosReceived(videos: MutableList<Video>) {
-        setVideos(videos)
-    }
-
     override fun onVideoRemoved(id: String) {
         onRemovedVideo(id)
+        val user = MyUser.get(context!!)?.apply { medic?.videos?.removeAll { it.id == id } }
+        user?.let { MyUser.set(context!!, it) }
+    }
+
+    override fun onVideoUploaded(video: Video) {
+        val user = MyUser.get(context!!)?.apply { medic?.videos?.add(video) }
+        user?.let { MyUser.set(context!!, it) }
+        onVideoAdded(video)
     }
 
     override fun startPresenter() {
         presenter.attachMvpView(this)
-        presenter.getPublicVideosList()
     }
 
     override fun removeVideo(id: String) {
@@ -56,10 +66,29 @@ class PublicVideosListFragment : BaseVideosListFragment(), PublicVideosListView 
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == PatientDetailFragment.TAKE_VIDEO) {
             when (resultCode) {
-                Activity.RESULT_OK -> Toast.makeText(context, "Video saved to:\n" + data?.data, Toast.LENGTH_LONG).show()
-                Activity.RESULT_CANCELED -> Toast.makeText(context, "Video recording cancelled.", Toast.LENGTH_LONG).show()
-                else -> Toast.makeText(context, "Failed to record video", Toast.LENGTH_LONG).show()
+                Activity.RESULT_OK -> data?.data?.let { compressVideo(it) }
+                else -> onErrorCode(getString(R.string.error_take_video))
             }
         }
+    }
+
+    private fun compressVideo(uri: Uri) {
+        activity?.contentResolver?.let {
+            showProgressView()
+            Utils.compressVideo(uri, it, { msg ->
+                hideProgressView()
+                onErrorCode(msg) }, this::uploadVideo)
+        }
+    }
+
+    private fun uploadVideo(path: String) {
+        InputDialogFragment()
+            .setTitle(getString(R.string.input_video_title))
+            .setCancellable(false)
+            .setCallback(object : InputDialogFragment.InputListener {
+                override fun onInputDone(input: String) {
+                    presenter.uploadVideo(path, input)
+                }
+            }).show(fragmentManager, "inputDialog")
     }
 }

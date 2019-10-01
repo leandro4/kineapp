@@ -7,6 +7,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Patient(
-    var videos: MutableList<Video>,
     @Json(name="current_medic_id") var medicLicense: String,
     @Json(name="exercises") var routine: Map<Int, MutableList<Exercise>>?): Parcelable

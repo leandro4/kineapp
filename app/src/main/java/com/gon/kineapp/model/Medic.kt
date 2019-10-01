@@ -6,4 +6,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Medic(
+    var videos: MutableList<Video>,
     var license: String) : Parcelable

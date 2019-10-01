@@ -131,7 +131,7 @@ object KinesService {
     }
 
     fun createExercise(patientId: String, name: String, description: String, id: String?, day: ArrayList<Int>): Observable<ExercisesResponse> {
-        val body = NewExerciseBody(patientId, name, description, "10", day)
+        val body = NewExerciseBody(patientId, name, description, id, day)
         return kinesApi.createExercise(body)
     }
 
@@ -153,4 +153,7 @@ object KinesService {
         return kinesApi.uploadVideo(contentPart, namePart)
     }
 
+    fun deleteVideo(videoId: String): Completable {
+        return kinesApi.deleteVideo(videoId)
+    }
 }
