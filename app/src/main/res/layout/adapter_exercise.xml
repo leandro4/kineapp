@@ -56,12 +56,13 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_play_circle"
                     android:tint="@color/colorPrimary"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
 
                 <TextView
                     android:text="@string/exercice_watch_video"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/black_title"
+                    android:textSize="16sp"
                     style="@style/TextViewStyleBold" />
 
             </LinearLayout>
@@ -77,13 +78,14 @@
                 <ImageView
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_delete"
-                    android:tint="@color/colorAccent"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
+                    android:tint="@color/red"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
 
                 <TextView
                     android:text="@string/exercice_remove"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/black_title"
+                    android:textSize="16sp"
                     style="@style/TextViewStyleBold" />
 
             </LinearLayout>
@@ -99,14 +101,15 @@
                     android:id="@+id/ivDone"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/ic_undone"
-                    android:tint="@color/colorAccent"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"/>
+                    android:tint="@color/green"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
 
                 <TextView
                     android:id="@+id/tvDone"
                     android:text="@string/exercice_undone"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/black_title"
+                    android:textSize="16sp"
                     style="@style/TextViewStyleBold" />
 
             </LinearLayout>

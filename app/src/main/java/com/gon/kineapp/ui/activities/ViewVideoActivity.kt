@@ -1,20 +1,30 @@
 package com.gon.kineapp.ui.activities
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Video
 import com.gon.kineapp.utils.Constants
 import kotlinx.android.synthetic.main.activity_view_video.*
-import android.widget.MediaController
-import android.widget.Toast
+import com.google.android.exoplayer2.DefaultLoadControl
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.DefaultRenderersFactory
+import com.google.android.exoplayer2.ExoPlayerFactory
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import com.google.android.exoplayer2.source.ExtractorMediaSource
+import android.net.Uri
+import android.os.Build.VERSION.SDK_INT
 import com.gon.kineapp.api.UtilUrl
-import java.net.URLEncoder
 
 class ViewVideoActivity: AppCompatActivity() {
 
     private var video: Video? = null
+    private var player: SimpleExoPlayer? = null
+    private var currentWindows = 0
+    private var playbackFrom = 0L
+    private var playWhenReady = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +35,9 @@ class ViewVideoActivity: AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportActionBar?.title = getString(com.gon.kineapp.R.string.public_video_view_title)
+        video = intent?.getParcelableExtra(Constants.VIDEO_EXTRA)
+
+        supportActionBar?.title = video?.name//getString(com.gon.kineapp.R.string.public_video_view_title)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -33,7 +45,7 @@ class ViewVideoActivity: AppCompatActivity() {
         return true
     }
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         video = intent?.getParcelableExtra(Constants.VIDEO_EXTRA)
         video?.let {
@@ -46,5 +58,55 @@ class ViewVideoActivity: AppCompatActivity() {
 
             tvTitle.text = it.name
         } ?: run { finish() }
+    }*/
+
+
+    public override fun onStart() {
+        super.onStart()
+        if (SDK_INT > 23) initializePlayer()
+    }
+
+    public override fun onResume() {
+        super.onResume()
+        if (SDK_INT <= 23 || player == null) initializePlayer()
+    }
+
+    public override fun onPause() {
+        super.onPause()
+        if (SDK_INT <= 23) releasePlayer()
+    }
+
+    public override fun onStop() {
+        super.onStop()
+        if (SDK_INT > 23) releasePlayer()
+    }
+
+    private fun initializePlayer() {
+        player = ExoPlayerFactory.newSimpleInstance(
+            DefaultRenderersFactory(this),
+            DefaultTrackSelector(), DefaultLoadControl()
+        )
+
+        video_view.player = player
+
+        player?.playWhenReady = playWhenReady
+        player?.seekTo(currentWindows, playbackFrom)
+
+        val mediaSource = buildMediaSource(Uri.parse(UtilUrl.SERVER_URL + video?.url))
+        player?.prepare(mediaSource, true, false)
+    }
+
+    private fun buildMediaSource(uri: Uri): MediaSource {
+        return ExtractorMediaSource.Factory(DefaultHttpDataSourceFactory("exoplayer-codelab")).createMediaSource(uri)
+    }
+
+    private fun releasePlayer() {
+        if (player != null) {
+            playbackFrom = player?.currentPosition!!
+            currentWindows = player?.currentWindowIndex!!
+            playWhenReady = player?.playWhenReady!!
+            player?.release()
+            player = null
+        }
     }
 }

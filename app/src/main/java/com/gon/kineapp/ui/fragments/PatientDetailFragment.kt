@@ -175,7 +175,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     private fun compressVideo(uri: Uri) {
         val cursor = activity!!.contentResolver.query(uri,null,null,null,null)
         if (cursor == null) {
-            onErrorCode("No se pudo grabar el video")
+            onErrorCode(getString(R.string.error_take_video))
             return
         }
 
@@ -184,7 +184,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         cursor.close()
 
         val folderFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath
-        val outFile = folderFile + File.separator + "kineapp_compress_" + System.currentTimeMillis() + ".mp4"
+        val outFile = folderFile + File.separator + getString(R.string.app_name) + System.currentTimeMillis() + getString(R.string.video_extension)
 
         VideoCompress.compressVideoLow(videoPath, outFile, object : VideoCompress.CompressListener {
                 override fun onStart() {
@@ -193,17 +193,14 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
                 override fun onSuccess() {
                     presenter.uploadVideo(outFile, "Flexiones")
-                    Log.d("Compressor", "DONE!!")
                 }
 
                 override fun onFail() {
                     hideProgressView()
-                    onErrorCode("Error al comprimir")
+                    onErrorCode(getString(R.string.error_comprees_video))
                 }
 
-                override fun onProgress(percent: Float) {
-                    Log.d("Compressor", "Compress: " + percent)
-                }
+                override fun onProgress(percent: Float) {}
             })
     }
 }
