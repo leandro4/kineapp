@@ -2,6 +2,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -162,6 +163,58 @@
                 android:layout_height="wrap_content"/>
             
         </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/large_margin"
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/exercice_add_video_label"
+            style="@style/TextViewStyleBold"/>
+
+        <RelativeLayout
+            android:id="@+id/rvSelectVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/video_not_selected"
+                android:textColor="@color/colorPrimary"
+                android:layout_toEndOf="@+id/cvImage"
+                android:layout_centerVertical="true"
+                style="@style/TextViewStyleRegular"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvImage"
+                android:layout_margin="@dimen/large_margin"
+                android:visibility="gone"
+                app:cardCornerRadius="@dimen/medium_radius"
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:id="@+id/ivThumb"
+                    app:srcCompat="@drawable/ic_video"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </android.support.v7.widget.CardView>
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/ic_delete"
+                android:tint="@color/colorPrimary"
+                android:scaleType="centerCrop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

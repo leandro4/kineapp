@@ -7,13 +7,19 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.gon.kineapp.R
+import com.gon.kineapp.model.Video
+import com.gon.kineapp.ui.adapters.VideoSelectorAdapter
+import com.gon.kineapp.ui.fragments.dialogs.SelectVideoFragment
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.DialogUtil
+import com.gon.kineapp.utils.ImageLoader
+import com.gon.kineapp.utils.MyUser
 import kotlinx.android.synthetic.main.activity_create_exercise.*
 
-class CreateExerciseActivity : LockableActivity() {
+class CreateExerciseActivity : LockableActivity(), SelectVideoFragment.VideoSelectorListener {
 
     private lateinit var days: List<View>
+    private var videoSelected: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +37,11 @@ class CreateExerciseActivity : LockableActivity() {
         fabSave.setOnClickListener {
             save()
         }
-        days = listOf(day0, day1, day2, day3, day4, day5, day6)
+        days = listOf(day0, day1, day2, day3, day4, day5, day6).toList()
         days.forEach { it.setOnClickListener { b -> b.isSelected = !b.isSelected } }
+
+        ivDelete.setOnClickListener { removeVideoSelected() }
+        rvSelectVideo.setOnClickListener { selectVideo() }
     }
 
     private fun save() {
@@ -53,8 +62,36 @@ class CreateExerciseActivity : LockableActivity() {
             putExtra(Constants.EXERCISE_TITLE_EXTRA, etTitle.text.toString())
             putExtra(Constants.EXERCISE_DESCRIPTION_EXTRA, etDescription.text.toString())
             putIntegerArrayListExtra(Constants.EXERCISE_DAYS_EXTRA, list)
-            //putExtra(Constants.EXERCISE_VIDEO_ID_EXTRA, null)
+            videoSelected?.let { putExtra(Constants.EXERCISE_VIDEO_ID_EXTRA, it) }
         })
         finish()
+    }
+
+    private fun selectVideo() {
+        MyUser.get(this)?.medic?.videos?.let {
+            if (it.isEmpty()) {
+                DialogUtil.showGenericAlertDialog(this, getString(R.string.no_videos_available_title), getString(R.string.no_videos_available_message))
+            } else {
+                SelectVideoFragment().setListener(this).show(supportFragmentManager, "selectVideo")
+            }
+        }
+    }
+
+    override fun onVideoSelected(video: Video) {
+        rvSelectVideo.setOnClickListener(null)
+        videoSelected = video.id
+        tvName.text = video.name
+        ivDelete.visibility = View.VISIBLE
+        cvImage.visibility = View.VISIBLE
+        ImageLoader.load(this, video.thumbUrl).into(ivThumb)
+    }
+
+    private fun removeVideoSelected() {
+        rvSelectVideo.setOnClickListener { selectVideo() }
+        videoSelected = null
+        tvName.text = getString(R.string.video_not_selected)
+        ivDelete.visibility = View.GONE
+        cvImage.visibility = View.GONE
+        ivThumb.setImageResource(0)
     }
 }

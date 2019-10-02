@@ -89,6 +89,13 @@
     <string name="input_video_title">Ingrese título del video:</string>
     <string name="success_video_title">Video Disponible</string>
     <string name="success_video_msg">¡Perfecto! Ya podes utilizar el video para las rutinas de tus pacientes.</string>
+    <string name="exercice_add_video_label">Agregar video</string>
+    <string name="video_selector_title">Seleccione un video:</string>
+    <string name="no_videos_available_title">No hay videos disponibles</string>
+    <string name="no_videos_available_message">Grabe un video desde la sección Mis Videos y luego podrá visualizarlo
+        aquí.
+    </string>
+    <string name="video_not_selected">Seleccionar video</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>
