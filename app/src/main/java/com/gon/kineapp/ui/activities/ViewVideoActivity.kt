@@ -56,7 +56,7 @@ class ViewVideoActivity: AppCompatActivity() {
         player?.playWhenReady = playWhenReady
         player?.seekTo(currentWindows, playbackFrom)
 
-        val mediaSource = buildMediaSource(Uri.parse(UtilUrl.SERVER_URL + video?.url))
+        val mediaSource = buildMediaSource(Uri.parse(video?.url))
         player?.prepare(mediaSource, true, false)
     }
 

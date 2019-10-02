@@ -48,7 +48,7 @@ class PublicVideoAdapter(private val videos: MutableList<Video>, private val cal
     class VideoViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(video: Video, callback: VideoListener) {
-            Glide.with(viewItem).load(Uri.parse(video.thumbUrl)).into(viewItem.ivVideo)
+            video.thumbUrl?.let { Glide.with(viewItem).load(Uri.parse(it)).into(viewItem.ivVideo) }
             viewItem.ivVideo.setOnClickListener { callback.onVideoSelected(video) }
             viewItem.ivRemove.setOnClickListener { callback.onRemoveVideoSelected(video.id) }
             viewItem.tvTitle.text = video.name

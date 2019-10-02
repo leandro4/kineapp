@@ -37,7 +37,7 @@
     <string name="empty_photos">Para agregar fotos presione el botón flotante de la esquina inferior derecha</string>
     <string name="profile_title">Perfil</string>
     <string name="public_videos_title">Videos Públicos</string>
-    <string name="remove_video_warning_subtitle">¿Desea borrar este video?</string>
+    <string name="remove_video_warning_subtitle">¿Desea borrar este video?\nSe quitará de todos los ejercicios que lo estén utilizando</string>
     <string name="public_video_view_title">Video Público</string>
     <string name="http_error_message">Parece que no puede realizar esta operación</string>
     <string name="videos_from_title">Videos para %s</string>

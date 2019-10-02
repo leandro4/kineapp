@@ -72,6 +72,6 @@ interface KinesApi {
     @POST(UtilUrl.UPLOAD_VIDEO)
     fun uploadVideo(@Part content: MultipartBody.Part, @Part("name") videoName: RequestBody): Observable<Video>
 
-    @GET(UtilUrl.DELETE_VIDEO)
+    @DELETE(UtilUrl.DELETE_VIDEO)
     fun deleteVideo(@Path("id") id: String): Completable
 }

@@ -24,6 +24,7 @@ class PublicVideosListPresenter: BasePresenter<PublicVideosListView>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableCompletableObserver() {
                     override fun onComplete() {
+                        mvpView?.hideProgressView()
                         mvpView?.onVideoRemoved(id)
                     }
 

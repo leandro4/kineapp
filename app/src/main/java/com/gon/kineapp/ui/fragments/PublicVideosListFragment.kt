@@ -64,7 +64,7 @@ class PublicVideosListFragment : BaseVideosListFragment(), PublicVideosListView 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PatientDetailFragment.TAKE_VIDEO) {
+        if (requestCode == TAKE_VIDEO) {
             when (resultCode) {
                 Activity.RESULT_OK -> data?.data?.let { compressVideo(it) }
                 else -> onErrorCode(getString(R.string.error_take_video))
