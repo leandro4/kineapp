@@ -91,6 +91,10 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         return super.onOptionsItemSelected(item)
     }
 
+    fun onPermissionsGranted() {
+        Utils.takeVideo(activity!!, TAKE_VIDEO)
+    }
+
     private fun goToTimeLine() {
         val options = ArrayList<PhotoTag>().apply { PhotoTag.values().forEach { if (it != PhotoTag.O) add(it) } }
         DialogUtil.showChooserListDialog(context!!, getString(R.string.choose_tag_title), options.map { it.getCompleteName() }) {

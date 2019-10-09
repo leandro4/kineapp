@@ -67,9 +67,14 @@ class PublicVideosListFragment : BaseVideosListFragment(), PublicVideosListView 
         if (requestCode == TAKE_VIDEO) {
             when (resultCode) {
                 Activity.RESULT_OK -> data?.data?.let { compressVideo(it) }
+                Activity.RESULT_CANCELED -> Toast.makeText(context, getString(R.string.video_cancelled), Toast.LENGTH_SHORT).show()
                 else -> onErrorCode(getString(R.string.error_take_video))
             }
         }
+    }
+
+    fun onPermissionsGranted() {
+        Utils.takeVideo(activity!!, TAKE_VIDEO)
     }
 
     private fun compressVideo(uri: Uri) {

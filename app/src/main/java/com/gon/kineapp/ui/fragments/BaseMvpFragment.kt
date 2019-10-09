@@ -96,7 +96,7 @@ abstract class BaseMvpFragment: Fragment(), BaseView {
     }
 
     override fun onErrorCode(message: String) {
-        showErrorMessage(getString(R.string.http_error_message))
+        showErrorMessage(message)//getString(R.string.http_error_message))
     }
 
 }

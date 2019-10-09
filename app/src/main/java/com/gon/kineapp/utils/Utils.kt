@@ -13,16 +13,22 @@ import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import android.provider.MediaStore
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.net.Uri
 import android.os.Environment
-import android.os.Environment.getExternalStorageDirectory
+import android.support.v4.app.ActivityCompat
 import java.io.File
 import com.gon.kineapp.R
 import com.vincent.videocompressor.VideoCompress
 
-
 object Utils {
+
+    private val PERMISSIONS = arrayOf(
+        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        android.Manifest.permission.RECORD_AUDIO,
+        android.Manifest.permission.CAMERA
+    )
 
     fun showKeyboard(view: EditText) {
         val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -59,20 +65,40 @@ object Utils {
 
     fun takeVideo(activity: Activity, requestCode: Int) {
         DialogUtil.showOptionsAlertDialog(activity, activity.getString(R.string.take_video_title), activity.getString(R.string.take_video_msg)) {
-            val timestamp = System.currentTimeMillis()
-            //val mediaFile = File(getExternalStorageDirectory().absolutePath + "/kine_" + timestamp + ".mp4")
-            val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-
-            /*val videoUri = FileProvider.getUriForFile(activity, "com.gon.kineapp.provider", mediaFile)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)*/
-
-            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0)
-            intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 20)
-
-            intent.resolveActivity(activity.packageManager)?.also {
-                activity.startActivityForResult(intent, requestCode)
+            if (hasVideoRecordPermissions(activity, *PERMISSIONS)) {
+                recordVideo(activity, requestCode)
+            } else {
+                DialogUtil.showOptionsAlertDialog(activity, activity.getString(R.string.request_permissions_title), activity.getString(R.string.request_permissions_message)) {
+                    askForRecordPermissions(activity)
+                }
             }
         }
+    }
+
+    private fun recordVideo(activity: Activity, requestCode: Int) {
+        val timestamp = System.currentTimeMillis()
+        //val mediaFile = File(getExternalStorageDirectory().absolutePath + "/kine_" + timestamp + ".mp4")
+        val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+
+        /*val videoUri = FileProvider.getUriForFile(activity, "com.gon.kineapp.provider", mediaFile)
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)*/
+
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0)
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 20)
+
+        intent.resolveActivity(activity.packageManager)?.also {
+            activity.startActivityForResult(intent, requestCode)
+        }
+    }
+
+    private fun askForRecordPermissions(activity: Activity) {
+        if (!hasVideoRecordPermissions(activity, *PERMISSIONS)) {
+            ActivityCompat.requestPermissions(activity, PERMISSIONS, Constants.PERMISSIONS_REQUEST_CODE)
+        }
+    }
+
+    private fun hasVideoRecordPermissions(context: Context, vararg permissions: String): Boolean = permissions.all {
+        ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
     }
 
     fun compressVideo(uri: Uri, contentResolver: ContentResolver, onError: (error: String) -> Unit, onCompress: (uriOutput: String) -> Unit) {

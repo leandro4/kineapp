@@ -25,4 +25,5 @@ object Constants {
     const val EDITED_VIDEOS_CODE = 5002
     const val EDITED_ROUTINE_CODE = 5003
 
+    const val PERMISSIONS_REQUEST_CODE = 6000
 }

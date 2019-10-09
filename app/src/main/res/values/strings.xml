@@ -96,6 +96,10 @@
         aquí.
     </string>
     <string name="video_not_selected">Seleccionar video</string>
+    <string name="request_permissions_title">Se necesitan permisos para esta acción</string>
+    <string name="request_permissions_message">Si no otorga los permisos necesarios desde aquí, deberá hacerlo por los Ajustes de Aplicación
+    </string>
+    <string name="video_cancelled">Grabación cancelada</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>
