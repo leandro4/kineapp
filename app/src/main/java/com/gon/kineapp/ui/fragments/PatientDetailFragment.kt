@@ -49,6 +49,10 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (patient == null) {
+            activity?.finish()
+            return
+        }
         super.onViewCreated(view, savedInstanceState)
         initUI()
     }
@@ -127,6 +131,10 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     override fun onPhotosByTagReceived(photos: ArrayList<Photo>) {
+        if (photos.isEmpty()) {
+            Toast.makeText(context, getString(R.string.timeline_no_photos), Toast.LENGTH_SHORT).show()
+            return
+        }
         val intent = Intent(context, TimeLineActivity::class.java)
         PhotosRepository.photos = photos
         activity?.startActivityForResult(intent, EDIT_ROUTINE)

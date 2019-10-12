@@ -25,7 +25,7 @@ import com.vincent.videocompressor.VideoCompress
 object Utils {
 
     private val PERMISSIONS = arrayOf(
-        android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
         android.Manifest.permission.RECORD_AUDIO,
         android.Manifest.permission.CAMERA
     )
@@ -76,14 +76,14 @@ object Utils {
     }
 
     private fun recordVideo(activity: Activity, requestCode: Int) {
-        val timestamp = System.currentTimeMillis()
+        //val timestamp = System.currentTimeMillis()
         //val mediaFile = File(getExternalStorageDirectory().absolutePath + "/kine_" + timestamp + ".mp4")
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
 
         /*val videoUri = FileProvider.getUriForFile(activity, "com.gon.kineapp.provider", mediaFile)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)*/
 
-        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0)
+        //intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 0)
         intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 20)
 
         intent.resolveActivity(activity.packageManager)?.also {
@@ -126,7 +126,9 @@ object Utils {
                 onError(Resources.getSystem().getString(R.string.error_comprees_video))
             }
 
-            override fun onProgress(percent: Float) {}
+            override fun onProgress(percent: Float) {
+
+            }
         })
     }
 }

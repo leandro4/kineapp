@@ -85,7 +85,7 @@
     <string name="error_take_video">Error al grabar el video, intente nuevamente</string>
     <string name="error_comprees_video">Error al comprimir el video, intente nuevamente</string>
     <string name="video_extension">.mp4</string>
-    <string name="generic_hint">Ingresar...</string>
+    <string name="generic_hint">Ingresar&#8230;</string>
     <string name="input_video_title">Ingrese título del video:</string>
     <string name="success_video_title">Video Disponible</string>
     <string name="success_video_msg">¡Perfecto! Ya podes utilizar el video para las rutinas de tus pacientes.</string>
@@ -100,6 +100,7 @@
     <string name="request_permissions_message">Si no otorga los permisos necesarios desde aquí, deberá hacerlo por los Ajustes de Aplicación
     </string>
     <string name="video_cancelled">Grabación cancelada</string>
+    <string name="timeline_no_photos">No hay imágenes, seleccione otra postura</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>

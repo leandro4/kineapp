@@ -269,9 +269,8 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     }
 
     override fun onImageAvailable(reader: ImageReader?) {
-        var image: Image? = null
         try {
-            image = reader?.acquireLatestImage()
+            val image = reader?.acquireLatestImage()
             val buffer = image!!.planes[0].buffer
             val bytes = ByteArray(buffer.capacity())
             buffer.get(bytes)
