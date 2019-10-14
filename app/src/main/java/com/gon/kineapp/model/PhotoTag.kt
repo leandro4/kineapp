@@ -7,51 +7,142 @@ enum class PhotoTag {
     F {
         override fun getDrawable(width: Int, height: Int): Int {
             return when (width) {
-                1 -> R.drawable.front_back_large_2
-                2 -> R.drawable.front_back_large_3
-                3 -> R.drawable.front_back_large_4
-                else -> R.drawable.front_back_large_1
+                1 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_2
+                        2 -> R.drawable.front_back_large_2
+                        else -> R.drawable.front_back_small_2
+                    }
+                }
+                2 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_3
+                        2 -> R.drawable.front_back_large_3
+                        else -> R.drawable.front_back_small_3
+                    }
+                }
+                3 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_4
+                        2 -> R.drawable.front_back_large_4
+                        else -> R.drawable.front_back_small_4
+                    }
+                }
+                else -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_1
+                        2 -> R.drawable.front_back_large_1
+                        else -> R.drawable.front_back_small_1
+                    }
+                }
             }
         }
     },
     D {
         override fun getDrawable(width: Int, height: Int): Int {
             return when (width) {
-                1 -> R.drawable.front_back_large_2
-                2 -> R.drawable.front_back_large_3
-                3 -> R.drawable.front_back_large_4
-                else -> R.drawable.front_back_large_1
+                1 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_2
+                        2 -> R.drawable.front_back_large_2
+                        else -> R.drawable.front_back_small_2
+                    }
+                }
+                2 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_3
+                        2 -> R.drawable.front_back_large_3
+                        else -> R.drawable.front_back_small_3
+                    }
+                }
+                3 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_4
+                        2 -> R.drawable.front_back_large_4
+                        else -> R.drawable.front_back_small_4
+                    }
+                }
+                else -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_1
+                        2 -> R.drawable.front_back_large_1
+                        else -> R.drawable.front_back_small_1
+                    }
+                }
             }
         }
     },
     I {
         override fun getDrawable(width: Int, height: Int): Int {
             return when (width) {
-                1 -> R.drawable.front_back_large_2
-                2 -> R.drawable.front_back_large_3
-                3 -> R.drawable.front_back_large_4
-                else -> R.drawable.front_back_large_1
+                1 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_2
+                        2 -> R.drawable.front_back_large_2
+                        else -> R.drawable.front_back_small_2
+                    }
+                }
+                2 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_3
+                        2 -> R.drawable.front_back_large_3
+                        else -> R.drawable.front_back_small_3
+                    }
+                }
+                3 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_4
+                        2 -> R.drawable.front_back_large_4
+                        else -> R.drawable.front_back_small_4
+                    }
+                }
+                else -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_1
+                        2 -> R.drawable.front_back_large_1
+                        else -> R.drawable.front_back_small_1
+                    }
+                }
             }
         }
     },
     E {
         override fun getDrawable(width: Int, height: Int): Int {
             return when (width) {
-                1 -> R.drawable.front_back_large_2
-                2 -> R.drawable.front_back_large_3
-                3 -> R.drawable.front_back_large_4
-                else -> R.drawable.front_back_large_1
+                1 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_2
+                        2 -> R.drawable.front_back_large_2
+                        else -> R.drawable.front_back_small_2
+                    }
+                }
+                2 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_3
+                        2 -> R.drawable.front_back_large_3
+                        else -> R.drawable.front_back_small_3
+                    }
+                }
+                3 -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_4
+                        2 -> R.drawable.front_back_large_4
+                        else -> R.drawable.front_back_small_4
+                    }
+                }
+                else -> {
+                    when (height) {
+                        1 -> R.drawable.front_back_medium_1
+                        2 -> R.drawable.front_back_large_1
+                        else -> R.drawable.front_back_small_1
+                    }
+                }
             }
         }
     },
     O {
         override fun getDrawable(width: Int, height: Int): Int {
-            return when (width) {
-                1 -> R.drawable.front_back_large_2
-                2 -> R.drawable.front_back_large_3
-                3 -> R.drawable.front_back_large_4
-                else -> R.drawable.front_back_large_1
-            }
+            return 0
         }
     };
 

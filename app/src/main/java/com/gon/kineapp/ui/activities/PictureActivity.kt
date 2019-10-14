@@ -97,7 +97,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
 
         sbWidth.max = 3
         sbWidth.incrementProgressBy(1)
-        sbHeight.max = 3
+        sbHeight.max = 2
         sbHeight.incrementProgressBy(1)
 
         sbWidth.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
