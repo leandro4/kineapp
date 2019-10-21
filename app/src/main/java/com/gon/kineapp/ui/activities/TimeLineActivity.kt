@@ -98,7 +98,7 @@ class TimeLineActivity: LockableActivity() {
     @SuppressLint("CheckResult")
     private fun start() {
         if (!runing) return
-        fabController.setImageResource(R.drawable.ic_stop)
+        fabController.setImageResource(R.drawable.ic_pause)
         imageA.setImageBitmap(bitmaps[actualPic])
         Animate.ALPHA(1f).duration(500).startAnimation(imageA)
         Animate.ALPHA(0f).duration(500).startAnimation(imageB)

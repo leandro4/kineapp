@@ -102,6 +102,8 @@
     <string name="video_cancelled">Grabación cancelada</string>
     <string name="timeline_no_photos">No hay imágenes, seleccione otra postura</string>
     <string name="patient_list_empty_view">Aún no fue asignado a ningún paciente</string>
+    <string name="patient_list_title">Mis Pacientes:</string>
+    <string name="patient_list_read_only">Otros pacientes compartidos (sólo lectura):</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>

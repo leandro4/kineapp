@@ -2,7 +2,6 @@ package com.gon.kineapp.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 
 import kotlinx.android.synthetic.main.fragment_patient_list.*
@@ -20,7 +19,8 @@ import com.gon.kineapp.utils.Constants
 class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.PatientListener {
 
     private val presenter = PatientListPresenter()
-    private val adapter = PatientAdapter(ArrayList(), this)
+    private val adapterMyPatients = PatientAdapter(ArrayList(), this)
+    private val adapterOtherPatients = PatientAdapter(ArrayList(), this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_patient_list, container, false)
@@ -42,12 +42,18 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
 
         rvPatients.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvPatients.setHasFixedSize(true)
-        rvPatients.adapter = adapter
+        rvPatients.adapter = adapterMyPatients
+
+        rvReadOnlyPatients.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvReadOnlyPatients.setHasFixedSize(true)
+        rvReadOnlyPatients.adapter = adapterOtherPatients
     }
 
-    private fun updateList(patients: MutableList<User>) {
-        emptyList.visibility = if (patients.isEmpty()) View.VISIBLE else View.GONE
-        adapter.setPatients(patients)
+    private fun updateList(patients: MutableList<User>, readOnlyPatients: MutableList<User>) {
+        emptyListMyPatients.visibility = if (patients.isEmpty()) View.VISIBLE else View.GONE
+        emptyListOtherPatients.visibility = if (readOnlyPatients.isEmpty()) View.VISIBLE else View.GONE
+        adapterMyPatients.setPatients(patients)
+        adapterOtherPatients.setPatients(readOnlyPatients)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -81,8 +87,8 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
         super.onDestroy()
     }
 
-    override fun onPatientsReceived(patients: MutableList<User>) {
-        updateList(patients)
+    override fun onPatientsReceived(patients: MutableList<User>, readOnlyPatients: MutableList<User>) {
+        updateList(patients, readOnlyPatients)
         swipeRefresh.isRefreshing = false
     }
 

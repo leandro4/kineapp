@@ -4,6 +4,6 @@ import com.gon.kineapp.model.User
 
 interface PatientListView: BaseView {
 
-    fun onPatientsReceived(patients: MutableList<User>)
+    fun onPatientsReceived(patients: MutableList<User>, readOnlyPatients: MutableList<User>)
 
 }

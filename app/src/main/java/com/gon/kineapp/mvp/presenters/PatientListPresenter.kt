@@ -34,8 +34,6 @@ class PatientListPresenter: BasePresenter<PatientListView>() {
 
     fun getPatientList() {
 
-        //mvpView?.showProgressView()
-
         compositeSubscription!!.add(KinesService.getPatientList()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
@@ -57,7 +55,7 @@ class PatientListPresenter: BasePresenter<PatientListView>() {
 
                 override fun onNext(t: PatientListResponse) {
                     mvpView?.hideProgressView()
-                    t.patients?.let { mvpView?.onPatientsReceived(it) } ?: run { mvpView?.onPatientsReceived(ArrayList()) }
+                    mvpView?.onPatientsReceived(t.patients, t.readOnlyPatients)
                 }
             }))
     }

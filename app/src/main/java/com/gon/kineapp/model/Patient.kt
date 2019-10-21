@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Patient(
-    @Json(name="current_medic_id") var medicLicense: String,
+    @Json(name="current_medic") var currentMedic: SharedMedic,
+    @Json(name="shared_history_with") var readOnlyMedics: MutableList<SharedMedic>,
     @Json(name="exercises") var routine: Map<Int, MutableList<Exercise>>?): Parcelable

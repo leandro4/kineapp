@@ -51,9 +51,9 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
                 rlMedic.visibility = View.GONE
             } else {
                 rlLicense.visibility = View.GONE
-                it.patient?.medicLicense?.let { license ->
+                it.patient?.currentMedic?.let { medic ->
                     medicAction.setImageResource(R.drawable.ic_remove)
-                    tvMedic.text = "matrícula: " + license
+                    tvMedic.text = String.format("%s %s", medic.name, medic.surname)
                     medicAction.setOnClickListener { presenter.deleteCurrentMedic() }
                 } ?: run  {
                     tvMedic.text = getString(R.string.not_medic_assigned)
