@@ -25,7 +25,7 @@ abstract class BaseVideosListFragment: BaseMvpFragment(), PublicVideoAdapter.Vid
     }
 
     protected fun setVideos(videos: MutableList<Video>) {
-        rvVideos.layoutManager = GridLayoutManager(context, 2)
+        rvVideos.layoutManager = GridLayoutManager(context, 3)
         rvVideos.setHasFixedSize(true)
         adapter = PublicVideoAdapter(videos, this)
         adapter.removableVideos = removableVideos()

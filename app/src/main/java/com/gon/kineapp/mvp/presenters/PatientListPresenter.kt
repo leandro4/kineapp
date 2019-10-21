@@ -1,8 +1,10 @@
 package com.gon.kineapp.mvp.presenters
 
+import android.content.Context
 import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
 import com.gon.kineapp.model.Patient
+import com.gon.kineapp.model.User
 import com.gon.kineapp.model.responses.PatientListResponse
 import com.gon.kineapp.mvp.views.PatientListView
 import io.reactivex.Single
@@ -17,9 +19,22 @@ import java.io.File
 
 class PatientListPresenter: BasePresenter<PatientListView>() {
 
+    fun syncCurrentUser(context: Context) {
+        compositeSubscription!!.add(KinesService.syncCurrentUser(true, context)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CustomDisposableObserver<User>() {
+                override fun onNoInternetConnection() {}
+                override fun onObserverError(e: Throwable) {}
+                override fun onErrorCode(code: Int, message: String) {}
+
+                override fun onNext(t: User) {}
+            }))
+    }
+
     fun getPatientList() {
 
-        mvpView?.showProgressView()
+        //mvpView?.showProgressView()
 
         compositeSubscription!!.add(KinesService.getPatientList()
             .subscribeOn(Schedulers.newThread())
@@ -42,7 +57,7 @@ class PatientListPresenter: BasePresenter<PatientListView>() {
 
                 override fun onNext(t: PatientListResponse) {
                     mvpView?.hideProgressView()
-                    mvpView?.onPatientsReceived(t.patients)
+                    t.patients?.let { mvpView?.onPatientsReceived(it) } ?: run { mvpView?.onPatientsReceived(ArrayList()) }
                 }
             }))
     }

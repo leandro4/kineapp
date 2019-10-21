@@ -27,6 +27,7 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
     interface ExerciseListener {
         fun onMarkAsDone(exercise: Exercise)
         fun onRemoveExercise(exercise: Exercise)
+        fun onRefreshRoutine()
     }
 
     companion object {
@@ -49,6 +50,12 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
     }
 
     private fun initUI() {
+        swipeRefresh.setOnRefreshListener {
+            listener.onRefreshRoutine()
+        }
+
+        swipeRefresh.isEnabled = !isMedic
+
         rvExercises.layoutManager = LinearLayoutManager(context)
         adapter = ExerciseAdapter(routine.exercises, this, isMedic)
         rvExercises.adapter = adapter

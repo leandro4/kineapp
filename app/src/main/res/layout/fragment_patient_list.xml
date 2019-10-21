@@ -19,6 +19,31 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <LinearLayout
+        android:id="@+id/emptyList"
+        android:visibility="gone"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_assignment"
+            android:tint="@color/black_title"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+        <TextView
+            android:text="@string/patient_list_empty_view"
+            android:textColor="@color/black_title"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_margin="@dimen/large_margin"
+            style="@style/TextViewStyleRegular"/>
+
+    </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddPatient"
         android:visibility="gone"

@@ -46,6 +46,7 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
     }
 
     private fun updateList(patients: MutableList<User>) {
+        emptyList.visibility = if (patients.isEmpty()) View.VISIBLE else View.GONE
         adapter.setPatients(patients)
     }
 
@@ -72,6 +73,7 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
 
     override fun startPresenter() {
         presenter.attachMvpView(this)
+        context?.let { presenter.syncCurrentUser(it) }
     }
 
     override fun onDestroy() {

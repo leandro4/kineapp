@@ -7,5 +7,6 @@ interface RoutineView: BaseView {
     fun onExercisesEdited(ex: Exercise)
     fun onExercisesCreated(exercises: MutableList<Exercise>)
     fun onExerciseDeleted()
+    fun onUserLoaded()
 
 }

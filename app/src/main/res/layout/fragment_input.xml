@@ -37,7 +37,7 @@
                 android:textColorHint="@color/black_hint"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-                android:maxEms="80"
+                android:maxEms="70"
                 android:maxLength="20"
                 android:maxLines="1"
                 android:imeOptions="actionDone"

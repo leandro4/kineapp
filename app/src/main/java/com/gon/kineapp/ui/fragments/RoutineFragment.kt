@@ -25,7 +25,7 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
 
     private val presenter = RoutinePresenter()
     private lateinit var adapter: RoutinePagerAdapter
-    private var isMedic = false
+    private var isMedic = false // se refiere al usuario loggeado en la app, si es médico, está viendo la rutina de un paciente
     private lateinit var user: User
 
     companion object {
@@ -66,6 +66,13 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!isMedic) {
+            presenter.syncCurrentUser(context!!)
+        }
+        initUI()
+    }
+
+    override fun onUserLoaded() {
         initUI()
     }
 
@@ -82,6 +89,7 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
         if (!isMedic) {
             fabAddExercise.hide()
         } else {
+            fabAddExercise.show()
             fabAddExercise.setOnClickListener {
                 activity?.startActivityForResult(Intent(activity, CreateExerciseActivity::class.java), CREATE_EXERCISE_CODE)
             }
@@ -131,6 +139,11 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
 
     override fun onRemoveExercise(exercise: Exercise) {
         presenter.deleteExercise(exercise.id)
+    }
+
+    override fun onRefreshRoutine() {
+        showProgressView()
+        presenter.syncCurrentUser(context!!)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -68,6 +68,12 @@ interface KinesApi {
     @PATCH(UtilUrl.PATIENTS_DETAIL)
     fun updateCurrentMedic(@Body body: UpdateMedicBody): Observable<User>
 
+    @GET(UtilUrl.CURRENT_PATIENT)
+    fun getCurrentPatientUser(): Observable<User>
+
+    @GET(UtilUrl.CURRENT_MEDIC)
+    fun getCurrentMedicUser(): Observable<User>
+
     @Multipart
     @POST(UtilUrl.UPLOAD_VIDEO)
     fun uploadVideo(@Part content: MultipartBody.Part, @Part("name") videoName: RequestBody): Observable<Video>
