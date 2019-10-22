@@ -20,6 +20,7 @@
 
             <ImageView
                 android:id="@+id/civAvatar"
+                android:src="@drawable/ic_profile"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="130dp"
                 android:layout_height="130dp"

@@ -15,6 +15,7 @@ import com.gon.kineapp.ui.activities.CreateExerciseActivity
 import com.gon.kineapp.ui.activities.ProfileActivity
 import com.gon.kineapp.ui.adapters.RoutinePagerAdapter
 import com.gon.kineapp.utils.Constants
+import com.gon.kineapp.utils.DialogUtil
 import com.gon.kineapp.utils.MyUser
 import com.gon.kineapp.utils.Notification
 import kotlinx.android.synthetic.main.fragment_exercise_routines.*
@@ -138,7 +139,9 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
     }
 
     override fun onRemoveExercise(exercise: Exercise) {
-        presenter.deleteExercise(exercise.id)
+        DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_warning_title), getString(R.string.remove_video_warning_subtitle)) {
+            presenter.deleteExercise(exercise.id)
+        }
     }
 
     override fun onRefreshRoutine() {
