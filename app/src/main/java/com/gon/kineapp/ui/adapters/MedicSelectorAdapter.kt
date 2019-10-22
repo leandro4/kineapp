@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import com.gon.kineapp.R
+import com.gon.kineapp.model.SharedMedic
 import com.gon.kineapp.model.User
 import kotlinx.android.synthetic.main.adapter_medic_selector.view.*
 
@@ -16,7 +17,7 @@ class MedicSelectorAdapter(private val medics: List<User>, private val callback:
     private var filteredMedics: List<User>
 
     interface MedicListener {
-        fun onMedicSelected(license: String)
+        fun onMedicSelected(sharedMedic: SharedMedic)
     }
 
     init {
@@ -68,7 +69,7 @@ class MedicSelectorAdapter(private val medics: List<User>, private val callback:
             viewItem.tvFirstName.text = String.format("%s %s", medic.name, medic.surname)
             viewItem.tvLicense.text = medic.medic?.license
             viewItem.container.setOnClickListener {
-                callback.onMedicSelected(medic.id)
+                callback.onMedicSelected(SharedMedic(medic.id, medic.name, medic.surname))
             }
         }
     }

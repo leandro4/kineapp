@@ -66,6 +66,10 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
             activity?.startActivityForResult(Intent(context, PictureActivity::class.java), TAKE_PICTURE_CODE)
         }
 
+        if (session.readOnly) {
+            fabAddPhoto.hide()
+        }
+
         tvObs.setOnClickListener {
             etDescription.isEnabled = true
             etDescription.requestFocus()
@@ -88,7 +92,9 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_session, menu)
+        if (!session.readOnly) {
+            inflater.inflate(R.menu.menu_session, menu)
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 

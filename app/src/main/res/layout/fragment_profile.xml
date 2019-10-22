@@ -102,14 +102,6 @@
                     android:layout_below="@+id/emailLabel"
                     style="@style/TextViewStyleLight"/>
 
-                <ImageView
-                    android:padding="@dimen/medium_margin"
-                    app:srcCompat="@drawable/ic_edit_pencil"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="@color/colorPrimary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
             </RelativeLayout>
 
             <RelativeLayout

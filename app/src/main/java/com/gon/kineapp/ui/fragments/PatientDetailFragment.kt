@@ -1,11 +1,9 @@
 package com.gon.kineapp.ui.fragments
 
-import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.v7.widget.LinearLayoutManager
 import android.view.*
 import android.widget.Toast
@@ -17,10 +15,6 @@ import com.gon.kineapp.ui.activities.*
 import com.gon.kineapp.ui.adapters.SessionAdapter
 import com.gon.kineapp.utils.*
 import kotlinx.android.synthetic.main.fragment_patient_detail.*
-import com.vincent.videocompressor.VideoCompress
-import java.io.File
-import android.os.Environment
-import android.util.Log
 import com.gon.kineapp.ui.fragments.dialogs.InputDialogFragment
 
 class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
@@ -64,6 +58,9 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
                 createNewSession()
             }
         }
+        if (patient.patient?.readOnly!!) {
+            fabAddSession.hide()
+        }
     }
 
     private fun createNewSession() {
@@ -71,7 +68,11 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_patient_detail, menu)
+        if (patient.patient?.readOnly!!) {
+            inflater.inflate(R.menu.menu_read_only_patient_detail, menu)
+        } else {
+            inflater.inflate(R.menu.menu_patient_detail, menu)
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -79,14 +80,9 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
         when (item?.itemId) {
             R.id.exercises -> {
-                /*val intent = Intent(context, PrivateVideosActivity::class.java)
-                intent.putExtra(Constants.PATIENT_EXTRA, patient)
-                activity?.startActivityForResult(intent, VIEW_VIDEOS)*/
-
                 val intent = Intent(context, EditPatientRoutineActivity::class.java)
                 intent.putExtra(Constants.USER_EXTRA, patient)
                 activity?.startActivityForResult(intent, EDIT_ROUTINE)
-
                 return true
             }
             R.id.motion_video -> goToTimeLine()
@@ -124,6 +120,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     override fun onSessionSelected(session: Session) {
+        session.readOnly = patient.patient?.readOnly!!
         val intent = Intent(activity, SessionDetailActivity::class.java)
         intent.putExtra(Constants.SESSION_EXTRA, session)
         intent.putExtra(Constants.NAME_EXTRA, patient.name)

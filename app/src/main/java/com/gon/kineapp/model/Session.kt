@@ -9,4 +9,5 @@ data class Session(
     var id: String,
     var date: String,
     var description: String,
+    var readOnly: Boolean = false,
     @Json(name="images") var photos: MutableList<Photo>): Parcelable

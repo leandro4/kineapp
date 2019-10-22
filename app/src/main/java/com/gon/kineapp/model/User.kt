@@ -11,6 +11,7 @@ open class User (open var id: String,
                  @Json(name="email") open var mail: String,
                  @Json(name="dni") open var dni: String,
                  @Json(name="birth_date") open var birthdate: String,
+                 @Json(name="picture_base64") open var thumbnail: String?,
                  open var medic: Medic?,
                  open var patient: Patient?): Parcelable {
 

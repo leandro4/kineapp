@@ -8,7 +8,6 @@ import com.gon.kineapp.utils.Authorization
 import com.gon.kineapp.utils.MyUser
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -109,8 +108,12 @@ object KinesService {
         return kinesApi.getMedicList()
     }
 
-    fun updateCurrentMedic(license: String): Observable<User> {
-        return kinesApi.updateCurrentMedic(UpdateMedicBody(UpdateMedicBody.License(license)))
+    fun updateCurrentMedic(sharedMedic: SharedMedic): Observable<User> {
+        return kinesApi.updateCurrentMedic(UpdateMedicBody(UpdateMedicBody.SharedMedicBody(sharedMedic)))
+    }
+
+    fun updateUserThumbnail(picture: String): Observable<User> {
+        return kinesApi.updateUserThumbnail(UpdateUserThumbnailBody(UpdateUserThumbnailBody.ThumbnailBody(picture)))
     }
 
     fun createExercise(patientId: String, name: String, description: String, id: String?, day: ArrayList<Int>): Observable<ExercisesResponse> {

@@ -2,6 +2,7 @@ package com.gon.kineapp.mvp.presenters
 
 import com.gon.kineapp.api.CustomDisposableObserver
 import com.gon.kineapp.api.KinesService
+import com.gon.kineapp.model.SharedMedic
 import com.gon.kineapp.model.User
 import com.gon.kineapp.model.responses.MedicListResponse
 import com.gon.kineapp.mvp.views.ProfileView
@@ -42,11 +43,41 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
         )
     }
 
-    fun updateCurrentMedic(license: String) {
+    fun updateUserThumbnail(picture: String) {
 
         mvpView?.showProgressView()
 
-        compositeSubscription!!.add(KinesService.updateCurrentMedic(license)
+        compositeSubscription!!.add(KinesService.updateUserThumbnail(picture)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CustomDisposableObserver<User>() {
+                override fun onNoInternetConnection() {
+                    mvpView?.hideProgressView()
+                    mvpView?.onNoInternetConnection()
+                }
+
+                override fun onObserverError(e: Throwable) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onError(e)
+                }
+
+                override fun onErrorCode(code: Int, message: String) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onErrorCode(message)
+                }
+
+                override fun onNext(t: User) {
+                    mvpView?.hideProgressView()
+                }
+            })
+        )
+    }
+
+    fun updateCurrentMedic(sharedMedic: SharedMedic) {
+
+        mvpView?.showProgressView()
+
+        compositeSubscription!!.add(KinesService.updateCurrentMedic(sharedMedic)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CustomDisposableObserver<User>() {
@@ -74,7 +105,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
     }
 
     fun deleteCurrentMedic() {
-        updateCurrentMedic("0")
+        updateCurrentMedic(SharedMedic("0", "", ""))
     }
 
 }

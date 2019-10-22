@@ -4,12 +4,20 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.support.v4.app.ActivityCompat
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.gon.kineapp.R
+import com.gon.kineapp.model.SharedMedic
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.ProfilePresenter
 import com.gon.kineapp.mvp.views.ProfileView
@@ -17,6 +25,7 @@ import com.gon.kineapp.ui.adapters.MedicSelectorAdapter
 import com.gon.kineapp.ui.fragments.dialogs.SearchMedicFragment
 import com.gon.kineapp.utils.ImageLoader
 import com.gon.kineapp.utils.MyUser
+import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import android.media.ExifInterface as ExifInterface1
@@ -42,8 +51,10 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
     }
 
     private fun initUI() {
-        ImageLoader.load(this, getGoogleAccount()?.photoUrl).circle().into(civAvatar)
         MyUser.get(context!!).let {
+            it?.thumbnail?.let { base64 ->
+                ImageLoader.load(context, Utils.convertImage(base64)).circle().into(civAvatar)
+            }
             nameTextView.text = it!!.name
             tvSurname.text = it.surname
             if (it.isMedic()) {
@@ -108,6 +119,7 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
         if(resultCode == RESULT_OK && requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
             val returnUri = data!!.data
             ImageLoader.load(this, returnUri).circle().into(civAvatar)
+            //presenter.updateUserThumbnail()
         }
     }
 
@@ -117,8 +129,8 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
         }
     }
 
-    override fun onMedicSelected(license: String) {
-        presenter.updateCurrentMedic(license)
+    override fun onMedicSelected(sharedMedic: SharedMedic) {
+        presenter.updateCurrentMedic(sharedMedic)
     }
 
     override fun onMedicListResponse(medics: List<User>) {

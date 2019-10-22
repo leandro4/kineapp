@@ -55,6 +55,7 @@ class PatientListPresenter: BasePresenter<PatientListView>() {
 
                 override fun onNext(t: PatientListResponse) {
                     mvpView?.hideProgressView()
+                    t.readOnlyPatients.forEach { it.patient?.readOnly = true }
                     mvpView?.onPatientsReceived(t.patients, t.readOnlyPatients)
                 }
             }))

@@ -68,6 +68,9 @@ interface KinesApi {
     @PATCH(UtilUrl.PATIENTS_DETAIL)
     fun updateCurrentMedic(@Body body: UpdateMedicBody): Observable<User>
 
+    @PATCH(UtilUrl.PATIENTS_DETAIL)
+    fun updateUserThumbnail(@Body body: UpdateUserThumbnailBody): Observable<User>
+
     @GET(UtilUrl.CURRENT_PATIENT)
     fun getCurrentPatientUser(): Observable<User>
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gon.kineapp.R
+import com.gon.kineapp.model.SharedMedic
 import com.gon.kineapp.model.User
 import com.gon.kineapp.ui.adapters.MedicSelectorAdapter
 import kotlinx.android.synthetic.main.fragment_medic_selector.*
@@ -20,7 +21,7 @@ class SearchMedicFragment: BaseDialogFragment(), MedicSelectorAdapter.MedicListe
     private lateinit var adatper: MedicSelectorAdapter
 
     interface MedicListener {
-        fun onMedicSelected(license: String)
+        fun onMedicSelected(sharedMedic: SharedMedic)
     }
 
     companion object {
@@ -59,8 +60,8 @@ class SearchMedicFragment: BaseDialogFragment(), MedicSelectorAdapter.MedicListe
         })
     }
 
-    override fun onMedicSelected(license: String) {
-        callback.onMedicSelected(license)
+    override fun onMedicSelected(sharedMedic: SharedMedic) {
+        callback.onMedicSelected(sharedMedic)
         dismiss()
     }
 }
