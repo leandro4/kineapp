@@ -10,6 +10,7 @@ class UtilUrl {
         const val USER_EXISTS = "user_exists"
         const val REGISTER_USER = "registration"
         const val LOGIN = "login"
+        const val VERIFY_SESSION = "continue_session"
         const val PATIENTS = "patients"
         const val MEDICS = "medics"
         const val EXERCISE = "exercise"

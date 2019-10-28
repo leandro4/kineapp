@@ -26,6 +26,9 @@ interface KinesApi {
     @POST(UtilUrl.REGISTER_USER)
     fun registerUser(@Body body: RegisterUserBody): Observable<UserRegisteredResponse>
 
+    @POST(UtilUrl.VERIFY_SESSION)
+    fun verifySession(@Body body: VerifySessionBody): Observable<LoginResponse>
+
     @POST(UtilUrl.LOGIN)
     fun login(@Body body: LoginBody): Observable<LoginResponse>
 

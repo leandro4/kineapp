@@ -67,6 +67,11 @@ object KinesService {
         return kinesApi.registerUser(body)
     }
 
+    fun verifySession(questionId: Int, answer: String): Observable<LoginResponse> {
+        val body = VerifySessionBody(questionId, answer)
+        return kinesApi.verifySession(body)
+    }
+
     fun checkAnswer(questionId: Int, answer: String, googleToken: String): Observable<LoginResponse> {
         val body = LoginBody(googleToken, questionId, answer)
         return kinesApi.login(body)

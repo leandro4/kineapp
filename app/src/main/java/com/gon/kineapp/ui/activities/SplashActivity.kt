@@ -7,9 +7,17 @@ import com.gon.kineapp.R
 
 class SplashActivity : LockableActivity() {
 
+    private val handler = Handler()
+    private var runnable: Runnable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        runnable = Runnable {
+            startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            finish()
+        }
     }
 
     override fun canNavigateToSignIn(): Boolean {
@@ -35,9 +43,11 @@ class SplashActivity : LockableActivity() {
     }
 
     private fun goToLogin() {
-        Handler().postDelayed( {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }, 1500)
+        handler.postDelayed(runnable, 1500)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        handler.removeCallbacks(runnable)
     }
 }

@@ -188,6 +188,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
             MyUser.set(it, myUser)
             QuestionsList.set(it, questions)
             UnlockerQuestionFragment()
+                .isForLoggin()
                 .setListener(object : UnlockerQuestionFragment.ResponseListener {
                     override fun onSuccessResponse() {
                         goToHome()

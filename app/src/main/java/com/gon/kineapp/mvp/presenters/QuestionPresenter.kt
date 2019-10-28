@@ -10,7 +10,44 @@ import io.reactivex.schedulers.Schedulers
 
 class QuestionPresenter: BasePresenter<QuestionView>() {
 
-    fun checkAnswer(googleToken: String, questionId: Int, answer: String) {
+    fun verifySession(questionId: Int, answer: String) {
+
+        mvpView?.showProgressView()
+
+        compositeSubscription!!.add(KinesService.verifySession(questionId, answer)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CustomDisposableObserver<LoginResponse>() {
+                override fun onNoInternetConnection() {
+                    mvpView?.hideProgressView()
+                    mvpView?.onNoInternetConnection()
+                }
+
+                override fun onObserverError(e: Throwable) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onError(e)
+                }
+
+                override fun onErrorCode(code: Int, message: String) {
+                    mvpView?.hideProgressView()
+                    when (code) {
+                        401 -> mvpView?.onAttemptsLimit()
+                        406 -> mvpView?.onAnswerInvalid()
+                        else -> mvpView?.onErrorCode(message)
+                    }
+                }
+
+                override fun onNext(t: LoginResponse) {
+                    mvpView?.let {
+                        Authorization.getInstance().set(t.token)
+                        it.onCheckedAnswer()
+                    }
+                }
+            })
+        )
+    }
+
+    fun login (googleToken: String, questionId: Int, answer: String) {
 
         mvpView?.showProgressView()
 

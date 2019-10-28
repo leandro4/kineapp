@@ -26,6 +26,7 @@
         <TextView
             android:id="@+id/tvTitle"
             tools:text="Movimiento vertical de cadera con círculo"
+            android:textSize="12sp"
             android:elevation="8dp"
             android:gravity="center"
             android:layout_gravity="bottom"

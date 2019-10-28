@@ -21,6 +21,7 @@ class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView, AdapterView.
 
     private var listener: ResponseListener? = null
     private var presenter = QuestionPresenter()
+    private var isForLoggin = false
 
     private var questionSelectedId = -1
 
@@ -43,6 +44,11 @@ class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView, AdapterView.
         initUI()
     }
 
+    fun isForLoggin(): UnlockerQuestionFragment {
+        isForLoggin = true
+        return this
+    }
+
     override fun onStart() {
         super.onStart()
         presenter.attachMvpView(this)
@@ -55,8 +61,13 @@ class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView, AdapterView.
 
     private fun initUI() {
         fabAnswer.setOnClickListener {
-            GoogleSignIn.getLastSignedInAccount(context)?.idToken?.let {
-                presenter.checkAnswer(it, questionSelectedId, etAnswer.text.toString().toLowerCase())
+            if (isForLoggin) {
+                GoogleSignIn.getLastSignedInAccount(context)?.idToken?.let {
+                    presenter.login(it, questionSelectedId, etAnswer.text.toString().toLowerCase())
+                    Utils.hideKeyboardFrom(etAnswer)
+                }
+            } else {
+                presenter.verifySession(questionSelectedId, etAnswer.text.toString().toLowerCase())
                 Utils.hideKeyboardFrom(etAnswer)
             }
         }
