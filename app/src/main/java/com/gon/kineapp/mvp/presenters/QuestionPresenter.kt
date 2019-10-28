@@ -31,8 +31,8 @@ class QuestionPresenter: BasePresenter<QuestionView>() {
                 override fun onErrorCode(code: Int, message: String) {
                     mvpView?.hideProgressView()
                     when (code) {
-                        401 -> mvpView?.onAttemptsLimit()
-                        406 -> mvpView?.onAnswerInvalid()
+                        401 -> mvpView?.onAnswerInvalid()
+                        406 -> mvpView?.onAttemptsLimit()
                         else -> mvpView?.onErrorCode(message)
                     }
                 }
@@ -68,8 +68,8 @@ class QuestionPresenter: BasePresenter<QuestionView>() {
                 override fun onErrorCode(code: Int, message: String) {
                     mvpView?.hideProgressView()
                     when (code) {
-                        401 -> mvpView?.onAttemptsLimit()
-                        406 -> mvpView?.onAnswerInvalid()
+                        401 -> mvpView?.onAnswerInvalid()
+                        406 -> mvpView?.onAttemptsLimit()
                         else -> mvpView?.onErrorCode(message)
                     }
                 }

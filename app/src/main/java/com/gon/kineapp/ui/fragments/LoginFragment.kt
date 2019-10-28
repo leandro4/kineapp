@@ -185,12 +185,12 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
     override fun onUserRetrieved(myUser: User, questions: List<Question>) {
         context?.let {
-            MyUser.set(it, myUser)
             QuestionsList.set(it, questions)
             UnlockerQuestionFragment()
                 .isForLoggin()
                 .setListener(object : UnlockerQuestionFragment.ResponseListener {
                     override fun onSuccessResponse() {
+                        MyUser.set(it, myUser)
                         goToHome()
                     }
                 })
@@ -229,7 +229,6 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
         val adapter = ArrayAdapter<String>(context!!, android.R.layout.simple_spinner_item, spinnerArray)
 
-        //val adapter = ArrayAdapter.createFromResource(context!!, list.toArray(array), android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(R.layout.spinner_text_arrow_white)
         spQuestions.adapter = adapter
         spQuestions.onItemSelectedListener = this

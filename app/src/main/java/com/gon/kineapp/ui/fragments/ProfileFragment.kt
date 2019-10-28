@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -12,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.support.v4.app.ActivityCompat
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -119,8 +121,25 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
 
         if (resultCode == RESULT_OK && requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
             val returnUri = data!!.data
-            ImageLoader.load(this, returnUri).circle().into(civAvatar)
-            //presenter.updateUserThumbnail()
+            Glide.with(this).asBitmap().load(returnUri).circleCrop()
+                .addListener(object : RequestListener<Bitmap> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        return true
+                    }
+
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        resource?.let {
+                            val base64 = Utils.convertImage(it)
+                            presenter.updateUserThumbnail(base64)
+                            val user = MyUser.get(context!!)
+                            user?.thumbnail = base64
+                            MyUser.set(context!!, user)
+                            civAvatar.setImageBitmap(it)
+                        }
+                        return true
+                    }
+                })
+                .into(civAvatar)
         }
     }
 

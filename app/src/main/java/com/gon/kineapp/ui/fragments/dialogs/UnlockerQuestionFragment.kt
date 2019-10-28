@@ -108,7 +108,7 @@ class UnlockerQuestionFragment: BaseDialogFragment(), QuestionView, AdapterView.
     }
 
     override fun onAttemptsLimit() {
-
+        Animate.ZUMB().duration(Animate.DURATION_V_LARGE).startAnimation(etAnswer)
     }
 
     override fun onError(var1: Throwable) {

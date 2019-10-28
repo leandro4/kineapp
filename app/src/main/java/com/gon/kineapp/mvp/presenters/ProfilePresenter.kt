@@ -45,7 +45,7 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
 
     fun updateUserThumbnail(picture: String) {
 
-        mvpView?.showProgressView()
+        //mvpView?.showProgressView()
 
         compositeSubscription!!.add(KinesService.updateUserThumbnail(picture)
             .subscribeOn(Schedulers.io())
