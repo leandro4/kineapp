@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".ui.fragments.PatientsListFragment">
 
@@ -21,82 +22,68 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <TextView
-                    android:text="@string/patient_list_title"
-                    android:textColor="@color/colorAccent"
-                    android:shadowRadius="1"
-                    android:shadowColor="@color/black_title"
-                    android:padding="@dimen/small_margin"
+                <android.support.v7.widget.CardView
+                    app:cardBackgroundColor="@color/white"
+                    app:cardElevation="3dp"
                     android:layout_margin="@dimen/large_margin"
-                    style="@style/TextViewStyleBold"/>
-
-                <LinearLayout
-                    android:id="@+id/emptyListMyPatients"
-                    android:visibility="gone"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_assignment"
-                        android:tint="@color/black_title"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
-
                     <TextView
-                        android:text="@string/patient_list_empty_view"
-                        android:textColor="@color/black_title"
-                        android:textStyle="italic"
-                        android:textSize="14sp"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:layout_margin="@dimen/large_margin"
-                        style="@style/TextViewStyleLight"/>
+                        android:text="@string/patient_list_title"
+                        android:textColor="@color/colorAccent"
+                        android:shadowRadius="1"
+                        android:shadowColor="@color/black_title"
+                        android:padding="@dimen/medium_margin"
+                        style="@style/TextViewStyleBold"/>
 
-                </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/emptyListMyPatients"
+                    android:visibility="gone"
+                    android:text="@string/patient_list_empty_view"
+                    android:textColor="@color/black_title"
+                    android:textStyle="italic"
+                    android:textSize="14sp"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/large_margin"
+                    style="@style/TextViewStyleLight"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvPatients"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:text="@string/patient_list_read_only"
-                    android:textColor="@color/colorAccent"
-                    android:shadowRadius="1"
-                    android:shadowColor="@color/black_title"
-                    android:padding="@dimen/small_margin"
+                <android.support.v7.widget.CardView
+                    app:cardBackgroundColor="@color/white"
+                    app:cardElevation="3dp"
                     android:layout_margin="@dimen/large_margin"
-                    style="@style/TextViewStyleBold"/>
-
-                <LinearLayout
-                    android:id="@+id/emptyListOtherPatients"
-                    android:visibility="gone"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/ic_assignment"
-                        android:tint="@color/black_title"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"/>
-
                     <TextView
-                        android:text="@string/patient_list_empty_view"
-                        android:textColor="@color/black_title"
-                        android:textStyle="italic"
-                        android:textSize="14sp"
-                        android:layout_width="match_parent"
-                        android:gravity="center"
-                        android:layout_margin="@dimen/large_margin"
-                        style="@style/TextViewStyleLight"/>
+                        android:text="@string/patient_list_read_only"
+                        android:textColor="@color/colorAccent"
+                        android:shadowRadius="1"
+                        android:shadowColor="@color/black_title"
+                        android:padding="@dimen/medium_margin"
+                        style="@style/TextViewStyleBold"/>
 
-                </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/emptyListOtherPatients"
+                    android:visibility="gone"
+                    android:text="@string/patient_list_empty_view"
+                    android:textColor="@color/black_title"
+                    android:textStyle="italic"
+                    android:textSize="14sp"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/large_margin"
+                    style="@style/TextViewStyleLight"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvReadOnlyPatients"

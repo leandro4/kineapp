@@ -5,9 +5,9 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
+    android:background="@drawable/ripple"
     android:id="@+id/flContent">
 
     <RelativeLayout
@@ -36,13 +36,5 @@
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>
-
-    <View
-        android:layout_marginStart="@dimen/large_margin"
-        android:layout_marginEnd="@dimen/large_margin"
-        android:layout_gravity="bottom"
-        android:background="@color/black_hint"
-        android:layout_width="match_parent"
-        android:layout_height="1px" />
 
 </FrameLayout>

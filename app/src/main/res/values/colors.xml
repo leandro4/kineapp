@@ -20,6 +20,7 @@
     <color name="black_title">#CC000000</color>
     <color name="black_hint">#60000000</color>
     <color name="white">#ffffff</color>
+    <color name="light_gray_transparent">#D9D6D6D6</color>
 
     <color name="red">#f03535</color>
     <color name="green">#00b00c</color>

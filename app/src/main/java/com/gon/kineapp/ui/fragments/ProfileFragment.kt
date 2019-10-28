@@ -68,6 +68,7 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
                     medicAction.setOnClickListener { presenter.deleteCurrentMedic() }
                 } ?: run  {
                     tvMedic.text = getString(R.string.not_medic_assigned)
+                    medicAction.setImageResource(R.drawable.ic_add_circle)
                     medicAction.setOnClickListener { presenter.getMedicList() } }
             }
             emailTextView.text = it.mail
@@ -116,7 +117,7 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(resultCode == RESULT_OK && requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
+        if (resultCode == RESULT_OK && requestCode == REQUEST_SELECT_IMAGE_IN_ALBUM) {
             val returnUri = data!!.data
             ImageLoader.load(this, returnUri).circle().into(civAvatar)
             //presenter.updateUserThumbnail()
