@@ -41,6 +41,12 @@ class SessionAdapter(private val sessions: MutableList<Session>, private val cal
         notifyItemInserted(0)
     }
 
+    fun deleteSession(session: Session) {
+        val index = sessions.indexOfFirst { it.id == session.id }
+        sessions.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
     class SessionViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
 
         fun bind(session: Session, callback: SessionListener) {

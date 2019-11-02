@@ -12,6 +12,7 @@ import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.RoutinePresenter
 import com.gon.kineapp.mvp.views.RoutineView
 import com.gon.kineapp.ui.activities.CreateExerciseActivity
+import com.gon.kineapp.ui.activities.PatientDetailActivity
 import com.gon.kineapp.ui.activities.ProfileActivity
 import com.gon.kineapp.ui.adapters.RoutinePagerAdapter
 import com.gon.kineapp.utils.Constants
@@ -59,6 +60,13 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
             R.id.profile -> {
                 activity?.startActivity(Intent(context, ProfileActivity::class.java))
                 return true
+            }
+            R.id.sessions -> {
+                context?.let {
+                    val intent = Intent(activity, PatientDetailActivity::class.java)
+                    intent.putExtra(Constants.PATIENT_EXTRA, MyUser.get(it))
+                    activity?.startActivity(intent)
+                }
             }
         }
 

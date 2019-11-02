@@ -9,5 +9,6 @@ interface SessionDetailView: BaseView {
     fun onPhotoUploaded(photo: Photo)
     fun onPhotoLoaded(photo: Photo)
     fun onSessionSaved()
+    fun onSessionDeleted()
 
 }

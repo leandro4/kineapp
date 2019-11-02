@@ -125,4 +125,25 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
                 })
         )
     }
+
+    fun deleteSession(id: String) {
+        mvpView?.showProgressView()
+
+        compositeSubscription!!.add(
+            KinesService.deleteSession(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableCompletableObserver() {
+                    override fun onComplete() {
+                        mvpView?.hideProgressView()
+                        mvpView?.onSessionDeleted()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        mvpView?.hideProgressView()
+                        mvpView?.onError(e)
+                    }
+                })
+        )
+    }
 }

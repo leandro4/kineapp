@@ -93,6 +93,10 @@ object KinesService {
         return kinesApi.updateSession(sessionId, SessionDescriptionUpdateBody(description))
     }
 
+    fun deleteSession(sessionId: String): Completable {
+        return kinesApi.deleteSession(sessionId)
+    }
+
     fun uploadPhoto(sessionId: String, content: String, tag: String): Observable<PhotoResponse> {
         return kinesApi.uploadPhoto(PhotoUploadBody(sessionId, content, tag))
     }

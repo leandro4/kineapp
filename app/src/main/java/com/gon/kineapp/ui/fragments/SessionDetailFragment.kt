@@ -16,6 +16,7 @@ import com.gon.kineapp.ui.activities.ViewPhotoActivity
 import com.gon.kineapp.ui.adapters.PhotoAdapter
 import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.utils.DialogUtil
+import com.gon.kineapp.utils.MyUser
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.fragment_session_detail.*
 
@@ -92,7 +93,9 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if (!session.readOnly) {
+        if (MyUser.get(context!!)?.isPatient()!!) {
+            inflater.inflate(R.menu.menu_session_delete, menu)
+        } else if (!session.readOnly) {
             inflater.inflate(R.menu.menu_session, menu)
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -110,6 +113,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
                 }
                 return true
             }
+            R.id.delete -> { presenter.deleteSession(session.id) }
         }
 
         return super.onOptionsItemSelected(item)
@@ -150,6 +154,13 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
         setSessionResultIntent()
         edited = false
         activity?.onBackPressed()
+    }
+
+    override fun onSessionDeleted() {
+        val intent = Intent()
+        intent.putExtra(Constants.SESSION_EXTRA, session)
+        activity?.setResult(Constants.DELETED_SESSION_CODE, intent)
+        activity?.finish()
     }
 
     override fun onPhotoUploaded(photo: Photo) {

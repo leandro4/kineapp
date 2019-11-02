@@ -18,6 +18,7 @@ class UtilUrl {
         const val SESSIONS = "clinical_sessions_for_patient/{id}"
         const val CREATE_SESSION = "clinical_sessions"
         const val UPDATE_SESSION = "clinical_sessions/{id}"
+        const val DELETE_SESSION = "clinical_sessions/{id}"
         const val PUBLIC_VIDEOS = "public_videos"
         const val QUESTIONS = "secret_questions"
         const val VIEW_PHOTO = "image/{id}"

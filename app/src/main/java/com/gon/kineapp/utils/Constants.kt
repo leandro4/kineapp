@@ -22,8 +22,9 @@ object Constants {
 
     const val REMOVED_PHOTO_CODE = 5000
     const val EDITED_SESSION_CODE = 5001
-    const val EDITED_VIDEOS_CODE = 5002
-    const val EDITED_ROUTINE_CODE = 5003
+    const val DELETED_SESSION_CODE = 5002
+    const val EDITED_VIDEOS_CODE = 5003
+    const val EDITED_ROUTINE_CODE = 5004
 
     const val PERMISSIONS_REQUEST_CODE = 6000
 }

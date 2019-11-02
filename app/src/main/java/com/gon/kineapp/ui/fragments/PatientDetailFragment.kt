@@ -58,7 +58,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
                 createNewSession()
             }
         }
-        if (patient.patient?.readOnly!!) {
+        if (patient.patient?.readOnly!! || MyUser.get(context!!)?.isPatient()!!) {
             fabAddSession.hide()
         }
     }
@@ -68,7 +68,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        if (patient.patient?.readOnly!!) {
+        if (patient.patient?.readOnly!! || MyUser.get(context!!)?.isPatient()!!) {
             inflater.inflate(R.menu.menu_read_only_patient_detail, menu)
         } else {
             inflater.inflate(R.menu.menu_patient_detail, menu)
@@ -157,10 +157,13 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == VIEW_SESSION && resultCode == Constants.EDITED_SESSION_CODE) {
+        if (requestCode == VIEW_SESSION) {
             data?.let {
                 val session = it.getParcelableExtra<Session>(Constants.SESSION_EXTRA)
-                adapter.updateSession(session)
+                when (resultCode) {
+                    Constants.EDITED_SESSION_CODE -> { adapter.updateSession(session) }
+                    Constants.DELETED_SESSION_CODE -> { adapter.deleteSession(session) }
+                }
             }
         }
         else if (requestCode == EDIT_ROUTINE && resultCode == Constants.EDITED_ROUTINE_CODE) {

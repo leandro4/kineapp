@@ -53,6 +53,9 @@ interface KinesApi {
     @PATCH(UtilUrl.UPDATE_SESSION)
     fun updateSession(@Path("id") id: String, @Body body: SessionDescriptionUpdateBody): Observable<Session>
 
+    @DELETE(UtilUrl.DELETE_SESSION)
+    fun deleteSession(@Path("id") id: String): Completable
+
     @POST(UtilUrl.UPLOAD_PHOTO)
     fun uploadPhoto(@Body body: PhotoUploadBody): Observable<PhotoResponse>
 
