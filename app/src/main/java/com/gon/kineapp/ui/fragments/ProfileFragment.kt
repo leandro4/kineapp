@@ -5,16 +5,12 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -25,13 +21,11 @@ import com.gon.kineapp.model.SharedMedic
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.ProfilePresenter
 import com.gon.kineapp.mvp.views.ProfileView
-import com.gon.kineapp.ui.adapters.MedicSelectorAdapter
 import com.gon.kineapp.ui.adapters.SharedMedicAdapter
 import com.gon.kineapp.ui.fragments.dialogs.SearchMedicFragment
 import com.gon.kineapp.utils.ImageLoader
 import com.gon.kineapp.utils.MyUser
 import com.gon.kineapp.utils.Utils
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import android.media.ExifInterface as ExifInterface1
 
