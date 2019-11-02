@@ -118,7 +118,7 @@ object KinesService {
     }
 
     fun updateUserThumbnail(picture: String): Observable<User> {
-        return kinesApi.updateUserThumbnail(UpdateUserThumbnailBody(UpdateUserThumbnailBody.ThumbnailBody(picture)))
+        return kinesApi.updateUserThumbnail(UpdateUserThumbnailBody(picture))
     }
 
     fun createExercise(patientId: String, name: String, description: String, id: String?, day: ArrayList<Int>): Observable<ExercisesResponse> {
