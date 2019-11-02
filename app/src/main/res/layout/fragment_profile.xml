@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary">
@@ -135,6 +135,36 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rlSharedMedics"
+                android:layout_marginTop="@dimen/large_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/sharedMedicsLabel"
+                    android:layout_marginEnd="@dimen/large_margin"
+                    android:text="@string/profile_shared_medics_title"
+                    android:textColor="@color/white"
+                    style="@style/TextViewStyleBold"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSharedMedic"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:layout_below="@+id/sharedMedicsLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/sharedMedicAction"
+                    app:srcCompat="@drawable/ic_add_circle"
+                    android:padding="@dimen/small_margin"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
                 android:padding="@dimen/medium_margin"
@@ -147,7 +177,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <include
         android:id="@+id/viewLoading"

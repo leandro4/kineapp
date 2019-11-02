@@ -13,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -24,6 +26,7 @@ import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.ProfilePresenter
 import com.gon.kineapp.mvp.views.ProfileView
 import com.gon.kineapp.ui.adapters.MedicSelectorAdapter
+import com.gon.kineapp.ui.adapters.SharedMedicAdapter
 import com.gon.kineapp.ui.fragments.dialogs.SearchMedicFragment
 import com.gon.kineapp.utils.ImageLoader
 import com.gon.kineapp.utils.MyUser
@@ -32,7 +35,8 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import android.media.ExifInterface as ExifInterface1
 
-class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.MedicListener {
+class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.MedicListener,
+    SharedMedicAdapter.SharedMedicListener {
 
     companion object {
         private const val REQUEST_TAKE_PHOTO = 0
@@ -41,6 +45,7 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
     }
 
     var presenter = ProfilePresenter()
+    private lateinit var adapter: SharedMedicAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_profile, container, false)
@@ -62,6 +67,7 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
             if (it.isMedic()) {
                 licenseTextView.text = it.medic!!.license
                 rlMedic.visibility = View.GONE
+                rlSharedMedics.visibility = View.GONE
             } else {
                 rlLicense.visibility = View.GONE
                 it.patient?.currentMedic?.let { medic ->
@@ -71,7 +77,13 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
                 } ?: run  {
                     tvMedic.text = getString(R.string.not_medic_assigned)
                     medicAction.setImageResource(R.drawable.ic_add_circle)
-                    medicAction.setOnClickListener { presenter.getMedicList() } }
+                    medicAction.setOnClickListener { presenter.getMedicList(true) } }
+
+                sharedMedicAction.setOnClickListener { presenter.getMedicList(false) }
+                rvSharedMedic.layoutManager = LinearLayoutManager(context)
+                rvSharedMedic.setHasFixedSize(true)
+                adapter = SharedMedicAdapter(it.patient?.readOnlyMedics!!, this)
+                rvSharedMedic.adapter = adapter
             }
             emailTextView.text = it.mail
         }
@@ -153,13 +165,26 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
         presenter.updateCurrentMedic(sharedMedic)
     }
 
-    override fun onMedicListResponse(medics: List<User>) {
-        fragmentManager?.let { SearchMedicFragment.newInstance(medics, this).show(it, "dialog") }
+    override fun onSharedMedicSelected(sharedMedic: SharedMedic) {
+        presenter.updateSharedMedic(sharedMedic.id, true)
+    }
+
+    override fun onMedicListResponse(medics: List<User>, isForMainMedic: Boolean) {
+        fragmentManager?.let { SearchMedicFragment.newInstance(medics, this, isForMainMedic).show(it, "dialog") }
     }
 
     override fun onMedicUpdated(user: User) {
         MyUser.set(context!!, user)
         initUI()
+    }
+
+    override fun onSharedMedicRemove(medic: SharedMedic) {
+        presenter.updateSharedMedic(medic.id, false)
+        adapter.removeSharedMedic(medic)
+    }
+
+    override fun onSharedMedicUpdated(sharedMedic: SharedMedic) {
+        adapter.addSharedMedic(sharedMedic)
     }
 
     override fun onPhotoEdited() {

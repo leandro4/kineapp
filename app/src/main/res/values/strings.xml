@@ -48,7 +48,7 @@
     <string name="exercises_title">Ejercicios</string>
     <string name="timeline_title">Timeline</string>
     <string name="take_video_title">Grabar video</string>
-    <string name="profile_medic_title">Médico</string>
+    <string name="profile_medic_title">Médico Principal</string>
     <string name="not_medic_assigned">No tiene médico asignado</string>
     <string name="medic_selector_title">Buscar médico:</string>
     <string name="medic_selector_hint">Ingrese matrícula, nombre o apellido&#8230;</string>
@@ -104,6 +104,7 @@
     <string name="patient_list_empty_view">Aún no fue asignado a ningún paciente</string>
     <string name="patient_list_title">Mis Pacientes:</string>
     <string name="patient_list_read_only">Otros pacientes compartidos (sólo lectura):</string>
+    <string name="profile_shared_medics_title">Médicos que pueden ver mi historial</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>

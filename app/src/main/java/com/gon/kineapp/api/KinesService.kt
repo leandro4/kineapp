@@ -121,6 +121,11 @@ object KinesService {
         return kinesApi.getMedicList()
     }
 
+    fun updateSharedMedic(medicId: String, share: Boolean): Observable<SharedMedic> {
+        return if (share) kinesApi.shareSessionToMedic(ShareUnShareSessionsWith(null, medicId))
+                else kinesApi.unshareSessionWithMedic(ShareUnShareSessionsWith(medicId, null))
+    }
+
     fun updateCurrentMedic(sharedMedic: SharedMedic): Observable<User> {
         return kinesApi.updateCurrentMedic(UpdateMedicBody(UpdateMedicBody.SharedMedicBody(sharedMedic)))
     }

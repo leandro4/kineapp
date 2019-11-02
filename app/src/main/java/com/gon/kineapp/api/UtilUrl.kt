@@ -29,6 +29,8 @@ class UtilUrl {
         const val PATIENTS_DETAIL = PATIENTS + "/detail"
         const val CURRENT_PATIENT = PATIENTS + "/detail"
         const val CURRENT_MEDIC = MEDICS + "/detail"
+        const val SHARE_SESSIONS = "share_sessions"
+        const val UNSHARE_SESSIONS = "unshare_sessions"
         const val UPLOAD_VIDEO = "video"
         const val DELETE_VIDEO = "video/{id}"
 

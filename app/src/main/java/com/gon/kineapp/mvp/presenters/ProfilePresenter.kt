@@ -5,6 +5,7 @@ import com.gon.kineapp.api.KinesService
 import com.gon.kineapp.model.SharedMedic
 import com.gon.kineapp.model.User
 import com.gon.kineapp.model.responses.MedicListResponse
+import com.gon.kineapp.model.responses.SharedMedicResponse
 import com.gon.kineapp.mvp.views.ProfileView
 import com.gon.kineapp.utils.MyUser
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 
 class ProfilePresenter : BasePresenter<ProfileView>() {
 
-    fun getMedicList() {
+    fun getMedicList(isMainMedic: Boolean) {
 
         mvpView?.showProgressView()
 
@@ -37,15 +38,13 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
 
                 override fun onNext(t: MedicListResponse) {
                     mvpView?.hideProgressView()
-                    mvpView?.onMedicListResponse(t.medics)
+                    mvpView?.onMedicListResponse(t.medics, isMainMedic)
                 }
             })
         )
     }
 
     fun updateUserThumbnail(picture: String) {
-
-        //mvpView?.showProgressView()
 
         compositeSubscription!!.add(KinesService.updateUserThumbnail(picture)
             .subscribeOn(Schedulers.io())
@@ -99,6 +98,37 @@ class ProfilePresenter : BasePresenter<ProfileView>() {
                 override fun onNext(t: User) {
                     mvpView?.hideProgressView()
                     mvpView?.onMedicUpdated(t)
+                }
+            })
+        )
+    }
+
+    fun updateSharedMedic(sharedMedicId: String, share: Boolean) {
+
+        mvpView?.showProgressView()
+
+        compositeSubscription!!.add(KinesService.updateSharedMedic(sharedMedicId, share)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CustomDisposableObserver<SharedMedic>() {
+                override fun onNoInternetConnection() {
+                    mvpView?.hideProgressView()
+                    mvpView?.onNoInternetConnection()
+                }
+
+                override fun onObserverError(e: Throwable) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onError(e)
+                }
+
+                override fun onErrorCode(code: Int, message: String) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onErrorCode(message)
+                }
+
+                override fun onNext(sharedMedicResponse: SharedMedic) {
+                    mvpView?.hideProgressView()
+                    if (share) mvpView?.onSharedMedicUpdated(sharedMedicResponse)
                 }
             })
         )

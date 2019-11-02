@@ -1,18 +1,13 @@
 package com.gon.kineapp.api
 
-import com.gon.kineapp.model.Exercise
-import com.gon.kineapp.model.Session
-import com.gon.kineapp.model.User
-import com.gon.kineapp.model.Video
+import com.gon.kineapp.model.*
 import com.gon.kineapp.model.requests.*
 import com.gon.kineapp.model.responses.*
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Single
 import retrofit2.http.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import retrofit2.http.POST
 import retrofit2.http.Multipart
 
@@ -24,7 +19,7 @@ interface KinesApi {
     fun userExists(@Body body: UserExistsBody): Observable<UserExistsResponse>
 
     @POST(UtilUrl.DEVICE_ID)
-    fun updateFirebaseId(body: FirebaseUpdateIdBody): Completable
+    fun updateFirebaseId(@Body body: FirebaseUpdateIdBody): Completable
 
     @POST(UtilUrl.REGISTER_USER)
     fun registerUser(@Body body: RegisterUserBody): Observable<UserRegisteredResponse>
@@ -82,6 +77,12 @@ interface KinesApi {
 
     @GET(UtilUrl.CURRENT_PATIENT)
     fun getCurrentPatientUser(): Observable<User>
+
+    @POST(UtilUrl.SHARE_SESSIONS)
+    fun shareSessionToMedic(@Body body: ShareUnShareSessionsWith): Observable<SharedMedic>
+
+    @POST(UtilUrl.UNSHARE_SESSIONS)
+    fun unshareSessionWithMedic(@Body body: ShareUnShareSessionsWith): Observable<SharedMedic>
 
     @GET(UtilUrl.CURRENT_MEDIC)
     fun getCurrentMedicUser(): Observable<User>

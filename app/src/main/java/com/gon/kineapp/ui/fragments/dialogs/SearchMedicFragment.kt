@@ -17,18 +17,21 @@ class SearchMedicFragment: BaseDialogFragment(), MedicSelectorAdapter.MedicListe
 
     private lateinit var medics: List<User>
     private lateinit var callback: MedicListener
+    private var isForMainMedic = false
 
     private lateinit var adatper: MedicSelectorAdapter
 
     interface MedicListener {
         fun onMedicSelected(sharedMedic: SharedMedic)
+        fun onSharedMedicSelected(sharedMedic: SharedMedic)
     }
 
     companion object {
-        fun newInstance(medics: List<User>, callback: MedicListener): SearchMedicFragment {
+        fun newInstance(medics: List<User>, callback: MedicListener, isForMainMedic: Boolean): SearchMedicFragment {
             val frag = SearchMedicFragment()
             frag.medics = medics
             frag.callback = callback
+            frag.isForMainMedic = isForMainMedic
             return frag
         }
     }
@@ -61,7 +64,11 @@ class SearchMedicFragment: BaseDialogFragment(), MedicSelectorAdapter.MedicListe
     }
 
     override fun onMedicSelected(sharedMedic: SharedMedic) {
-        callback.onMedicSelected(sharedMedic)
+        if (isForMainMedic) {
+            callback.onMedicSelected(sharedMedic)
+        } else {
+            callback.onSharedMedicSelected(sharedMedic)
+        }
         dismiss()
     }
 }
