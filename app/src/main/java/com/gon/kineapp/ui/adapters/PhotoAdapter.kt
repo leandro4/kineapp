@@ -1,7 +1,7 @@
 package com.gon.kineapp.ui.adapters
 
 import android.net.Uri
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.gon.kineapp.model.PhotoTag
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.adapter_photo.view.*
 
-class PhotoAdapter(private val photos: MutableList<Photo>, private val callback: PhotoListener): RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
+class PhotoAdapter(private val photos: MutableList<Photo>, private val callback: PhotoListener): androidx.recyclerview.widget.RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     interface PhotoListener {
         fun onPhotoSelected(photo: Photo)
@@ -42,7 +42,7 @@ class PhotoAdapter(private val photos: MutableList<Photo>, private val callback:
         notifyItemRemoved(index)
     }
 
-    class PhotoViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
+    class PhotoViewHolder(private var viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem) {
 
         fun bind(photo: Photo, callback: PhotoListener) {
             Glide.with(viewItem).load(Utils.convertImage(photo.thumbnail!!)).into(viewItem.ivPhoto)

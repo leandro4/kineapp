@@ -1,7 +1,7 @@
 package com.gon.kineapp.ui.fragments.dialogs
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -41,7 +41,7 @@ class SearchMedicFragment: BaseDialogFragment(), MedicSelectorAdapter.MedicListe
         super.onViewCreated(view, savedInstanceState)
 
         adatper = MedicSelectorAdapter(medics, this)
-        rvMedicsResult.layoutManager = LinearLayoutManager(context)
+        rvMedicsResult.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         rvMedicsResult.setHasFixedSize(true)
         rvMedicsResult.adapter = adatper
 

@@ -1,6 +1,6 @@
 package com.gon.kineapp.ui.adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +12,7 @@ import com.gon.kineapp.model.User
 import kotlinx.android.synthetic.main.adapter_medic_selector.view.*
 
 class MedicSelectorAdapter(private val medics: List<User>, private val callback: MedicListener)
-    : RecyclerView.Adapter<MedicSelectorAdapter.MedicViewHolder>(), Filterable {
+    : androidx.recyclerview.widget.RecyclerView.Adapter<MedicSelectorAdapter.MedicViewHolder>(), Filterable {
 
     private var filteredMedics: List<User>
 
@@ -63,7 +63,7 @@ class MedicSelectorAdapter(private val medics: List<User>, private val callback:
         }
     }
 
-    class MedicViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
+    class MedicViewHolder(private var viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem) {
 
         fun bind(medic: User, callback: MedicListener) {
             viewItem.tvFirstName.text = String.format("%s %s", medic.name, medic.surname)

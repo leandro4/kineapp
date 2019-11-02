@@ -4,9 +4,10 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.gon.kineapp.R
 import com.gon.kineapp.model.*
 import com.gon.kineapp.mvp.presenters.SessionListPresenter
@@ -76,9 +77,8 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.exercises -> {
                 val intent = Intent(context, EditPatientRoutineActivity::class.java)
                 intent.putExtra(Constants.USER_EXTRA, patient)
@@ -88,6 +88,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
             R.id.motion_video -> goToTimeLine()
             R.id.take_video -> Utils.takeVideo(activity!!, TAKE_VIDEO)
         }
+
         return super.onOptionsItemSelected(item)
     }
 
@@ -104,7 +105,11 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
     private fun initList(sessions: MutableList<Session>) {
         this.sessions = sessions
-        rvSessions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvSessions.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            RecyclerView.VERTICAL,
+            false
+        )
         rvSessions.setHasFixedSize(true)
         adapter = SessionAdapter(sessions, this)
         rvSessions.adapter = adapter
@@ -191,13 +196,15 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     private fun uploadVideo(path: String) {
-        InputDialogFragment()
-            .setTitle(getString(R.string.input_video_title))
-            .setCancellable(false)
-            .setCallback(object : InputDialogFragment.InputListener {
-                override fun onInputDone(input: String) {
-                    presenter.uploadVideo(path, input)
-                }
-            }).show(fragmentManager, "inputDialog")
+        fragmentManager?.let {
+            InputDialogFragment()
+                .setTitle(getString(R.string.input_video_title))
+                .setCancellable(false)
+                .setCallback(object : InputDialogFragment.InputListener {
+                    override fun onInputDone(input: String) {
+                        presenter.uploadVideo(path, input)
+                    }
+                }).show(it, "inputDialog")
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.gon.kineapp.ui.adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.User
 import kotlinx.android.synthetic.main.adapter_patient.view.*
 
-class PatientAdapter(private var patients: MutableList<User>, private val callback: PatientListener): RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
+class PatientAdapter(private var patients: MutableList<User>, private val callback: PatientListener): androidx.recyclerview.widget.RecyclerView.Adapter<PatientAdapter.PatientViewHolder>() {
 
     interface PatientListener {
         fun onPatientSelected(patient: User)
@@ -33,7 +33,7 @@ class PatientAdapter(private var patients: MutableList<User>, private val callba
         notifyDataSetChanged()
     }
 
-    class PatientViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
+    class PatientViewHolder(private var viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem) {
 
         fun bind(patient: User, callback: PatientListener) {
             viewItem.tvName.text = String.format("%s %s", patient.name, patient.surname)

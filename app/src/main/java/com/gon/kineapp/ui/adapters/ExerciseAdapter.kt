@@ -1,6 +1,6 @@
 package com.gon.kineapp.ui.adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +9,7 @@ import com.gon.kineapp.model.Exercise
 import com.gon.kineapp.model.Video
 import kotlinx.android.synthetic.main.adapter_exercise.view.*
 
-class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val callback: ExerciseListener, private val isMedic: Boolean): RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
+class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val callback: ExerciseListener, private val isMedic: Boolean): androidx.recyclerview.widget.RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
 
     interface ExerciseListener {
         fun onWatchVideo(video: Video)
@@ -35,7 +35,7 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
         notifyItemInserted(0)
     }
 
-    class ExerciseViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
+    class ExerciseViewHolder(private var viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem) {
 
         fun bind(exercise: Exercise, callback: ExerciseListener, isMedic: Boolean) {
             viewItem.tvTitle.text = exercise.name

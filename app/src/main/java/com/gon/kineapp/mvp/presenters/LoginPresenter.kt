@@ -11,6 +11,7 @@ import com.gon.kineapp.utils.Authorization
 import com.gon.kineapp.utils.QuestionsList
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.schedulers.Schedulers
 
 class LoginPresenter: BasePresenter<LoginView>() {
@@ -78,6 +79,24 @@ class LoginPresenter: BasePresenter<LoginView>() {
                     mvpView?.onUserRetrieved(t.myUser, t.questions)
                 }
             })
+        )
+    }
+
+    fun updateFirebaseId(firebaseId: String?) {
+
+        if (firebaseId == null || firebaseId.isEmpty()) return
+
+        compositeSubscription!!.add(
+            KinesService.updateFirebaseId(firebaseId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableCompletableObserver() {
+                    override fun onComplete() {}
+                    override fun onError(e: Throwable) {
+                        mvpView?.hideProgressView()
+                        mvpView?.onError(e)
+                    }
+                })
         )
     }
 }

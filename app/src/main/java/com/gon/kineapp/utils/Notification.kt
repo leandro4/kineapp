@@ -3,7 +3,7 @@ package com.gon.kineapp.utils
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import android.media.RingtoneManager
 import android.os.Build
 import com.gon.kineapp.R
@@ -13,7 +13,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.BitmapFactory
 import java.util.*
-import android.support.v4.app.TaskStackBuilder
+import androidx.core.app.TaskStackBuilder
 import com.gon.kineapp.receivers.AlarmReceiver
 import com.gon.kineapp.ui.activities.SplashActivity
 

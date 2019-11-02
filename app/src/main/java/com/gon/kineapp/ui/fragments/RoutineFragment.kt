@@ -54,9 +54,9 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.profile -> {
                 activity?.startActivity(Intent(context, ProfileActivity::class.java))
                 return true

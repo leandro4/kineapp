@@ -1,18 +1,18 @@
 package com.gon.kineapp.ui.adapters
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
-class FragmentPagerAdapter(fm: FragmentManager): CustomFragmentStatePagerAdapter(fm) {
+class FragmentPagerAdapter(fm: androidx.fragment.app.FragmentManager): CustomFragmentStatePagerAdapter(fm) {
 
-    private val pages: MutableList<Fragment> = ArrayList()
+    private val pages: MutableList<androidx.fragment.app.Fragment> = ArrayList()
 
-    fun addPage(page: Fragment) {
+    fun addPage(page: androidx.fragment.app.Fragment) {
         pages.add(page)
         notifyDataSetChanged()
     }
 
-    override fun getItem(p0: Int): Fragment {
+    override fun getItem(p0: Int): androidx.fragment.app.Fragment {
         return pages[p0]
     }
 

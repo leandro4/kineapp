@@ -1,7 +1,7 @@
 package com.gonanimationlib.animations;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by leandro on 6/4/18.

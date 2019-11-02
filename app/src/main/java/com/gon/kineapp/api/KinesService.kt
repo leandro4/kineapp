@@ -62,6 +62,10 @@ object KinesService {
         return kinesApi.userExists(body)
     }
 
+    fun updateFirebaseId(firebaseId: String): Completable {
+        return kinesApi.updateFirebaseId(FirebaseUpdateIdBody(firebaseId))
+    }
+
     fun registerUser(token: String, firstName: String, lastName: String, license: String?, number: String?, birthday: String?, email: String, questionId: Int, answer: String): Observable<UserRegisteredResponse> {
         val body = RegisterUserBody(token, firstName, lastName, questionId, license, number, birthday, email, answer)
         return kinesApi.registerUser(body)

@@ -1,7 +1,7 @@
 package com.gon.kineapp.utils
 
 import android.content.Context
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.Window
 import com.gon.kineapp.R
 

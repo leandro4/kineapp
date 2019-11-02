@@ -2,8 +2,8 @@ package com.gon.kineapp.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import com.gon.kineapp.ui.adapters.ExerciseAdapter
 import com.gon.kineapp.utils.Constants
 import kotlinx.android.synthetic.main.fragment_exercises.*
 
-class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
+class ExercisesFragment : androidx.fragment.app.Fragment(), ExerciseAdapter.ExerciseListener {
 
     private lateinit var routine: Routine
     private var isMedic = false
@@ -56,7 +56,7 @@ class ExercisesFragment : Fragment(), ExerciseAdapter.ExerciseListener {
 
         swipeRefresh.isEnabled = !isMedic
 
-        rvExercises.layoutManager = LinearLayoutManager(context)
+        rvExercises.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         adapter = ExerciseAdapter(routine.exercises, this, isMedic)
         rvExercises.adapter = adapter
 

@@ -23,6 +23,9 @@ interface KinesApi {
     @POST(UtilUrl.USER_EXISTS)
     fun userExists(@Body body: UserExistsBody): Observable<UserExistsResponse>
 
+    @POST(UtilUrl.DEVICE_ID)
+    fun updateFirebaseId(body: FirebaseUpdateIdBody): Completable
+
     @POST(UtilUrl.REGISTER_USER)
     fun registerUser(@Body body: RegisterUserBody): Observable<UserRegisteredResponse>
 

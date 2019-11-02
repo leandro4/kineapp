@@ -1,6 +1,6 @@
 package com.gon.kineapp.ui.adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import com.gon.kineapp.model.Session
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.adapter_session.view.*
 
-class SessionAdapter(private val sessions: MutableList<Session>, private val callback: SessionListener): RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
+class SessionAdapter(private val sessions: MutableList<Session>, private val callback: SessionListener): androidx.recyclerview.widget.RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
 
     interface SessionListener {
         fun onSessionSelected(session: Session)
@@ -47,7 +47,7 @@ class SessionAdapter(private val sessions: MutableList<Session>, private val cal
         notifyItemRemoved(index)
     }
 
-    class SessionViewHolder(private var viewItem: View): RecyclerView.ViewHolder(viewItem) {
+    class SessionViewHolder(private var viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem) {
 
         fun bind(session: Session, callback: SessionListener) {
             viewItem.tvDescription.text = if (!session.description.isEmpty()) session.description else viewItem.context.getString(R.string.observations_title)

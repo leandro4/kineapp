@@ -2,7 +2,7 @@ package com.gon.kineapp.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +28,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.text.SimpleDateFormat
 
@@ -40,6 +42,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
     private var isMedic = false
     private var questionSelectedId = 0
+    private var firebaseId: String? = ""
     private var birthday = ""
 
     private val pages = listOf (OnboardingStepOneFragment(), OnboardingStepTwoFragment(), OnboardingStepThreeFragment())
@@ -50,22 +53,25 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getFirebaseId()
         startPresenter()
         initUI()
     }
 
     private fun showRolDialog() {
-        RolSelectionFragment().setListener(object : RolSelectionFragment.ResponseListener {
-            override fun onProfessionalSelected() {
-                isMedic = true
-            }
+        fragmentManager?.let {
+            RolSelectionFragment().setListener(object : RolSelectionFragment.ResponseListener {
+                override fun onProfessionalSelected() {
+                    isMedic = true
+                }
 
-            override fun onPatientSelected() {
-                isMedic = false
-                etLicense.visibility = View.GONE
-                tvLicense.visibility = View.GONE
-            }
-        }).show(fragmentManager, "selector")
+                override fun onPatientSelected() {
+                    isMedic = false
+                    etLicense.visibility = View.GONE
+                    tvLicense.visibility = View.GONE
+                }
+            }).show(it, "selector")
+        }
     }
 
     private fun initUI() {
@@ -107,17 +113,19 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
     private fun showDatePickerDialog() {
         val newFragment = DatePickerFragment()
-        newFragment.listener = object : DatePickerFragment.DateListener {
-            override fun onDateSelected(date: String) {
-                birthday = date
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd")
-                val dateOutput = SimpleDateFormat("dd MMM yyyy")
-                val d = dateFormat.parse(date)
-                val s = dateOutput.format(d.time)
-                tvBirthday.text = s
+        fragmentManager?.let {
+            newFragment.listener = object : DatePickerFragment.DateListener {
+                override fun onDateSelected(date: String) {
+                    birthday = date
+                    val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                    val dateOutput = SimpleDateFormat("dd MMM yyyy")
+                    val d = dateFormat.parse(date)
+                    val s = dateOutput.format(d.time)
+                    tvBirthday.text = s
+                }
             }
+            newFragment.show(it, "datePicker")
         }
-        newFragment.show(fragmentManager, "datePicker")
     }
 
     private fun validateFields(): Boolean {
@@ -205,21 +213,25 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
     override fun onUserRetrieved(myUser: User, questions: List<Question>) {
         context?.let {
-            QuestionsList.set(it, questions)
-            UnlockerQuestionFragment()
-                .isForLoggin()
-                .setListener(object : UnlockerQuestionFragment.ResponseListener {
-                    override fun onSuccessResponse() {
-                        MyUser.set(it, myUser)
-                        goToHome()
-                    }
-                })
-                .show(fragmentManager, "question")
+            fragmentManager?.let { fragmentManager ->
+                QuestionsList.set(it, questions)
+                UnlockerQuestionFragment()
+                    .isForLoggin()
+                    .setListener(object : UnlockerQuestionFragment.ResponseListener {
+                        override fun onSuccessResponse() {
+                            presenter.updateFirebaseId(firebaseId)
+                            MyUser.set(it, myUser)
+                            goToHome()
+                        }
+                    })
+                    .show(fragmentManager, "question")
+            }
         }
     }
 
     override fun onUserCreated(myUser: User) {
         context?.let {
+            presenter.updateFirebaseId(firebaseId)
             LockerAppCallback.TimerSessionClient.registerPausedApp(it, System.currentTimeMillis())
             MyUser.set(it, myUser)
             goToHome()
@@ -259,4 +271,15 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+    private fun getFirebaseId() {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    firebaseId = null
+                    return@OnCompleteListener
+                }
+                firebaseId = task.result?.token
+            })
+    }
 }

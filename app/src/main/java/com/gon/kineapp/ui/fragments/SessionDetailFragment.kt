@@ -3,8 +3,9 @@ package com.gon.kineapp.ui.fragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.*
+import androidx.recyclerview.widget.RecyclerView
 import com.gon.kineapp.R
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.PhotoTag
@@ -54,7 +55,12 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     private fun initUI() {
         tvDate.text = Utils.formatDate(session.date)
         etDescription.setText(session.description)
-        rvImages.layoutManager = GridLayoutManager(context, COLUMNS, GridLayoutManager.VERTICAL, false)
+        rvImages.layoutManager = androidx.recyclerview.widget.GridLayoutManager(
+            context,
+            COLUMNS,
+            RecyclerView.VERTICAL,
+            false
+        )
         rvImages.setHasFixedSize(true)
         adapter = PhotoAdapter(session.photos, this)
         rvImages.adapter = adapter
@@ -101,9 +107,8 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.save -> {
                 if (edited) {
                     Utils.hideKeyboardFrom(etDescription)

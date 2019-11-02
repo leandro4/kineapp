@@ -1,7 +1,7 @@
 package com.gon.kineapp.ui.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.gon.kineapp.ui.fragments.dialogs.UnlockerQuestionFragment
 import com.gon.kineapp.utils.LockerAppCallback
 import com.gon.kineapp.utils.MyUser

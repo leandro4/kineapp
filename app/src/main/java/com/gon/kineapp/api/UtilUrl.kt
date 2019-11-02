@@ -8,6 +8,7 @@ class UtilUrl {
         const val BASE_URL = "http://198.199.121.38/api/v1/"
         //const val BASE_URL = "https://kinesioapp.herokuapp.com/api/v1/"
         const val USER_EXISTS = "user_exists"
+        const val DEVICE_ID = "change_device_id"
         const val REGISTER_USER = "registration"
         const val LOGIN = "login"
         const val VERIFY_SESSION = "continue_session"

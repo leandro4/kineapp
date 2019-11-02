@@ -1,7 +1,7 @@
 package com.gon.kineapp.ui.fragments.dialogs
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +30,7 @@ class SelectVideoFragment: BaseDialogFragment(), VideoSelectorAdapter.VideoListe
         super.onViewCreated(view, savedInstanceState)
 
         adatper = VideoSelectorAdapter(MyUser.get(context!!)?.medic?.videos!!, this)
-        rvVideos.layoutManager = LinearLayoutManager(context)
+        rvVideos.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         rvVideos.setHasFixedSize(true)
         rvVideos.adapter = adatper
 

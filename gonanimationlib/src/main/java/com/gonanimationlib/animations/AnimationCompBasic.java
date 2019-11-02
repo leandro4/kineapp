@@ -1,6 +1,6 @@
 package com.gonanimationlib.animations;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 

@@ -3,8 +3,8 @@ package com.gon.kineapp.ui.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AlertDialog
 import android.view.View
 import com.gon.kineapp.R
 import com.gon.kineapp.mvp.views.BaseView
@@ -16,7 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
-abstract class BaseMvpFragment: Fragment(), BaseView {
+abstract class BaseMvpFragment: androidx.fragment.app.Fragment(), BaseView {
 
     var progressBar: View? = null
     var activityProgress: ActivityProgress? = null

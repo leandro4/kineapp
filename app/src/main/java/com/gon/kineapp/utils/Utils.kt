@@ -17,7 +17,7 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.net.Uri
 import android.os.Environment
-import android.support.v4.app.ActivityCompat
+import androidx.core.app.ActivityCompat
 import java.io.File
 import com.gon.kineapp.R
 import com.vincent.videocompressor.VideoCompress

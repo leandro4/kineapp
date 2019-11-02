@@ -2,10 +2,11 @@ package com.gon.kineapp.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import kotlinx.android.synthetic.main.fragment_patient_list.*
 import android.view.*
+import androidx.recyclerview.widget.RecyclerView
 import com.gon.kineapp.R
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.PatientListPresenter
@@ -40,11 +41,19 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
         presenter.getPatientList()
         swipeRefresh.isRefreshing = true
 
-        rvPatients.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvPatients.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            RecyclerView.VERTICAL,
+            false
+        )
         rvPatients.setHasFixedSize(true)
         rvPatients.adapter = adapterMyPatients
 
-        rvReadOnlyPatients.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvReadOnlyPatients.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            RecyclerView.VERTICAL,
+            false
+        )
         rvReadOnlyPatients.setHasFixedSize(true)
         rvReadOnlyPatients.adapter = adapterOtherPatients
     }
@@ -61,9 +70,9 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.videos -> {
                 activity?.startActivity(Intent(context, PublicVideosActivity::class.java))
                 return true

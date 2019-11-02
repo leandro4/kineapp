@@ -87,13 +87,14 @@ class PublicVideosListFragment : BaseVideosListFragment(), PublicVideosListView 
     }
 
     private fun uploadVideo(path: String) {
-        InputDialogFragment()
+        fragmentManager?.let {
+            InputDialogFragment()
             .setTitle(getString(R.string.input_video_title))
             .setCancellable(false)
             .setCallback(object : InputDialogFragment.InputListener {
                 override fun onInputDone(input: String) {
                     presenter.uploadVideo(path, input)
                 }
-            }).show(fragmentManager, "inputDialog")
+            }).show(it, "inputDialog") }
     }
 }

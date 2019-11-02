@@ -12,7 +12,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.support.v4.app.ActivityCompat
+import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -154,7 +154,7 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
     }
 
     override fun onMedicListResponse(medics: List<User>) {
-        SearchMedicFragment.newInstance(medics, this).show(fragmentManager, "dialog")
+        fragmentManager?.let { SearchMedicFragment.newInstance(medics, this).show(it, "dialog") }
     }
 
     override fun onMedicUpdated(user: User) {

@@ -3,8 +3,8 @@ package com.gon.kineapp.ui.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +25,7 @@ abstract class BaseVideosListFragment: BaseMvpFragment(), PublicVideoAdapter.Vid
     }
 
     protected fun setVideos(videos: MutableList<Video>) {
-        rvVideos.layoutManager = GridLayoutManager(context, 3)
+        rvVideos.layoutManager = androidx.recyclerview.widget.GridLayoutManager(context, 3)
         rvVideos.setHasFixedSize(true)
         adapter = PublicVideoAdapter(videos, this)
         adapter.removableVideos = removableVideos()

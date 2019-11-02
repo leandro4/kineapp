@@ -1,12 +1,12 @@
 package com.gon.kineapp.ui.adapters
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.gon.kineapp.model.Routine
 import com.gon.kineapp.ui.fragments.ExercisesFragment
 
-class RoutinePagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
+class RoutinePagerAdapter(fm: androidx.fragment.app.FragmentManager): androidx.fragment.app.FragmentPagerAdapter(fm) {
 
     val fragments = ArrayList<ExercisesFragment>()
 
@@ -24,7 +24,7 @@ class RoutinePagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
         fragments.add(f)
     }
 
-    override fun getItem(p0: Int): Fragment {
+    override fun getItem(p0: Int): androidx.fragment.app.Fragment {
         return fragments[p0]
     }
 
