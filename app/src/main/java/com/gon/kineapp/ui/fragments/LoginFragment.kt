@@ -29,6 +29,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import kotlinx.android.synthetic.main.fragment_login.*
+import java.text.SimpleDateFormat
 
 class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedListener {
 
@@ -39,6 +40,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
 
     private var isMedic = false
     private var questionSelectedId = 0
+    private var birthday = ""
 
     private val pages = listOf (OnboardingStepOneFragment(), OnboardingStepTwoFragment(), OnboardingStepThreeFragment())
 
@@ -79,10 +81,13 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
                     etName.text.toString(),
                     etLastName.text.toString(),
                     if (etLicense.text.toString().isEmpty()) null else etLicense.text.toString(),
-                    etNumber.text.toString(), "1989-06-18",//etBirthday.text.toString(),
+                    etNumber.text.toString(), birthday,
                     tvEmail.text.toString(), questionSelectedId, etAnswer.text.toString().toLowerCase())
             }
         }
+
+        tvBirthday.setOnClickListener { showDatePickerDialog() }
+        tvBirthdayTitle.setOnClickListener { showDatePickerDialog() }
 
         btnGoogleSignIn.setOnClickListener {
             if (checkPlayServices()) {
@@ -98,6 +103,21 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(activity!!, gso)
+    }
+
+    private fun showDatePickerDialog() {
+        val newFragment = DatePickerFragment()
+        newFragment.listener = object : DatePickerFragment.DateListener {
+            override fun onDateSelected(date: String) {
+                birthday = date
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+                val dateOutput = SimpleDateFormat("dd MMM yyyy")
+                val d = dateFormat.parse(date)
+                val s = dateOutput.format(d.time)
+                tvBirthday.text = s
+            }
+        }
+        newFragment.show(fragmentManager, "datePicker")
     }
 
     private fun validateFields(): Boolean {
@@ -118,8 +138,8 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
             etAnswer.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
-        if (etBirthday.text.toString().isEmpty()) {
-            etBirthday.error = getString(R.string.mandatory_field)
+        if (tvBirthday.text.toString().isEmpty()) {
+            tvBirthday.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
         if (etNumber.text.toString().isEmpty()) {

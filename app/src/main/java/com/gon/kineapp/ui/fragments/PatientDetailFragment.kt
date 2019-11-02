@@ -138,6 +138,8 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     override fun onVideoUploaded(video: Video) {
+        val user = MyUser.get(context!!)?.apply { medic?.videos?.add(video) }
+        user?.let { MyUser.set(context!!, it) }
         DialogUtil.showGenericAlertDialog(context!!, getString(R.string.success_video_title), getString(R.string.success_video_msg))
         Toast.makeText(context!!, video.id, Toast.LENGTH_SHORT).show()
     }

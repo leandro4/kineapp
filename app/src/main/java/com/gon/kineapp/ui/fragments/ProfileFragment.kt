@@ -55,7 +55,7 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
     private fun initUI() {
         MyUser.get(context!!).let {
             it?.thumbnail?.let { base64 ->
-                ImageLoader.load(context, Utils.convertImage(base64)).circle().into(civAvatar)
+                if (!base64.isEmpty()) ImageLoader.load(context, Utils.convertImage(base64)).circle().into(civAvatar)
             }
             nameTextView.text = it!!.name
             tvSurname.text = it.surname

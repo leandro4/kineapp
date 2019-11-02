@@ -85,19 +85,17 @@
                 android:hint="Ingresar..."/>
 
             <TextView
-                android:id="@+id/tvBirthday"
+                android:id="@+id/tvBirthdayTitle"
                 android:layout_marginTop="@dimen/large_margin"
                 style="@style/TextViewStyleRegular"
                 android:text="Fecha de nacimiento:"/>
 
-            <EditText
-                android:id="@+id/etBirthday"
+            <TextView
+                android:id="@+id/tvBirthday"
                 android:layout_width="match_parent"
                 style="@style/TextViewStyleLight"
                 android:textSize="20sp"
-                android:inputType="number"
-                android:imeOptions="actionNext"
-                android:hint="dd/mm/aaaa"/>
+                android:text="Seleccionar..."/>
 
             <TextView
                 android:layout_marginTop="@dimen/large_margin"
@@ -106,13 +104,17 @@
 
             <TextView
                 android:id="@+id/tvEmail"
-                android:layout_marginTop="@dimen/large_margin"
+                android:layout_marginTop="@dimen/small_margin"
                 android:textSize="20sp"
                 style="@style/TextViewStyleLight"/>
 
+            <TextView
+                android:layout_marginTop="@dimen/large_margin"
+                style="@style/TextViewStyleRegular"
+                android:text="Elija una pregunta secreta:"/>
+
             <Spinner
                 android:id="@+id/spQuestions"
-                android:layout_marginTop="@dimen/large_margin"
                 android:padding="@dimen/small_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
