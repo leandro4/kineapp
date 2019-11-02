@@ -67,16 +67,16 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
             activity?.startActivityForResult(Intent(context, PictureActivity::class.java), TAKE_PICTURE_CODE)
         }
 
-        if (session.readOnly) {
+        if (session.readOnly || MyUser.get(context!!)?.isPatient()!!) {
             fabAddPhoto.hide()
-        }
-
-        tvObs.setOnClickListener {
-            etDescription.isEnabled = true
-            etDescription.requestFocus()
-            etDescription.setSelection(etDescription.text.length)
-            Utils.showKeyboard(etDescription)
-            edited = true
+        } else {
+            tvObs.setOnClickListener {
+                etDescription.isEnabled = true
+                etDescription.requestFocus()
+                etDescription.setSelection(etDescription.text.length)
+                Utils.showKeyboard(etDescription)
+                edited = true
+            }
         }
     }
 
@@ -170,6 +170,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
 
     private fun removePhoto(id: String) {
         presenter.deletePhoto(id)
+        adapter.removePhoto(id)
     }
 
     private fun checkEmptyList() {
