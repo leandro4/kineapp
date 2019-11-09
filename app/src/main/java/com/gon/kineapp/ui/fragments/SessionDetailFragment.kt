@@ -118,7 +118,11 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
                 }
                 return true
             }
-            R.id.delete -> { presenter.deleteSession(session.id) }
+            R.id.delete -> {
+                DialogUtil.showGenericAlertDialogConfirm(context!!, getString(R.string.remove_warning_title), getString(R.string.delete_session_message)) {
+                    presenter.deleteSession(session.id)
+                }
+            }
         }
 
         return super.onOptionsItemSelected(item)
