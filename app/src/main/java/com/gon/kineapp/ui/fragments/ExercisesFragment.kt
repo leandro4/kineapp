@@ -94,10 +94,20 @@ class ExercisesFragment : androidx.fragment.app.Fragment(), ExerciseAdapter.Exer
     private fun checkEmptyList() {
         if (routine.exercises.isEmpty()) {
             emptyView.visibility = View.VISIBLE
+        } else {
+            emptyView.visibility = View.GONE
         }
     }
 
     fun add(exercise: Exercise) {
         adapter.addExercise(exercise)
+        checkEmptyList()
+    }
+
+    fun updateExercises(newExercises: MutableList<Exercise>) {
+        routine.exercises.clear()
+        routine.exercises.addAll(newExercises)
+        adapter.updateExercises()
+        checkEmptyList()
     }
 }

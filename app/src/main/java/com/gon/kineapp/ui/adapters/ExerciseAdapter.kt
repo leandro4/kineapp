@@ -9,7 +9,7 @@ import com.gon.kineapp.model.Exercise
 import com.gon.kineapp.model.Video
 import kotlinx.android.synthetic.main.adapter_exercise.view.*
 
-class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val callback: ExerciseListener, private val isMedic: Boolean): androidx.recyclerview.widget.RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
+class ExerciseAdapter(private var exercises: MutableList<Exercise>, private val callback: ExerciseListener, private val isMedic: Boolean): androidx.recyclerview.widget.RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
 
     interface ExerciseListener {
         fun onWatchVideo(video: Video)
@@ -33,6 +33,10 @@ class ExerciseAdapter(private val exercises: MutableList<Exercise>, private val 
     fun addExercise(exercise: Exercise) {
         exercises.add(0, exercise)
         notifyItemInserted(0)
+    }
+
+    fun updateExercises() {
+        notifyDataSetChanged()
     }
 
     class ExerciseViewHolder(private var viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem) {
