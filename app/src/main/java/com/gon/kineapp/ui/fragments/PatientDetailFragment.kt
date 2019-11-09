@@ -4,7 +4,6 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -62,6 +61,9 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         if (patient.patient?.readOnly!! || MyUser.get(context!!)?.isPatient()!!) {
             fabAddSession.hide()
         }
+        swipeRefresh.setOnRefreshListener {
+            presenter.getSessions(patient.id)
+        }
     }
 
     private fun createNewSession() {
@@ -117,6 +119,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
     override fun onSessionsReceived(sessions: MutableList<Session>) {
         initList(sessions)
+        swipeRefresh.isRefreshing = false
     }
 
     override fun onSessionCreated(session: Session) {
@@ -151,6 +154,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
 
     override fun startPresenter() {
         presenter.attachMvpView(this)
+        swipeRefresh.isRefreshing = true
         presenter.getSessions(patient.id)
     }
 
