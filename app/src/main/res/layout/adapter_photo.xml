@@ -15,7 +15,8 @@
         android:layout_margin="10dp"
         app:layout_constraintDimensionRatio="1:1"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardElevation="2dp"
+        app:cardElevation="0dp"
+        android:elevation="0dp"
         app:cardCornerRadius="@dimen/large_radius"
         android:layout_width="match_parent"
         android:layout_height="0dp">

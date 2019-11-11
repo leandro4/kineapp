@@ -82,6 +82,7 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
     }
 
     override fun onUserLoaded() {
+        user = MyUser.get(context!!)!!
         user.patient?.routine?.values?.forEachIndexed { index, mutableList ->
             adapter.fragments[index].updateExercises(mutableList)
         }

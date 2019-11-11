@@ -109,5 +109,6 @@ class ExercisesFragment : androidx.fragment.app.Fragment(), ExerciseAdapter.Exer
         routine.exercises.addAll(newExercises)
         adapter.updateExercises()
         checkEmptyList()
+        swipeRefresh.isRefreshing = false
     }
 }

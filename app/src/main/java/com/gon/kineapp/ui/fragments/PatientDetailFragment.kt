@@ -52,7 +52,11 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     }
 
     private fun initUI() {
-        (activity as BaseActivity).setToolbarTitle(String.format(getString(R.string.patient_sessions_title), patient.name))
+        if (MyUser.get(context!!)?.isPatient()!!) {
+            (activity as BaseActivity).setToolbarTitle(getString(R.string.my_sessions_title))
+        } else {
+            (activity as BaseActivity).setToolbarTitle(String.format(getString(R.string.patient_sessions_title), patient.name))
+        }
         fabAddSession.setOnClickListener {
             DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.create_session_title), getString(R.string.create_session_msg)) {
                 createNewSession()

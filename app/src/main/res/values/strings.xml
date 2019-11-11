@@ -106,6 +106,7 @@
     <string name="patient_list_read_only">Otros pacientes compartidos (sólo lectura):</string>
     <string name="profile_shared_medics_title">Médicos que pueden ver mi historial</string>
     <string name="delete_session_message">¿Está seguro que desea borrar la sesión actual?</string>
+    <string name="my_sessions_title">Mis Sesiones</string>
 
     <string-array name="pics_kind_array">
         <item>Otra</item>
