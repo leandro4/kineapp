@@ -75,6 +75,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
 
         if (session.readOnly || MyUser.get(context!!)?.isPatient()!!) {
             fabAddPhoto.hide()
+            tvObs.setCompoundDrawables(null, null, null, null)
         } else {
             tvObs.setOnClickListener {
                 etDescription.isEnabled = true
@@ -148,11 +149,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     }
 
     override fun onRemovePhoto(id: String) {
-        DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
-            removePhoto(id)
-            adapter.removePhoto(id)
-            checkEmptyList()
-        }
+        DialogUtil.showOptionsAlertDialog(context!!, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) { removePhoto(id) }
     }
 
     override fun onPhotoDeleted() {
@@ -180,6 +177,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     private fun removePhoto(id: String) {
         presenter.deletePhoto(id)
         adapter.removePhoto(id)
+        checkEmptyList()
     }
 
     private fun checkEmptyList() {
