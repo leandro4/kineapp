@@ -73,6 +73,9 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
             activity?.startActivityForResult(Intent(context, PictureActivity::class.java), TAKE_PICTURE_CODE)
         }
 
+        if (session.readOnly) {
+            adapter.photosRemovables = false
+        }
         if (session.readOnly || MyUser.get(context!!)?.isPatient()!!) {
             fabAddPhoto.hide()
             tvObs.setCompoundDrawables(null, null, null, null)

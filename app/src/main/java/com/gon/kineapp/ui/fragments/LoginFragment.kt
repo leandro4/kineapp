@@ -44,6 +44,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
     private var questionSelectedId = 0
     private var firebaseId: String? = ""
     private var birthday = ""
+    private var birthdaySelected = false
 
     private val pages = listOf (OnboardingStepOneFragment(), OnboardingStepTwoFragment(), OnboardingStepThreeFragment())
 
@@ -117,6 +118,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
             newFragment.listener = object : DatePickerFragment.DateListener {
                 override fun onDateSelected(date: String) {
                     birthday = date
+                    birthdaySelected = true
                     val dateFormat = SimpleDateFormat("yyyy-MM-dd")
                     val dateOutput = SimpleDateFormat("dd MMM yyyy")
                     val d = dateFormat.parse(date)
@@ -146,7 +148,7 @@ class LoginFragment: BaseMvpFragment(), LoginView, AdapterView.OnItemSelectedLis
             etAnswer.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }
-        if (tvBirthday.text.toString().isEmpty()) {
+        if (!birthdaySelected) {
             tvBirthday.error = getString(R.string.mandatory_field)
             mandatoryField = false
         }

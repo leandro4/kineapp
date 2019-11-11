@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.adapter_photo.view.*
 
 class PhotoAdapter(private val photos: MutableList<Photo>, private val callback: PhotoListener): androidx.recyclerview.widget.RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
+    var photosRemovables = true
+
     interface PhotoListener {
         fun onPhotoSelected(photo: Photo)
         fun onRemovePhoto(id: String)
@@ -26,7 +28,7 @@ class PhotoAdapter(private val photos: MutableList<Photo>, private val callback:
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, pos: Int) {
-        holder.bind(photos[pos], callback)
+        holder.bind(photos[pos], callback, photosRemovables)
     }
 
     fun addPhoto(photo: Photo) {
@@ -42,12 +44,13 @@ class PhotoAdapter(private val photos: MutableList<Photo>, private val callback:
 
     class PhotoViewHolder(private var viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem) {
 
-        fun bind(photo: Photo, callback: PhotoListener) {
+        fun bind(photo: Photo, callback: PhotoListener, photosRemovables: Boolean) {
             Glide.with(viewItem).load(Utils.convertImage(photo.thumbnail!!)).into(viewItem.ivPhoto)
             viewItem.containerPhoto.setOnClickListener { callback.onPhotoSelected(photo) }
             viewItem.tvTag.visibility = if (photo.tag == PhotoTag.O.name) View.GONE else View.VISIBLE
             viewItem.tvTag.text = photo.tag
             viewItem.ivRemove.setOnClickListener { callback.onRemovePhoto(photo.id) }
+            if (!photosRemovables) viewItem.ivRemove.visibility = View.GONE
         }
     }
 }
