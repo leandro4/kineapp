@@ -121,21 +121,21 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (position) {
             0 -> {
-                setVisibleControls(false)
-                tag = PhotoTag.O
-                return
-            }
-            1 -> {
                 tag = PhotoTag.F
             }
-            2 -> {
+            1 -> {
                 tag = PhotoTag.D
             }
-            3 -> {
+            2 -> {
                 tag = PhotoTag.E
             }
-            4 -> {
+            3 -> {
                 tag = PhotoTag.I
+            }
+            4 -> {
+                tag = PhotoTag.O
+                setVisibleControls(false)
+                return
             }
         }
         setVisibleControls(true)

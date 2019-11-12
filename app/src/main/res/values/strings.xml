@@ -109,11 +109,11 @@
     <string name="my_sessions_title">Mis Sesiones</string>
 
     <string-array name="pics_kind_array">
-        <item>Otra</item>
         <item>Frente</item>
         <item>Derecha</item>
         <item>Espalda</item>
         <item>Izquierda</item>
+        <item>Otra</item>
     </string-array>
 
     <string-array name="days_array">
