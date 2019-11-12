@@ -28,7 +28,7 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
     private val presenter = RoutinePresenter()
     private lateinit var adapter: RoutinePagerAdapter
     private var isMedic = false // se refiere al usuario loggeado en la app, si es médico, está viendo la rutina de un paciente
-    private lateinit var user: User
+    lateinit var user: User
 
     companion object {
         fun newInstance(isMedic: Boolean, user: User): RoutineFragment {
@@ -135,7 +135,9 @@ class RoutineFragment: BaseMvpFragment(), RoutineView, ExercisesFragment.Exercis
         exercises.forEach { adapter.fragments[it.day].add(it) }
     }
 
-    override fun onExerciseDeleted() {}
+    override fun onExerciseDeleted(id: String) {
+        adapter.fragments.forEach { it.onExerciseRemoved(id) }
+    }
 
     override fun onMarkAsDone(exercise: Exercise) {
         presenter.markAsDoneExercise(exercise.id)

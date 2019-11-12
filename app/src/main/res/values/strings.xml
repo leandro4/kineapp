@@ -111,7 +111,7 @@
     <string-array name="pics_kind_array">
         <item>Frente</item>
         <item>Derecha</item>
-        <item>Espalda</item>
+        <item>Dorso</item>
         <item>Izquierda</item>
         <item>Otra</item>
     </string-array>

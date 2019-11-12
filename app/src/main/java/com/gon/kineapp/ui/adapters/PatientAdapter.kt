@@ -1,11 +1,9 @@
 package com.gon.kineapp.ui.adapters
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.gon.kineapp.R
-import com.gon.kineapp.model.Patient
 import com.gon.kineapp.model.User
 import kotlinx.android.synthetic.main.adapter_patient.view.*
 
@@ -31,6 +29,10 @@ class PatientAdapter(private var patients: MutableList<User>, private val callba
     fun setPatients(patients: MutableList<User>) {
         this.patients = patients
         notifyDataSetChanged()
+    }
+
+    fun getPatients(): MutableList<User> {
+        return patients
     }
 
     class PatientViewHolder(private var viewItem: View): androidx.recyclerview.widget.RecyclerView.ViewHolder(viewItem) {

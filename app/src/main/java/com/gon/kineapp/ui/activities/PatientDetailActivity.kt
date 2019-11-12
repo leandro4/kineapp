@@ -29,4 +29,11 @@ class PatientDetailActivity : BaseActivity() {
             fragment.onPermissionsGranted()
         }
     }
+
+    override fun onBackPressed() {
+        val intent = Intent()
+        intent.putExtra(Constants.USER_EXTRA, fragment.patient)
+        setResult(Constants.EDITED_ROUTINE_CODE, intent)
+        super.onBackPressed()
+    }
 }

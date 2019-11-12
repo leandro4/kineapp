@@ -82,13 +82,15 @@ class ExercisesFragment : androidx.fragment.app.Fragment(), ExerciseAdapter.Exer
     }
 
     override fun onExerciseRemove(exercise: Exercise) {
-        val index = routine.exercises.indexOfFirst { it.id == (exercise.id) }
+        listener.onRemoveExercise(exercise)
+    }
+
+    fun onExerciseRemoved(id: String) {
+        val index = routine.exercises.indexOfFirst { it.id == (id) }
         if (index == -1) return
         routine.exercises.removeAt(index)
         adapter.notifyItemRemoved(index)
         checkEmptyList()
-
-        listener.onRemoveExercise(exercise)
     }
 
     private fun checkEmptyList() {

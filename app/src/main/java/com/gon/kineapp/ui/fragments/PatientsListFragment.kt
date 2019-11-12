@@ -11,6 +11,7 @@ import com.gon.kineapp.R
 import com.gon.kineapp.model.User
 import com.gon.kineapp.mvp.presenters.PatientListPresenter
 import com.gon.kineapp.mvp.views.PatientListView
+import com.gon.kineapp.ui.activities.DashboardActivity
 import com.gon.kineapp.ui.activities.PatientDetailActivity
 import com.gon.kineapp.ui.activities.ProfileActivity
 import com.gon.kineapp.ui.activities.PublicVideosActivity
@@ -104,6 +105,10 @@ class PatientsListFragment : BaseMvpFragment(), PatientListView, PatientAdapter.
     override fun onPatientSelected(patient: User) {
         val intent = Intent(activity, PatientDetailActivity::class.java)
         intent.putExtra(Constants.PATIENT_EXTRA, patient)
-        activity?.startActivity(intent)
+        activity?.startActivityForResult(intent, DashboardActivity.EDIT_ROUTINE)
+    }
+
+    fun updateRoutineOf(user: User) {
+        adapterMyPatients.getPatients().firstOrNull { it.id == user.id } ?.let { it.patient?.routine = user.patient?.routine }
     }
 }

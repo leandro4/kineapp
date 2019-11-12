@@ -32,4 +32,11 @@ class EditPatientRoutineActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         fragment.onActivityResult(requestCode, resultCode, data)
     }
+
+    override fun onBackPressed() {
+        val intent = Intent()
+        intent.putExtra(Constants.USER_EXTRA, fragment.user)
+        setResult(Constants.EDITED_ROUTINE_CODE, intent)
+        super.onBackPressed()
+    }
 }

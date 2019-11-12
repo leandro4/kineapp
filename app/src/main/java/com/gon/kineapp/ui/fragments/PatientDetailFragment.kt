@@ -19,10 +19,10 @@ import com.gon.kineapp.ui.fragments.dialogs.InputDialogFragment
 
 class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter.SessionListener {
 
-    private lateinit var patient: User
     private lateinit var adapter: SessionAdapter
     private var sessions: MutableList<Session>? = null
     private val presenter = SessionListPresenter()
+    lateinit var patient: User
 
     companion object {
         fun newInstance(patient: User): PatientDetailFragment {
@@ -146,7 +146,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         }
         val intent = Intent(context, TimeLineActivity::class.java)
         PhotosRepository.photos = photos
-        activity?.startActivityForResult(intent, EDIT_ROUTINE)
+        activity?.startActivity(intent)
     }
 
     override fun onVideoUploaded(video: Video) {

@@ -86,7 +86,7 @@ class RoutinePresenter: BasePresenter<RoutineView>() {
                     }
                     override fun onComplete() {
                         mvpView?.hideProgressView()
-                        mvpView?.onExerciseDeleted()
+                        mvpView?.onExerciseDeleted(id)
                     }
                 }))
     }
