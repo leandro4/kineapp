@@ -62,6 +62,7 @@ class ProfileFragment: BaseMvpFragment(), ProfileView, SearchMedicFragment.Medic
                 licenseTextView.text = it.medic!!.license
                 rlMedic.visibility = View.GONE
                 rlSharedMedics.visibility = View.GONE
+                rvSharedMedic.visibility = View.GONE
             } else {
                 rlLicense.visibility = View.GONE
                 it.patient?.currentMedic?.let { medic ->

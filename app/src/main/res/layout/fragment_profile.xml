@@ -16,7 +16,7 @@
             android:padding="@dimen/large_margin"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/civAvatar"
@@ -24,7 +24,17 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_marginTop="@dimen/xxlarge_margin"/>
+                android:layout_marginTop="@dimen/large_margin"/>
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:padding="@dimen/medium_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/xlarge_margin"
+                style="@style/RoundedCornerMaterialButton"
+                android:text="@string/profile_close_session"/>
 
             <RelativeLayout
                 android:layout_marginTop="@dimen/xxxlarge_margin"
@@ -139,7 +149,7 @@
                 android:id="@+id/rlSharedMedics"
                 android:layout_marginTop="@dimen/large_margin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/sharedMedicsLabel"
@@ -147,13 +157,6 @@
                     android:text="@string/profile_shared_medics_title"
                     android:textColor="@color/white"
                     style="@style/TextViewStyleBold"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvSharedMedic"
-                    android:layout_marginTop="@dimen/medium_margin"
-                    android:layout_below="@+id/sharedMedicsLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
 
                 <ImageView
                     android:id="@+id/sharedMedicAction"
@@ -165,15 +168,11 @@
 
             </RelativeLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogout"
-                android:padding="@dimen/medium_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/xxxlarge_margin"
-                style="@style/RoundedCornerMaterialButton"
-                android:text="@string/profile_close_session"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSharedMedic"
+                android:layout_marginTop="@dimen/medium_margin"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"/>
 
         </LinearLayout>
 
