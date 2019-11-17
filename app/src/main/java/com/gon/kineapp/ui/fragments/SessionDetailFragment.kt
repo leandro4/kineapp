@@ -65,9 +65,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
         adapter = PhotoAdapter(session.photos, this)
         rvImages.adapter = adapter
 
-        if (session.photos.isEmpty()) {
-            emptyList.visibility = View.VISIBLE
-        }
+        checkEmptyList()
 
         fabAddPhoto.setOnClickListener {
             activity?.startActivityForResult(Intent(context, PictureActivity::class.java), TAKE_PICTURE_CODE)
@@ -77,6 +75,7 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
             adapter.photosRemovables = false
         }
         if (session.readOnly || MyUser.get(context!!)?.isPatient()!!) {
+            emptyList.text = getString(R.string.empty_photos_no_medic)
             fabAddPhoto.hide()
             tvObs.setCompoundDrawables(null, null, null, null)
         } else {

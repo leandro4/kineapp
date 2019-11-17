@@ -48,9 +48,9 @@
     <string name="exercises_title">Ejercicios</string>
     <string name="timeline_title">Timeline</string>
     <string name="take_video_title">Grabar video</string>
-    <string name="profile_medic_title">Médico Principal</string>
-    <string name="not_medic_assigned">No tiene médico asignado</string>
-    <string name="medic_selector_title">Buscar médico:</string>
+    <string name="profile_medic_title">Kinesiólogo Principal</string>
+    <string name="not_medic_assigned">No tiene kinesiólogo asignado</string>
+    <string name="medic_selector_title">Buscar kinesiólogo:</string>
     <string name="medic_selector_hint">Ingrese matrícula, nombre o apellido&#8230;</string>
     <string name="medic_selector_count">Resultados: %s</string>
     <string name="exercice_description_title">Descripción:</string>
@@ -104,9 +104,10 @@
     <string name="patient_list_empty_view">Aún no fue asignado a ningún paciente</string>
     <string name="patient_list_title">Mis Pacientes:</string>
     <string name="patient_list_read_only">Otros pacientes compartidos (sólo lectura):</string>
-    <string name="profile_shared_medics_title">Médicos que pueden ver mi historial</string>
+    <string name="profile_shared_medics_title">Kinesiólogos que pueden ver mi historial</string>
     <string name="delete_session_message">¿Está seguro que desea borrar la sesión actual?</string>
     <string name="my_sessions_title">Mis Sesiones</string>
+    <string name="empty_photos_no_medic">No se han tomado fotos en esta sesión</string>
 
     <string-array name="pics_kind_array">
         <item>Frente</item>
