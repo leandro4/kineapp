@@ -102,6 +102,7 @@ class TimeLineActivity: LockableActivity() {
         imageA.setImageBitmap(bitmaps[actualPic])
         Animate.ALPHA(1f).duration(500).startAnimation(imageA)
         Animate.ALPHA(0f).duration(500).startAnimation(imageB)
+        imageA.bringToFront()
         switchContainers()
         actualPic++
 

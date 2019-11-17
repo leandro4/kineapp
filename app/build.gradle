@@ -66,9 +66,10 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:3.3.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
-    // Animations
+    // Animations & Zoom & Compressor Video
     implementation project(':gonanimationlib')
     implementation project(':videocompressor')
+    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
 
     // Google SignIn
     implementation 'com.google.android.gms:play-services-auth:17.0.0'

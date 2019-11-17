@@ -15,7 +15,7 @@
         android:theme="@style/ToolbarTheme"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <uk.co.senab.photoview.PhotoView
         android:id="@+id/ivPhotoFirst"
         android:scaleType="fitCenter"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"/>
 
-    <ImageView
+    <uk.co.senab.photoview.PhotoView
         android:id="@+id/ivPhotoSecond"
         android:scaleType="fitCenter"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
