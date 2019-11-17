@@ -127,4 +127,6 @@
 
     <include layout="@layout/save_cancel_picture" />
 
+    <include layout="@layout/view_loading" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

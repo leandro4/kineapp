@@ -30,6 +30,7 @@ import android.util.Base64
 import android.widget.*
 import com.gon.kineapp.model.PhotoTag
 import com.gonanimationlib.animations.CompSlide
+import kotlinx.android.synthetic.main.view_loading.*
 
 class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListener, AdapterView.OnItemSelectedListener {
 
@@ -58,7 +59,9 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         textureView = findViewById(R.id.textureView)
         getPicture = findViewById(R.id.btnTakePicture)
         textureView!!.surfaceTextureListener = this
+        loadingView.visibility = View.GONE
         getPicture!!.setOnClickListener {
+            loadingView.visibility = View.VISIBLE
             rlPreview.visibility = View.VISIBLE
             Animate.ALPHA(1f).duration(Animate.DURATION_MEDIUM).startAnimation(rlPreview)
             getPicture()
@@ -233,20 +236,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
                 val handler = Handler(handlerThread.looper)
                 reader.setOnImageAvailableListener(this, handler)
                 val previewSSession = object : CameraCaptureSession.CaptureCallback() {
-                    override fun onCaptureStarted(
-                        session: CameraCaptureSession,
-                        request: CaptureRequest,
-                        timestamp: Long,
-                        frameNumber: Long
-                    ) {
-                        super.onCaptureStarted(session, request, timestamp, frameNumber)
-                    }
-
-                    override fun onCaptureCompleted(
-                        session: CameraCaptureSession,
-                        request: CaptureRequest,
-                        result: TotalCaptureResult
-                    ) {
+                    override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                         super.onCaptureCompleted(session, request, result)
                         startCamera()
                     }
@@ -301,6 +291,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
         val myRunnable = Runnable {
             preview.setImageBitmap(bitmap)
             llMedia.visibility = View.VISIBLE
+            loadingView.visibility = View.GONE
         }
         mainHandler.post(myRunnable)
     }
