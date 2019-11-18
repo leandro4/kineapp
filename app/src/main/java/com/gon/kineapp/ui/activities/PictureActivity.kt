@@ -141,6 +141,7 @@ class PictureActivity : BaseCameraActivity(), ImageReader.OnImageAvailableListen
                 return
             }
         }
+        ivSiluet.setImageResource(tag.getDrawable(sbWidth.progress, sbHeight.progress))
         setVisibleControls(true)
     }
 
