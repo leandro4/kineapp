@@ -5,6 +5,7 @@ import com.gon.kineapp.api.KinesService
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.Session
 import com.gon.kineapp.model.responses.PhotoResponse
+import com.gon.kineapp.model.responses.PhotosListResponse
 import com.gon.kineapp.mvp.views.SessionDetailView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableCompletableObserver
@@ -41,6 +42,36 @@ class SessionDetailPresenter: BasePresenter<SessionDetailView>() {
                     }
                 })
         )
+    }
+
+    fun getPhotos(sessionId: String, photoSelected: String) {
+        mvpView?.showProgressView()
+
+        compositeSubscription?.addAll(KinesService.getPhotosBySession(sessionId)
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CustomDisposableObserver<PhotosListResponse>() {
+                override fun onNoInternetConnection() {
+                    mvpView?.hideProgressView()
+                    mvpView?.onNoInternetConnection()
+                }
+
+                override fun onObserverError(e: Throwable) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onError(e)
+                }
+
+                override fun onErrorCode(code: Int, message: String) {
+                    mvpView?.hideProgressView()
+                    mvpView?.onErrorCode(message)
+                }
+
+                override fun onNext(t: PhotosListResponse) {
+                    mvpView?.hideProgressView()
+                    val list = ArrayList<Photo>().apply { t.photos.forEach { add(it) } }
+                    mvpView?.onPhotosReceived(list, photoSelected)
+                }
+            }))
     }
 
     fun deletePhoto(id: String) {

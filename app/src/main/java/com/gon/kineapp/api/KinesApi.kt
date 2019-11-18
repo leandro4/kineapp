@@ -63,6 +63,9 @@ interface KinesApi {
     @GET(UtilUrl.GET_PHOTOS_BY_TAG)
     fun getPhotosByTag(@Path("patientId") id: String, @Path("tag") tag: String): Observable<PhotosListResponse>
 
+    @GET(UtilUrl.GET_PHOTOS_BY_SESSION)
+    fun getPhotosBySession(@Path("session_id") id: String): Observable<PhotosListResponse>
+
     @GET(UtilUrl.VIEW_PHOTO)
     fun getPhoto(@Path("id") id: String): Observable<PhotoResponse>
 

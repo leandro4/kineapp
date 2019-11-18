@@ -8,17 +8,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
 import com.gon.kineapp.R
-import com.gon.kineapp.utils.Constants
 import com.gon.kineapp.model.Photo
 import com.gon.kineapp.model.PhotoTag
-import com.gon.kineapp.utils.DialogUtil
-import com.gon.kineapp.utils.ImageLoader
-import com.gon.kineapp.utils.Utils
+import com.gon.kineapp.ui.adapters.FragmentPagerAdapter
+import com.gon.kineapp.ui.fragments.FragmentPhoto
+import com.gon.kineapp.utils.*
 import kotlinx.android.synthetic.main.activity_view_photo.*
 
 class ViewPhotoActivity: AppCompatActivity() {
-
-    private var photo: Photo? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,16 +23,20 @@ class ViewPhotoActivity: AppCompatActivity() {
         setContentView(R.layout.activity_view_photo)
 
         setSupportActionBar(toolbar)
-
-        photo = intent?.getParcelableExtra(Constants.PHOTO_EXTRA)
-
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        photo?.let {
-            supportActionBar?.title = PhotoTag.valueOf(it.tag).getCompleteName()
-            ImageLoader.load(this, Utils.convertImage(it.content!!)).into(ivPhoto)
-        }
+        initUI()
+    }
+
+    private fun initUI() {
+        val adapter = FragmentPagerAdapter(supportFragmentManager)
+        vpPhotos.adapter = adapter
+        PhotosRepository.photos.forEach { adapter.addPage(FragmentPhoto(it.content!!)) }
+        vpIndicator.setViewPager(vpPhotos)
+
+        val selectedId = intent.getStringExtra(Constants.PHOTO_EXTRA)
+        vpPhotos.currentItem = PhotosRepository.photos.indexOfFirst { it.id == selectedId }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -63,7 +64,8 @@ class ViewPhotoActivity: AppCompatActivity() {
     private fun removePhoto() {
         DialogUtil.showOptionsAlertDialog(this, getString(R.string.remove_warning_title), getString(R.string.remove_pic_warning_subtitle)) {
             val intent = Intent()
-            intent.putExtra(Constants.PHOTO_EXTRA, photo?.id)
+            val photo = PhotosRepository.photos[vpPhotos.currentItem]
+            intent.putExtra(Constants.PHOTO_EXTRA, photo.id)
             setResult(Constants.REMOVED_PHOTO_CODE, intent)
             onBackPressed()
         }

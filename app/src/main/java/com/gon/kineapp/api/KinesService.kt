@@ -117,6 +117,10 @@ object KinesService {
         return kinesApi.getPhotosByTag(patientId, tag)
     }
 
+    fun getPhotosBySession(sessionId: String): Observable<PhotosListResponse> {
+        return kinesApi.getPhotosBySession(sessionId)
+    }
+
     fun getMedicList(): Observable<MedicListResponse> {
         return kinesApi.getMedicList()
     }

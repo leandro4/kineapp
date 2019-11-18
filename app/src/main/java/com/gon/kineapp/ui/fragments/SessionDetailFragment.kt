@@ -15,10 +15,7 @@ import com.gon.kineapp.mvp.views.SessionDetailView
 import com.gon.kineapp.ui.activities.PictureActivity
 import com.gon.kineapp.ui.activities.ViewPhotoActivity
 import com.gon.kineapp.ui.adapters.PhotoAdapter
-import com.gon.kineapp.utils.Constants
-import com.gon.kineapp.utils.DialogUtil
-import com.gon.kineapp.utils.MyUser
-import com.gon.kineapp.utils.Utils
+import com.gon.kineapp.utils.*
 import kotlinx.android.synthetic.main.fragment_session_detail.*
 
 class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, SessionDetailView {
@@ -141,12 +138,20 @@ class SessionDetailFragment : BaseMvpFragment(), PhotoAdapter.PhotoListener, Ses
     }
 
     override fun onPhotoSelected(photo: Photo) {
-        presenter.getPhoto(photo.id)
+        //presenter.getPhoto(photo.id)
+        presenter.getPhotos(session.id, photo.id)
     }
 
     override fun onPhotoLoaded(photo: Photo) {
         val intent = Intent(context, ViewPhotoActivity::class.java)
         intent.putExtra(Constants.PHOTO_EXTRA, photo)
+        activity?.startActivityForResult(intent, VIEW_PICTURE_CODE)
+    }
+
+    override fun onPhotosReceived(photos: ArrayList<Photo>, photoIdSelected: String) {
+        PhotosRepository.photos = photos
+        val intent = Intent(context, ViewPhotoActivity::class.java)
+        intent.putExtra(Constants.PHOTO_EXTRA, photoIdSelected)
         activity?.startActivityForResult(intent, VIEW_PICTURE_CODE)
     }
 

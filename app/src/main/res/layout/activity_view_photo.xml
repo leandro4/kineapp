@@ -15,8 +15,29 @@
         android:theme="@style/ToolbarTheme"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vpPhotos"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/vpIndicator"
+        app:radius="4dp"
+        app:fillColor="@color/colorAccent"
+        app:strokeColor="@color/colorPrimary"
+        app:pageColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <ProgressBar
         android:id="@+id/progressBar"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,12 +45,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <uk.co.senab.photoview.PhotoView
-        android:id="@+id/ivPhoto"
-        android:scaleType="fitCenter"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

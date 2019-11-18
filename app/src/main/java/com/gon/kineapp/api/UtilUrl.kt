@@ -24,6 +24,7 @@ class UtilUrl {
         const val QUESTIONS = "secret_questions"
         const val VIEW_PHOTO = "image/{id}"
         const val GET_PHOTOS_BY_TAG = "image/{patientId}/{tag}"
+        const val GET_PHOTOS_BY_SESSION = "image/of_session/{session_id}"
         const val UPLOAD_PHOTO = "image"
         const val DELETE_PHOTO = "image/{id}"
         const val PATIENTS_DETAIL = PATIENTS + "/detail"
