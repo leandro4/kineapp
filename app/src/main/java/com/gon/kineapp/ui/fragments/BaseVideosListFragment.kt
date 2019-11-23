@@ -30,6 +30,8 @@ abstract class BaseVideosListFragment: BaseMvpFragment(), PublicVideoAdapter.Vid
         adapter = PublicVideoAdapter(videos, this)
         adapter.removableVideos = removableVideos()
         rvVideos.adapter = adapter
+
+        emptyView.visibility = if (videos.isEmpty()) View.VISIBLE else View.GONE
     }
 
     override fun onRemoveVideoSelected(id: String) {
@@ -44,10 +46,12 @@ abstract class BaseVideosListFragment: BaseMvpFragment(), PublicVideoAdapter.Vid
 
     protected fun onVideoAdded(video: Video) {
         adapter.addVideo(video)
+        emptyView.visibility = View.GONE
     }
 
     protected fun onRemovedVideo(id: String) {
         adapter.removeVideo(id)
+        emptyView.visibility = if (adapter.videos.isEmpty()) View.VISIBLE else View.GONE
     }
 
     protected open fun removableVideos(): Boolean {

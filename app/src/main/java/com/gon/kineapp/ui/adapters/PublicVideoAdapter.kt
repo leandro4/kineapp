@@ -10,7 +10,7 @@ import com.gon.kineapp.R
 import com.gon.kineapp.model.Video
 import kotlinx.android.synthetic.main.adapter_public_video.view.*
 
-class PublicVideoAdapter(private val videos: MutableList<Video>, private val callback: VideoListener): androidx.recyclerview.widget.RecyclerView.Adapter<PublicVideoAdapter.VideoViewHolder>() {
+class PublicVideoAdapter(val videos: MutableList<Video>, private val callback: VideoListener): androidx.recyclerview.widget.RecyclerView.Adapter<PublicVideoAdapter.VideoViewHolder>() {
 
     var removableVideos = true
 

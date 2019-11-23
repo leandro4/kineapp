@@ -18,6 +18,15 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="@dimen/xxlarge_margin"
+        android:text="@string/empty_sessions_list"
+        android:textColor="@color/black_hint"
+        style="@style/TextViewStyleRegular"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddSession"
             android:layout_width="wrap_content"

@@ -119,6 +119,8 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
         rvSessions.setHasFixedSize(true)
         adapter = SessionAdapter(sessions, this)
         rvSessions.adapter = adapter
+
+        emptyView.visibility = if (sessions.isEmpty()) View.VISIBLE else View.GONE
     }
 
     override fun onSessionsReceived(sessions: MutableList<Session>) {
@@ -129,6 +131,7 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
     override fun onSessionCreated(session: Session) {
         adapter.addSession(session)
         onSessionSelected(session)
+        emptyView.visibility = View.GONE
     }
 
     override fun onSessionSelected(session: Session) {
@@ -175,7 +178,10 @@ class PatientDetailFragment : BaseMvpFragment(), SessionListView, SessionAdapter
                 val session = it.getParcelableExtra<Session>(Constants.SESSION_EXTRA)
                 when (resultCode) {
                     Constants.EDITED_SESSION_CODE -> { adapter.updateSession(session) }
-                    Constants.DELETED_SESSION_CODE -> { adapter.deleteSession(session) }
+                    Constants.DELETED_SESSION_CODE -> {
+                        adapter.deleteSession(session)
+                        emptyView.visibility = if (adapter.sessions.isEmpty()) View.VISIBLE else View.GONE
+                    }
                 }
             }
         }

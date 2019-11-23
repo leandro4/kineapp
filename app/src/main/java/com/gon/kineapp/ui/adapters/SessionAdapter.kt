@@ -10,7 +10,7 @@ import com.gon.kineapp.model.Session
 import com.gon.kineapp.utils.Utils
 import kotlinx.android.synthetic.main.adapter_session.view.*
 
-class SessionAdapter(private val sessions: MutableList<Session>, private val callback: SessionListener): androidx.recyclerview.widget.RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
+class SessionAdapter(val sessions: MutableList<Session>, private val callback: SessionListener): androidx.recyclerview.widget.RecyclerView.Adapter<SessionAdapter.SessionViewHolder>() {
 
     interface SessionListener {
         fun onSessionSelected(session: Session)

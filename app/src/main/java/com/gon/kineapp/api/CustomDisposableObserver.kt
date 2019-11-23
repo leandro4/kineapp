@@ -21,7 +21,8 @@ abstract class CustomDisposableObserver<T> : DisposableObserver<T>() {
 
             try {
 
-                onErrorCode(e.response().code(), e.response().errorBody()!!.string())
+                val message = if (e.response().code() != 500) e.response().errorBody()!!.string() else "Ups! Algo salió mal, vuelve a intentarlo!"
+                onErrorCode(e.response().code(), message)
 
             } catch (e1: Exception) {
                 onObserverError(e)

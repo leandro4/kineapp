@@ -108,6 +108,8 @@
     <string name="delete_session_message">¿Está seguro que desea borrar la sesión actual?</string>
     <string name="my_sessions_title">Mis Sesiones</string>
     <string name="empty_photos_no_medic">No se han tomado fotos en esta sesión</string>
+    <string name="empty_sessions_list">Aún no hay sesiones registradas</string>
+    <string name="empty_videos_list">Pulse en el botón flotante de abajo para crear un video nuevo</string>
 
     <string-array name="pics_kind_array">
         <item>Frente</item>
